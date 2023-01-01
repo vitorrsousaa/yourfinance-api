@@ -5,6 +5,10 @@ interface InputProps {
   error: string;
 }
 
+export const ContainerMain = styled.View`
+  height: 59px;
+`;
+
 export const Container = styled.View`
   flex-direction: row;
   justify-content: space-between;

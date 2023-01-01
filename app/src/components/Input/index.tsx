@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { Keyboard } from 'react-native';
 import { Email } from '../../assets/icons/Email';
 import { Lock } from '../../assets/icons/Lock';
 import { Person } from '../../assets/icons/Person';
 import { Text } from '../Text';
 
-import { Border, InputBase, Container } from './styles';
+import { Border, InputBase, Container, ContainerMain } from './styles';
 
 interface InputProps {
   placeholder: string;
@@ -23,11 +22,10 @@ const Input = ({ placeholder, type, category, error }: InputProps) => {
 
   function handleBlurInput() {
     setIsFocus(false);
-    Keyboard.dismiss();
   }
 
   return (
-    <>
+    <ContainerMain>
       <Container>
         <InputBase
           placeholder={placeholder}
@@ -59,7 +57,7 @@ const Input = ({ placeholder, type, category, error }: InputProps) => {
           {error}
         </Text>
       )}
-    </>
+    </ContainerMain>
   );
 };
 

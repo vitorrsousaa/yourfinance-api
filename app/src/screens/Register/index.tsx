@@ -1,60 +1,73 @@
 import { useNavigation } from '@react-navigation/native';
-import { TouchableOpacity } from 'react-native';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+} from 'react-native';
+
+import { Arrow } from '../../assets/icons/Arrow';
 import Button from '../../components/Button';
+import Icon from '../../components/Icon';
 import Input from '../../components/Input';
-import { Separator } from '../../components/Separator';
+
 import { Text } from '../../components/Text';
 import {
   Container,
   ContainerFooter,
   ContainerInput,
   ContainerText,
+  ContentText,
 } from './styles';
 
 const Register = () => {
   const { goBack } = useNavigation();
 
   return (
-    <Container>
-      <TouchableOpacity onPress={() => goBack()}>
-        <Text>arrow</Text>
-      </TouchableOpacity>
-      <ContainerText>
-        <Text weight="700" size={28}>
-          Registre-se
-        </Text>
-        <Text>Crie sua conta</Text>
-      </ContainerText>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <Container>
+        <ContainerText>
+          <Icon onPress={() => goBack()}>
+            <Arrow />
+          </Icon>
+          <ContentText>
+            <Text weight="700" size={28}>
+              Registre-se
+            </Text>
+            <Text>Crie sua conta</Text>
+          </ContentText>
+        </ContainerText>
 
-      <ContainerInput>
-        <Separator size={32} />
-        <Input placeholder="Seu nome completo" error="" category="person" />
-        <Separator size={32} />
-        <Input
-          placeholder="Seu e-mail de acesso"
-          error=""
-          category="email"
-          type="email"
-        />
-        <Separator size={32} />
-        <Input placeholder="Sua senha de acesso" error="" category="password" />
-        <Separator size={32} />
-        <Input
-          placeholder="Confirmação de senha"
-          error=""
-          category="password"
-        />
-        <Separator size={32} />
-      </ContainerInput>
-      <Button variant="primary">Criar conta</Button>
-      <ContainerFooter>
-        <Text>Já possui uma conta?</Text>
-        <Text color="#395bfc" weight="700" onPress={() => goBack()}>
-          {' '}
-          Faça login
-        </Text>
-      </ContainerFooter>
-    </Container>
+        <ContainerInput>
+          <Input placeholder="Seu nome completo" error="" category="person" />
+
+          <Input
+            placeholder="Seu e-mail de acesso"
+            error=""
+            category="email"
+            type="email"
+          />
+          <Input
+            placeholder="Sua senha de acesso"
+            error=""
+            category="password"
+          />
+          <Input
+            placeholder="Confirmação de senha"
+            error=""
+            category="password"
+          />
+        </ContainerInput>
+
+        <Button variant="primary">Criar conta</Button>
+        <ContainerFooter>
+          <Text>Já possui uma conta?</Text>
+          <Text color="#395bfc" weight="700" onPress={() => goBack()}>
+            {' '}
+            Faça login
+          </Text>
+        </ContainerFooter>
+      </Container>
+    </TouchableWithoutFeedback>
   );
 };
 
