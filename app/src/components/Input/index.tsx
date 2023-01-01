@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { Keyboard } from 'react-native';
 import { Email } from '../../assets/icons/Email';
 import { Lock } from '../../assets/icons/Lock';
+import { Person } from '../../assets/icons/Person';
 import { Text } from '../Text';
 
 import { Border, InputBase, Container } from './styles';
@@ -21,6 +23,7 @@ const Input = ({ placeholder, type, category, error }: InputProps) => {
 
   function handleBlurInput() {
     setIsFocus(false);
+    Keyboard.dismiss();
   }
 
   return (
@@ -30,7 +33,7 @@ const Input = ({ placeholder, type, category, error }: InputProps) => {
           placeholder={placeholder}
           error={error}
           placeholderTextColor={
-            error ? '#FF2606' : isFocus ? '#395bfc' : '#2d2d2d'
+            error.length > 1 ? '#FF2606' : isFocus ? '#395bfc' : '#2d2d2d'
           }
           onFocus={handleFocusInput}
           onBlur={handleBlurInput}
@@ -44,6 +47,10 @@ const Input = ({ placeholder, type, category, error }: InputProps) => {
 
         {category === 'password' && (
           <Lock color={error ? '#FF2606' : isFocus ? '#395bfc' : '#2d2d2d'} />
+        )}
+
+        {category === 'person' && (
+          <Person color={error ? '#FF2606' : isFocus ? '#395bfc' : '#2d2d2d'} />
         )}
       </Container>
       <Border isFocus={isFocus} error={error} />

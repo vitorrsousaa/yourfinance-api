@@ -1,15 +1,16 @@
+import { TouchableOpacityProps } from 'react-native';
 import { Text } from '../Text';
 import { Container } from './styles';
 
-interface ButtonProps {
+interface ButtonProps extends TouchableOpacityProps {
   children: string;
   disabled?: boolean;
   variant: 'primary' | 'secondary';
 }
 
-const Button = ({ children, disabled, variant }: ButtonProps) => {
+const Button = ({ children, disabled, variant, ...rest }: ButtonProps) => {
   return (
-    <Container disabled={disabled} variant={variant}>
+    <Container disabled={disabled} variant={variant} {...rest}>
       <Text
         color={
           disabled

@@ -1,11 +1,23 @@
+import { useNavigation } from '@react-navigation/native';
 import { Keyboard, TouchableWithoutFeedback } from 'react-native';
 import Button from '../../components/Button';
 
 import Input from '../../components/Input';
+import { Separator } from '../../components/Separator';
 import { Text } from '../../components/Text';
 import { Container, ContainerLogo, ContainerInputs } from './styles';
 
 const Login = () => {
+  const { navigate } = useNavigation();
+
+  function handleLoginUser() {
+    console.log('Usuário logando');
+  }
+
+  function handleRegisterUser() {
+    navigate('Register');
+  }
+
   return (
     <Container>
       <ContainerLogo>
@@ -27,15 +39,23 @@ const Login = () => {
             error=""
           />
         </TouchableWithoutFeedback>
-
-        <Input placeholder="Sua senha de acesso" category="password" error="" />
+        <Separator />
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <Input
+            placeholder="Sua senha de acesso"
+            category="password"
+            error=""
+          />
+        </TouchableWithoutFeedback>
       </ContainerInputs>
 
       <Text>Esqueceu sua senha?</Text>
-      <Button variant="primary">Fazer login</Button>
+      <Button variant="primary" onPress={() => handleLoginUser()}>
+        Fazer login
+      </Button>
       <Text>
         Ainda não tem uma conta?{' '}
-        <Text color="#395bfc" weight="700">
+        <Text color="#395bfc" weight="700" onPress={() => handleRegisterUser()}>
           Registre-se
         </Text>
       </Text>
