@@ -1,8 +1,15 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Home from '../screens/Home';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
 
-const { Navigator, Screen } = createNativeStackNavigator();
+export type RootStackParams = {
+  Login: any;
+  Register: any;
+  Home: any;
+};
+
+const { Navigator, Screen } = createNativeStackNavigator<RootStackParams>();
 
 const StackRoutes = () => {
   return (
@@ -13,6 +20,7 @@ const StackRoutes = () => {
         component={Register}
         options={{ headerShown: false }}
       />
+      <Screen name="Home" component={Home} options={{ headerShown: false }} />
     </Navigator>
   );
 };

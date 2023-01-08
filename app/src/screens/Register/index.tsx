@@ -1,9 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import { Keyboard, TouchableWithoutFeedback } from 'react-native';
 
 import { Arrow } from '../../assets/icons/Arrow';
 import Button from '../../components/Button';
