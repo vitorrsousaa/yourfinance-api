@@ -1,25 +1,35 @@
 import { TouchableOpacity, View } from 'react-native';
+import { useTheme } from 'styled-components/native';
+import { Arrow } from '../../assets/icons/Arrow';
+import Notifications from '../../components/Notifications';
 import { Text } from '../../components/Text';
-import { Container, Header } from './styles';
+import { Container, ContainerHeader, Header } from './styles';
 
 const Home = () => {
+  const { colors } = useTheme();
+
   return (
     <Container>
-      <Header>
-        <Text size={20} color="#FAFAFA">
-          Olá,{' '}
-          <Text weight="700" color="#FAFAFA" size={20}>
-            Vitor
+      <ContainerHeader>
+        <Header>
+          <Text size={20} color={colors.white[100]} style={{ marginRight: 24 }}>
+            Olá,{' '}
+            <Text weight="700" color={colors.white[100]} size={20}>
+              Vitor
+            </Text>
           </Text>
-        </Text>
-        <TouchableOpacity>
-          <Text>clique aqui</Text>
-        </TouchableOpacity>
-      </Header>
+          <TouchableOpacity>
+            <Arrow color={colors.white[100]} side="down" />
+          </TouchableOpacity>
+        </Header>
+        <Notifications active={true} />
+      </ContainerHeader>
 
       <View>
-        <Text>Minha receita</Text>
-        <Text>R$ 12.253,70 </Text>
+        <Text size={14}>Minha receita</Text>
+        <Text size={36} weight="700">
+          R$ 12.253,70{' '}
+        </Text>
       </View>
 
       <View>

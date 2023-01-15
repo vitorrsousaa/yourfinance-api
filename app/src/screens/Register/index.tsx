@@ -23,7 +23,7 @@ const Register = () => {
       <Container>
         <ContainerText>
           <Icon onPress={() => goBack()}>
-            <Arrow />
+            <Arrow side='left' />
           </Icon>
           <ContentText>
             <Text weight="700" size={28}>

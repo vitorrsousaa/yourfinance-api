@@ -1,6 +1,6 @@
 import { DefaultTheme } from 'styled-components/native';
 
-export const defaultTheme: DefaultTheme = {
+export const theme: DefaultTheme = {
   colors: {
     black: {
       900: '#1E1F25',
