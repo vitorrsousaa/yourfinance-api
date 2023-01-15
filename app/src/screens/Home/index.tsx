@@ -1,9 +1,16 @@
 import { TouchableOpacity, View } from 'react-native';
 import { useTheme } from 'styled-components/native';
 import { Arrow } from '../../assets/icons/Arrow';
+import Category from '../../components/Category';
+import Icon from '../../components/Icon';
 import Notifications from '../../components/Notifications';
 import { Text } from '../../components/Text';
-import { Container, ContainerHeader, Header } from './styles';
+import {
+  Container,
+  ContainerCategory,
+  ContainerHeader,
+  Header,
+} from './styles';
 
 const Home = () => {
   const { colors } = useTheme();
@@ -31,6 +38,12 @@ const Home = () => {
           R$ 12.253,70{' '}
         </Text>
       </View>
+
+      <ContainerCategory>
+        <Category type="payments" />
+        <Category type="withdrawn" />
+        <Category type="card" />
+      </ContainerCategory>
 
       <View>
         <Text>Despesas</Text>

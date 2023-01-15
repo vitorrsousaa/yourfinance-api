@@ -14,3 +14,9 @@ export const ContainerHeader = styled.View`
 export const Header = styled.View`
   flex-direction: row;
 `;
+
+export const ContainerCategory = styled.View`
+  align-items: center;
+  width: 100%;
+  flex-direction: row;
+`;
