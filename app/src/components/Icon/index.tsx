@@ -4,10 +4,10 @@ import { Text } from '../Text';
 import { Container } from './styles';
 
 interface IconProps extends TouchableOpacityProps {
-  type:
+  modality:
     | 'arrow'
-    | 'payments'
-    | 'withdrawn'
+    | 'income'
+    | 'outcome'
     | 'card'
     | 'health'
     | 'habitation'
@@ -17,11 +17,11 @@ interface IconProps extends TouchableOpacityProps {
     | 'investments';
 }
 
-const Icon = ({ type, ...rest }: IconProps) => {
-  const types = {
+const Icon = ({ modality, ...rest }: IconProps) => {
+  const modalities = {
     arrow: '',
-    payments: '💵',
-    withdrawn: '💸',
+    income: '💵',
+    outcome: '💸',
     card: '💳',
     health: '❤',
     habitation: '🏘',
@@ -33,8 +33,8 @@ const Icon = ({ type, ...rest }: IconProps) => {
 
   return (
     <Container {...rest}>
-      {types[type].length > 0 ? (
-        <Text size={32}>{types[type]}</Text>
+      {modalities[modality].length > 0 ? (
+        <Text size={32}>{modalities[modality]}</Text>
       ) : (
         <Arrow side="left" />
       )}

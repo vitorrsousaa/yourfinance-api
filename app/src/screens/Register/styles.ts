@@ -31,3 +31,15 @@ export const ContainerFooter = styled.View`
   flex-direction: row;
   margin-top: 24px;
 `;
+
+export const ContainerButtonReturn = styled.TouchableOpacity`
+  width: 44px;
+  height: 44px;
+
+  background: #fafafa;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 32px;
+
+  justify-content: center;
+  align-items: center;
+`;

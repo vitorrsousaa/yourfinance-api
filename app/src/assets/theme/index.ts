@@ -19,9 +19,11 @@ export const theme: DefaultTheme = {
     },
     blue: {
       900: '#395BFC',
+      300: 'rgba(57, 91, 252, 0.3)',
     },
     error: {
       900: '#FF2606',
+      300: 'rgba(255, 38, 6, 0.3);',
     },
   },
 };

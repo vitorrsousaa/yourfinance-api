@@ -20,3 +20,13 @@ export const ContainerCategory = styled.View`
   width: 100%;
   flex-direction: row;
 `;
+
+export const ContainerTransactions = styled.View`
+  padding: 0 32px;
+`;
+
+export const HeaderContainerTransactions = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;

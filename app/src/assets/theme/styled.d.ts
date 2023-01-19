@@ -20,9 +20,11 @@ declare module 'styled-components' {
       };
       blue: {
         900: string;
+        300: string;
       };
       error: {
         900: string;
+        300: string;
       };
     };
   }

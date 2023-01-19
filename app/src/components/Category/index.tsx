@@ -3,19 +3,19 @@ import { Text } from '../Text';
 import { Container } from './styles';
 
 interface CategoryProps {
-  type: 'payments' | 'withdrawn' | 'card';
+  type: 'income' | 'outcome' | 'card';
 }
 
 const Category = ({ type }: CategoryProps) => {
   const title = {
-    payments: 'Receitas',
-    withdrawn: 'Despesas',
+    income: 'Receitas',
+    outcome: 'Despesas',
     card: 'Meus cartões',
   };
 
   return (
     <Container>
-      <Icon type={type} />
+      <Icon modality={type} />
       <Text size={12} weight="700" style={{ marginTop: 4 }}>
         {title[type]}
       </Text>

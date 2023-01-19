@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { Arrow } from '../../assets/icons/Arrow';
 
 import Button from '../../components/Button';
 import Icon from '../../components/Icon';
@@ -8,6 +9,7 @@ import Input from '../../components/Input';
 import { Text } from '../../components/Text';
 import {
   Container,
+  ContainerButtonReturn,
   ContainerFooter,
   ContainerInput,
   ContainerText,
@@ -21,7 +23,9 @@ const Register = () => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
         <ContainerText>
-          <Icon onPress={() => goBack()} type="arrow" />
+          <ContainerButtonReturn onPress={() => goBack()}>
+            <Arrow side="left" />
+          </ContainerButtonReturn>
 
           <ContentText>
             <Text weight="700" size={28}>

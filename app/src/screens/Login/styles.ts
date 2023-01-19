@@ -22,9 +22,8 @@ export const ContainerKeyboard = styled.KeyboardAvoidingView`
   flex: 1;
   width: 100%;
   padding: 0 32px;
+  margin: 48px 0;
 
   justify-content: space-between;
   align-items: center;
-
-  background: yellow;
 `;

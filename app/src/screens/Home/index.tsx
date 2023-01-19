@@ -1,15 +1,19 @@
 import { TouchableOpacity, View } from 'react-native';
 import { useTheme } from 'styled-components/native';
-import { Arrow } from '../../assets/icons/Arrow';
+
 import Category from '../../components/Category';
-import Icon from '../../components/Icon';
 import Notifications from '../../components/Notifications';
 import { Text } from '../../components/Text';
+import Transaction from '../../components/Transaction';
+
+import { Arrow } from '../../assets/icons/Arrow';
 import {
   Container,
   ContainerCategory,
   ContainerHeader,
+  ContainerTransactions,
   Header,
+  HeaderContainerTransactions,
 } from './styles';
 
 const Home = () => {
@@ -40,48 +44,33 @@ const Home = () => {
       </View>
 
       <ContainerCategory>
-        <Category type="payments" />
-        <Category type="withdrawn" />
+        <Category type="income" />
+        <Category type="outcome" />
         <Category type="card" />
       </ContainerCategory>
 
-      <View>
-        <Text>Despesas</Text>
-        <TouchableOpacity>
-          <Text>clique aqui</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View>
-        <TouchableOpacity>
-          <Text>Receitas</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text>Despesas</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text>Meus cartões</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View>
-        <View>
+      <ContainerTransactions>
+        <HeaderContainerTransactions>
           <Text>Últimas transações</Text>
 
           <TouchableOpacity>
             <Text>Ver todas</Text>
           </TouchableOpacity>
-        </View>
+        </HeaderContainerTransactions>
 
-        <View>
-          <View>
-            <Text>Despesas</Text>
-            <Text>Netflix</Text>
-            <Text>12/05/2022</Text>
-          </View>
-          <Text>R$ 150,00</Text>
-        </View>
-      </View>
+        <Transaction
+          description="Pagamento da Netflix"
+          value="1254"
+          category="income"
+          date={Date.now()}
+        />
+        <Transaction
+          description="Pagamento da Netflix"
+          value="1254"
+          category="outcome"
+          date={Date.now() - 20}
+        />
+      </ContainerTransactions>
     </Container>
   );
 };
