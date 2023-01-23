@@ -15,6 +15,8 @@ export default createGlobalStyle`
     --white-100: #FAFAFA;
 
     --blue-900: #395BFC;
+
+    --error-900: #FF2606;
   }
 
   *{
@@ -24,7 +26,7 @@ export default createGlobalStyle`
     outline: 0;
   }
 
-  body{
+  body, input, a{
     font-family: 'Manrope', sans-serif;
     color: var(---black-800);
   }
