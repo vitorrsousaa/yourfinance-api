@@ -77,6 +77,7 @@ Features que estão sendo adicionadas na aplicação
 **Back-end**
 
 -  [ ] Iniciar back-end
+-  [ ] Criar um error handler
 
 ## 🛠 Estrutura de pastas e componentes
 
