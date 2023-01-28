@@ -1,13 +1,7 @@
 import { Request, Response } from 'express';
 import User from '../models/User';
-import jwt from 'jsonwebtoken';
-import authConfig from '../config/auth.json';
-
-function generateToken(id: string) {
-  return jwt.sign({ id: id }, authConfig.secret, {
-    expiresIn: 86400,
-  });
-}
+import bcrypt from 'bcryptjs';
+import generateToken from '../utils/generateToken';
 
 class AuthController {
   async register(req: Request, res: Response) {
@@ -22,11 +16,29 @@ class AuthController {
 
       user.password = '';
 
-      return res.send({ user, token: generateToken(user._id.toString()) });
+      return res.send({ user, token: generateToken(user._id) });
     } catch (err) {
       console.log(err);
       return res.status(400).send({ error: 'Registration failed' });
     }
+  }
+
+  async authenticate(req: Request, res: Response) {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email }).select('+password');
+
+    if (!user) {
+      return res.status(400).send({ error: 'User not found' });
+    }
+
+    if (!(await bcrypt.compare(password, user.password))) {
+      return res.status(400).send({ error: 'Invalid' });
+    }
+
+    user.password = '';
+
+    res.send({ user, token: generateToken(user._id) });
   }
 }
 

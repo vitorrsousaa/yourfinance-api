@@ -119,7 +119,11 @@ Todos os componentes criados vão seguir uma mesma estrutura de organização:
 
 **Back-end**
 
-→
+→ config: Armazena todos os arquivos de configurações; <br />
+→ controllers: Armazena todos os Controllers da aplicação, utilizados para armazenar a regra de negócio; <br />
+→ database: Acesso ao banco de dados; <br />
+→ models: Armazena todos os models utilizados para adicionar ao banco de dados; <br />
+→ utils: Funcionalides que são utilizadas em diversos locais da aplicação; <br />
 
 ## 🚀 Como executar o projeto
 

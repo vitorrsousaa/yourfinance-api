@@ -15,6 +15,7 @@ app.use(express.json());
 app.use(router);
 
 router.post('/auth/register', AuthController.register);
+router.post('/auth/authenticate', AuthController.authenticate);
 
 app.listen(port, () => {
   console.log(`server is running on ${port}`);
