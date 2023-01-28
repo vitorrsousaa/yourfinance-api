@@ -15,7 +15,7 @@ const Login = () => {
     useErrors();
 
   const navigate = useNavigate();
-  const { handleLogin } = useAuthContext();
+  const { handleLogin, authenticated } = useAuthContext();
   const isFormValid = password && email && errors.length === 0;
 
   function handleEmailChange(event: BaseSyntheticEvent) {
@@ -38,14 +38,22 @@ const Login = () => {
     }
   }
 
-  function handleSubmit(event: React.BaseSyntheticEvent) {
+  async function handleSubmit(event: React.BaseSyntheticEvent) {
     event.preventDefault();
 
     const user = { email, password };
 
-    handleLogin(user);
+    const err: any = await handleLogin(user);
 
-    // navigate('/home');
+    if (err) {
+      setEmail('');
+      setPassword('');
+      setError({ field: 'email', message: 'Email ou senha inválido' });
+    }
+
+    if (authenticated && !err) {
+      navigate('/home');
+    }
   }
 
   return (

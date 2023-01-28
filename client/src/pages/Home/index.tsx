@@ -1,17 +1,8 @@
 import SideIcon from '../../components/SideIcon';
 import Arrow from '../../assets/icons/arrow.svg';
 import { Container, Content, Header, SideBar, Summary } from './styles';
-import { useEffect } from 'react';
-import { api } from '../../services/api';
 
 const Home = () => {
-  useEffect(() => {
-    api
-      .get('projects')
-      .then(console.log)
-      .catch((error) => console.log(error.response.data));
-  }, []);
-
   return (
     <Container>
       <SideBar>
