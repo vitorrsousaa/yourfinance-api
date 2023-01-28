@@ -4,12 +4,15 @@ import { Button } from '../../components/Button';
 import Input from '../../components/Input';
 import Logo from '../../components/Logo';
 import useErrors from '../../hooks/useErrors';
+import { api } from '../../services/api';
 import isEmailValid from '../../utils/isEmailValid';
 import { Container } from './styles';
 
-const Login = () => {
+const SignUp = () => {
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const { errors, getErrorMessageByFieldName, removeError, setError } =
     useErrors();
 
@@ -36,17 +39,64 @@ const Login = () => {
     }
   }
 
+  function handlePasswordConfirmationChange(event: BaseSyntheticEvent) {
+    setPasswordConfirmation(event.target.value);
+
+    if (!event.target.value) {
+      setError({
+        field: 'passwordConfirmation',
+        message: 'Confirmação de senha é obrigatória',
+      });
+    } else {
+      removeError('passwordConfirmation');
+    }
+  }
+
+  function handleNameChange(event: BaseSyntheticEvent) {
+    setName(event.target.value);
+
+    if (!event.target.value) {
+      setError({ field: 'name', message: 'Nome é obrigatório' });
+    } else {
+      removeError('name');
+    }
+  }
+
   function handleSubmit(event: React.BaseSyntheticEvent) {
     event.preventDefault();
 
-    navigate('/home');
+    if (password !== passwordConfirmation) {
+      setPasswordConfirmation('');
+      setError({
+        field: 'passwordConfirmation',
+        message: 'Confirmação de senha incorreta',
+      });
+    }
+
+    const user = { name, email, password };
+
+    api
+      .post('auth/register', user)
+      .then((response) => console.log(response.data))
+      .catch((error) => console.log(error.response.data));
+
+    // navigate('/home');
   }
 
   return (
     <Container>
       <Logo />
       <form onSubmit={handleSubmit}>
-        <h1>Faça seu login</h1>
+        <h1>Registre-se agora</h1>
+        <Input
+          category="person"
+          type="text"
+          placeholder="Seu nome"
+          value={name}
+          onChange={handleNameChange}
+          error={getErrorMessageByFieldName('name')}
+        />
+
         <Input
           category="email"
           placeholder="Seu E-mail"
@@ -65,18 +115,26 @@ const Login = () => {
           error={getErrorMessageByFieldName('password')}
         />
 
+        <Input
+          category="password"
+          placeholder="Sua senha"
+          type="password"
+          value={passwordConfirmation}
+          onChange={handlePasswordConfirmationChange}
+          error={getErrorMessageByFieldName('passwordConfirmation')}
+        />
+
         <Button variant="primary" type="submit" disabled={!isFormValid}>
-          Fazer Login
+          Registre-se
         </Button>
-        <Link to="/home">Página home</Link>
       </form>
 
       <a href="">Esqueci minha senha</a>
-      <Link to="signup">
-        Ainda não tem uma conta? <strong>Crie agora</strong>
+      <Link to="/">
+        Já tem uma conta? <strong>Faça login</strong>
       </Link>
     </Container>
   );
 };
 
-export default Login;
+export default SignUp;

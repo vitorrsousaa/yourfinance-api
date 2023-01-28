@@ -1,7 +1,7 @@
 import { NextFunction, request, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
-import authConfig from '../config/auth.json';
+import authConfig from '../../config/auth.json';
 
 interface PayloadProps {
   id: string;
