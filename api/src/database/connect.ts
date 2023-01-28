@@ -6,6 +6,7 @@ const mongo_url = process.env.MONGO_URI ? process.env.MONGO_URI : '';
 
 async function connect() {
   try {
+    mongoose.set('strictQuery', false);
     await mongoose.connect(mongo_url);
 
     console.log('Connected with MongoDB');
