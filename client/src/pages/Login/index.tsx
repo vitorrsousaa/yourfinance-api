@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/Button';
 import Input from '../../components/Input';
 import Logo from '../../components/Logo';
+import { useAuthContext } from '../../context/AuthContext';
 import useErrors from '../../hooks/useErrors';
 import isEmailValid from '../../utils/isEmailValid';
 import { Container } from './styles';
@@ -14,6 +15,7 @@ const Login = () => {
     useErrors();
 
   const navigate = useNavigate();
+  const { handleLogin } = useAuthContext();
   const isFormValid = password && email && errors.length === 0;
 
   function handleEmailChange(event: BaseSyntheticEvent) {
@@ -39,7 +41,11 @@ const Login = () => {
   function handleSubmit(event: React.BaseSyntheticEvent) {
     event.preventDefault();
 
-    navigate('/home');
+    const user = { email, password };
+
+    handleLogin(user);
+
+    // navigate('/home');
   }
 
   return (
