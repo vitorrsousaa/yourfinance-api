@@ -18,7 +18,7 @@ const SignUp = () => {
     useErrors();
 
   const navigate = useNavigate();
-  const { handleLogin } = useAuthContext();
+  const { handleLogin, authenticated } = useAuthContext();
   const isFormValid = password && email && errors.length === 0;
 
   function handleEmailChange(event: BaseSyntheticEvent) {
@@ -64,7 +64,7 @@ const SignUp = () => {
     }
   }
 
-  function handleSubmit(event: React.BaseSyntheticEvent) {
+  async function handleSubmit(event: React.BaseSyntheticEvent) {
     event.preventDefault();
 
     if (password !== passwordConfirmation) {
@@ -73,16 +73,22 @@ const SignUp = () => {
         field: 'passwordConfirmation',
         message: 'Confirmação de senha incorreta',
       });
+      return;
     }
 
     const user = { name, email, password };
 
-    api
-      .post('auth/register', user)
-      .then((response) => console.log(response.data))
-      .catch((error) => console.log(error.response.data));
+    const err: any = await handleLogin({ name, email, password });
 
-    // navigate('/home');
+    if (err) {
+      setPassword('');
+      setPasswordConfirmation('');
+      setError({ field: 'email', message: 'Esse email já foi cadastrado' });
+    }
+
+    if (authenticated && !err) {
+      navigate('/home');
+    }
   }
 
   return (
@@ -119,7 +125,7 @@ const SignUp = () => {
 
         <Input
           category="password"
-          placeholder="Sua senha"
+          placeholder="Confirmação de senha"
           type="password"
           value={passwordConfirmation}
           onChange={handlePasswordConfirmationChange}

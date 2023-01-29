@@ -12,6 +12,7 @@ const Home = () => {
     LogoutContext();
     navigate('/');
   }
+
   return (
     <Container>
       <SideBar>
