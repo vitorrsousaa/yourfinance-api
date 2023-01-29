@@ -1,22 +1,24 @@
 import { Request, Response } from 'express';
-import User from '../models/User';
 import bcrypt from 'bcryptjs';
 import generateToken from '../../utils/generateToken';
+import UsersRepository from '../repositories/UsersRepository';
 
 class AuthController {
   async register(req: Request, res: Response) {
-    const { email } = req.body;
+    const { email, name, password } = req.body;
 
     try {
-      if (await User.findOne({ email })) {
+      const userExists = await UsersRepository.findByEmail(email);
+
+      if (userExists) {
         return res.status(400).send({ error: 'User already exists' });
       }
 
-      const user = await User.create(req.body);
+      const newUser = await UsersRepository.create(name, email, password);
 
-      user.password = '';
+      newUser.password = '';
 
-      return res.send({ user, token: generateToken(user._id) });
+      return res.send({ newUser, token: generateToken(newUser._id) });
     } catch (err) {
       console.log(err);
       return res.status(400).send({ error: 'Registration failed' });
@@ -26,7 +28,7 @@ class AuthController {
   async authenticate(req: Request, res: Response) {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email }).select('+password');
+    const user = await UsersRepository.findByEmail(email).select('+password');
 
     if (!user) {
       return res.status(401).send({ error: 'User not found' });

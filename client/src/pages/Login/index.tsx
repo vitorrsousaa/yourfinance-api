@@ -82,7 +82,6 @@ const Login = () => {
         <Button variant="primary" type="submit" disabled={!isFormValid}>
           Fazer Login
         </Button>
-        <Link to="/home">Página home</Link>
       </form>
 
       <a href="">Esqueci minha senha</a>
