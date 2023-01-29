@@ -1,11 +1,10 @@
-import React, { BaseSyntheticEvent, useState } from 'react';
+import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/Button';
 import Input from '../../components/Input';
 import Logo from '../../components/Logo';
 import { useAuthContext } from '../../context/AuthContext';
 import useErrors from '../../hooks/useErrors';
-import { api } from '../../services/api';
 import isEmailValid from '../../utils/isEmailValid';
 import { Container } from './styles';
 
@@ -19,7 +18,8 @@ const SignUp = () => {
 
   const navigate = useNavigate();
   const { handleLogin, authenticated } = useAuthContext();
-  const isFormValid = password && email && errors.length === 0;
+  const isFormValid =
+    password && passwordConfirmation && email && errors.length === 0;
 
   function handleEmailChange(event: BaseSyntheticEvent) {
     setEmail(event.target.value);
@@ -85,11 +85,13 @@ const SignUp = () => {
       setPasswordConfirmation('');
       setError({ field: 'email', message: 'Esse email já foi cadastrado' });
     }
+  }
 
-    if (authenticated && !err) {
+  useEffect(() => {
+    if (authenticated) {
       navigate('/home');
     }
-  }
+  }, [authenticated]);
 
   return (
     <Container>

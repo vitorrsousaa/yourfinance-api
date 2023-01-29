@@ -3,10 +3,12 @@ import Arrow from '../../assets/icons/arrow.svg';
 import { Container, Content, Header, SideBar, Summary } from './styles';
 import { useAuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useUserContext } from '../../context/UserContext';
 
 const Home = () => {
   const { handleLogout: LogoutContext } = useAuthContext();
   const navigate = useNavigate();
+  const { user } = useUserContext();
 
   function handleLogout() {
     LogoutContext();
@@ -36,6 +38,7 @@ const Home = () => {
         <Header>
           <div>
             <h1>Página inicial</h1>
+            <h2>{user.name}</h2>
             <small>Acompanhe todas as suas finanças</small>
           </div>
           <small>X</small>

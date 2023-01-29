@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent, useState } from 'react';
+import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/Button';
 import Input from '../../components/Input';
@@ -46,15 +46,16 @@ const Login = () => {
     const err: any = await handleLogin({ email, password });
 
     if (err) {
-      setEmail('');
       setPassword('');
       setError({ field: 'email', message: 'Email ou senha inválido' });
     }
+  }
 
-    if (authenticated && !err) {
+  useEffect(() => {
+    if (authenticated) {
       navigate('/home');
     }
-  }
+  }, [authenticated]);
 
   return (
     <Container>

@@ -65,6 +65,7 @@ Features que estão sendo adicionadas na aplicação
 
 -  [ ] Adicionar conexão ao Figma
 -  [ ] Atualizar aba sobre o projeto
+-  [ ] Verificar no front e no back sobre o email em caixa alta
 
 **Front-end Web**
 
@@ -76,7 +77,7 @@ Features que estão sendo adicionadas na aplicação
 
 **Back-end**
 
--  [ ] Iniciar back-end
+-  [x] Iniciar back-end
 -  [ ] Criar um error handler
 
 ## 🛠 Estrutura de pastas e componentes

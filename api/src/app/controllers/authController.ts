@@ -11,17 +11,17 @@ class AuthController {
       const userExists = await UsersRepository.findByEmail(email);
 
       if (userExists) {
-        return res.status(400).send({ error: 'User already exists' });
+        return res.status(401).send({ error: 'User already exists' });
       }
 
       const newUser = await UsersRepository.create(name, email, password);
 
       newUser.password = '';
 
-      return res.send({ newUser, token: generateToken(newUser._id) });
+      return res.send({ user: newUser, token: generateToken(newUser._id) });
     } catch (err) {
       console.log(err);
-      return res.status(400).send({ error: 'Registration failed' });
+      return res.status(401).send({ error: 'Registration failed' });
     }
   }
 

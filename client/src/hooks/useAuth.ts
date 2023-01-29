@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useUserContext } from '../context/UserContext';
 import { User } from '../interface/User';
 import { api } from '../services/api';
 
 export default function useAuth() {
   const [authenticated, setAuthenticated] = useState(false);
-  const [userId, setUserId] = useState('');
   const [loading, setLoading] = useState(true);
+  const { setUser } = useUserContext();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -26,12 +27,18 @@ export default function useAuth() {
 
       localStorage.setItem('token', JSON.stringify(data.token));
       api.defaults.headers.Authorization = `Bearer ${data.token}`;
-      setUserId(data.user._id);
+      setUser({
+        _id: data.user._id,
+        email: data.user.email,
+        name: data.user.name,
+        createdAt: data.user.createdAt,
+      });
+
       setAuthenticated(true);
     } catch (error: any) {
-      const errorMessage = JSON.parse(error.request.response);
-
-      return errorMessage;
+      if (error) {
+        return { error: 'Failed' };
+      }
     }
   }
 
@@ -41,5 +48,5 @@ export default function useAuth() {
     api.defaults.headers.Authorization = null;
   }
 
-  return { handleLogin, handleLogout, loading, authenticated, userId };
+  return { handleLogin, handleLogout, loading, authenticated };
 }
