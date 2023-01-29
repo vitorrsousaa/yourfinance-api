@@ -43,7 +43,7 @@ const Login = () => {
 
     const user = { email, password };
 
-    const err: any = await handleLogin(user);
+    const err: any = await handleLogin({ email, password });
 
     if (err) {
       setEmail('');

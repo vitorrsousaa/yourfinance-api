@@ -1,8 +1,17 @@
 import SideIcon from '../../components/SideIcon';
 import Arrow from '../../assets/icons/arrow.svg';
 import { Container, Content, Header, SideBar, Summary } from './styles';
+import { useAuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const { handleLogout: LogoutContext } = useAuthContext();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    LogoutContext();
+    navigate('/');
+  }
   return (
     <Container>
       <SideBar>
@@ -11,14 +20,14 @@ const Home = () => {
             E<span>F</span>
           </h1>
 
-          <SideIcon type="Home" />
-          <SideIcon type="Transactions" />
+          <SideIcon category="Home" />
+          <SideIcon category="Transactions" />
         </div>
 
         <div>
-          <SideIcon type="Account" />
-          <SideIcon type="Settings" />
-          <SideIcon type="LogOff" />
+          <SideIcon category="Account" />
+          <SideIcon category="Settings" />
+          <SideIcon category="LogOff" onClick={handleLogout} />
         </div>
       </SideBar>
 
