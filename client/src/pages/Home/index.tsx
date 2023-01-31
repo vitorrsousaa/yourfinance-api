@@ -1,38 +1,14 @@
-import SideIcon from '../../components/SideIcon';
 import Arrow from '../../assets/icons/arrow.svg';
-import { Container, Content, Header, SideBar, Summary } from './styles';
+import { Container, Content, Header, Summary } from './styles';
 import { useAuthContext } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import { useUserContext } from '../../context/UserContext';
+import Sidebar from '../../components/Sidebar';
 
 const Home = () => {
-  const { handleLogout: LogoutContext } = useAuthContext();
-  const navigate = useNavigate();
-  const { user } = useUserContext();
-
-  function handleLogout() {
-    LogoutContext();
-    navigate('/');
-  }
+  const { user } = useAuthContext();
 
   return (
     <Container>
-      <SideBar>
-        <div>
-          <h1>
-            E<span>F</span>
-          </h1>
-
-          <SideIcon category="Home" />
-          <SideIcon category="Transactions" />
-        </div>
-
-        <div>
-          <SideIcon category="Account" />
-          <SideIcon category="Settings" />
-          <SideIcon category="LogOff" onClick={handleLogout} />
-        </div>
-      </SideBar>
+      <Sidebar />
 
       <Content>
         <Header>

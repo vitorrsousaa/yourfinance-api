@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useUserContext } from '../context/UserContext';
 import { User } from '../interface/User';
 import { api } from '../services/api';
 
 export default function useAuth() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
-  const { setUser } = useUserContext();
+  const [user, setUser] = useState<User>({});
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -48,5 +47,5 @@ export default function useAuth() {
     api.defaults.headers.Authorization = null;
   }
 
-  return { handleLogin, handleLogout, loading, authenticated };
+  return { handleLogin, handleLogout, loading, authenticated, user };
 }

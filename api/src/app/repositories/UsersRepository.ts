@@ -5,6 +5,10 @@ class UsersRepository {
     return User.findOne({ email });
   }
 
+  findById(id: string) {
+    return User.findById(id);
+  }
+
   create(name: string, email: string, password: string) {
     return User.create({ email, name, password });
   }

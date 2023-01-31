@@ -4,6 +4,7 @@ import { useAuthContext } from './context/AuthContext';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import SignUp from './pages/Signup';
+import Transactions from './pages/Transactions';
 
 interface PrivateRouteProps {
   children: ReactElement;
@@ -33,6 +34,15 @@ export default function Routes() {
         element={
           <PrivateRoute>
             <Home />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/transactions"
+        element={
+          <PrivateRoute>
+            <Transactions />
           </PrivateRoute>
         }
       />

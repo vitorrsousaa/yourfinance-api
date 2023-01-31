@@ -11,6 +11,7 @@ interface AuthContextProps {
   loading: boolean;
   handleLogin: (user: User) => void;
   handleLogout: () => void;
+  user: User;
 }
 
 export const AuthContext = createContext<AuthContextProps>(
@@ -18,11 +19,11 @@ export const AuthContext = createContext<AuthContextProps>(
 );
 
 export function AuthProvider({ children }: AuthContextProviderProps) {
-  const { authenticated, loading, handleLogin, handleLogout } = useAuth();
+  const { authenticated, loading, user, handleLogin, handleLogout } = useAuth();
 
   return (
     <AuthContext.Provider
-      value={{ authenticated, loading, handleLogin, handleLogout }}
+      value={{ authenticated, loading, user, handleLogin, handleLogout }}
     >
       {children}
     </AuthContext.Provider>

@@ -65,11 +65,11 @@ Features que estão sendo adicionadas na aplicação
 
 -  [ ] Adicionar conexão ao Figma
 -  [ ] Atualizar aba sobre o projeto
--  [ ] Verificar no front e no back sobre o email em caixa alta
 
 **Front-end Web**
 
 -  [ ] Construir componente Transaction
+-  [ ] Alterar o armazenamento do token JWT do localStorage para os cookies
 
 **Front-end Mobile**
 
