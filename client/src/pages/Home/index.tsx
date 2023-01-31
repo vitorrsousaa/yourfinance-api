@@ -1,7 +1,8 @@
 import Arrow from '../../assets/icons/arrow.svg';
-import { Container, Content, Header, Summary } from './styles';
+import { Container, Content, Summary } from './styles';
 import { useAuthContext } from '../../context/AuthContext';
 import Sidebar from '../../components/Sidebar';
+import Header from '../../components/Header';
 
 const Home = () => {
   const { user } = useAuthContext();
@@ -11,14 +12,16 @@ const Home = () => {
       <Sidebar />
 
       <Content>
-        <Header>
+        <Header />
+
+        <main>
           <div>
             <h1>Página inicial</h1>
             <h2>{user.name}</h2>
             <small>Acompanhe todas as suas finanças</small>
           </div>
           <small>X</small>
-        </Header>
+        </main>
 
         <Summary>
           <h1>Resumo da sua vida financeira</h1>

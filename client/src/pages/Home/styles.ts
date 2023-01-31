@@ -4,17 +4,6 @@ export const Container = styled.div`
   display: flex;
 `;
 
-export const Header = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  h1 {
-    font-size: 2rem;
-    font-weight: 400;
-  }
-`;
-
 export const Content = styled.section`
   display: flex;
   flex-direction: column;
@@ -22,6 +11,17 @@ export const Content = styled.section`
   padding: 3.5rem 2rem;
   gap: 2rem;
   flex: 1;
+
+  main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 400;
+    }
+  }
 
   section {
     display: flex;

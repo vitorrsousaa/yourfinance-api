@@ -20,7 +20,10 @@ const Sidebar = () => {
         </h1>
 
         <SideIcon category="Home" onClick={() => navigate('/')} />
-        <SideIcon category="Transactions" />
+        <SideIcon
+          category="Transactions"
+          onClick={() => navigate('/transactions')}
+        />
       </div>
 
       <div>

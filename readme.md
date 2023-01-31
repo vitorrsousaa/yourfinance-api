@@ -68,7 +68,8 @@ Features que estão sendo adicionadas na aplicação
 
 **Front-end Web**
 
--  [ ] Construir componente Transaction
+-  [x] Criar componente HeaderPages
+-  [ ] Estilizar o componente Header
 -  [ ] Alterar o armazenamento do token JWT do localStorage para os cookies
 
 **Front-end Mobile**
