@@ -42,11 +42,11 @@ class ModalityController {
     }
   }
 
-  async show(req: Request, res: Response) {
+  async show() {
     // Listar um registro
   }
 
-  async delete(req: Request, res: Response) {
+  async delete() {
     // Deletar um registro
   }
 }
