@@ -4,6 +4,6 @@ import mongoose from 'mongoose';
 
 export default function generateToken(id: mongoose.Types.ObjectId) {
   return jwt.sign({ id: id.toString() }, authConfig.secret, {
-    expiresIn: 86400,
+    expiresIn: 36000,
   });
 }

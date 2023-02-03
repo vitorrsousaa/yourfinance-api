@@ -1,16 +1,29 @@
 import { InputHTMLAttributes, useState } from 'react';
+import Date from '../../assets/icons/Date';
+import Description from '../../assets/icons/Description';
 import { Email } from '../../assets/icons/Email';
 import { Lock } from '../../assets/icons/Lock';
 import { Person } from '../../assets/icons/Person';
+import Real from '../../assets/icons/Real';
 import { Container, FormGroup } from './styles';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  category: 'email' | 'person' | 'password';
+  category: 'email' | 'person' | 'password' | 'date' | 'value' | 'description';
   error?: string;
 }
 
 const Input = ({ category, error, ...rest }: InputProps) => {
   const [isFocus, setIsFocus] = useState(false);
+  const categories = {
+    email: Email,
+    person: Person,
+    password: Lock,
+    description: Description,
+    value: Real,
+    date: '',
+  };
+
+  const CategorySVG = categories[category];
 
   function handleFocusInput() {
     setIsFocus(true);
@@ -29,30 +42,8 @@ const Input = ({ category, error, ...rest }: InputProps) => {
           onFocus={handleFocusInput}
           onBlur={handleBlurInput}
         />
-        {category === 'email' && (
-          <Email
-            color={
-              error
-                ? 'var(--error-900)'
-                : isFocus
-                ? 'var(--blue-900)'
-                : '#2d2d2d'
-            }
-          />
-        )}
-        {category === 'person' && (
-          <Person
-            color={
-              error
-                ? 'var(--error-900)'
-                : isFocus
-                ? 'var(--blue-900)'
-                : '#2d2d2d'
-            }
-          />
-        )}
-        {category === 'password' && (
-          <Lock
+        {CategorySVG && (
+          <CategorySVG
             color={
               error
                 ? 'var(--error-900)'

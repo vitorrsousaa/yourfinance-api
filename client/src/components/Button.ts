@@ -12,8 +12,6 @@ export const Button = styled.button<ButtonProps>`
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  border: none;
-
   font-weight: 700;
   font-size: 1rem;
 
@@ -34,4 +32,13 @@ export const Button = styled.button<ButtonProps>`
       : variant === 'primary'
       ? 'var(--white-100)'
       : 'var(--blue-900)'};
+
+  border: ${({ variant, disabled }) =>
+    disabled
+      ? variant === 'primary'
+        ? 'none'
+        : 'solid 2px var(--gray-200)'
+      : variant === 'primary'
+      ? 'none'
+      : 'solid 2px var(--blue-900)'};
 `;

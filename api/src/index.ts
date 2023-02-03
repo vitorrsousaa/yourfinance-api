@@ -5,6 +5,9 @@ import { router } from './router';
 
 connect();
 
+// Adicionar os headers do cors manualmente
+// Alterar todos os status do bloco catch para 500
+
 const app = express();
 
 app.use(cors());

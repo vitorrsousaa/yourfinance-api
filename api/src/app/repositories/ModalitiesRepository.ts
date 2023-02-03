@@ -10,7 +10,7 @@ class ModalitiesRepository {
   }
 
   findAll() {
-    return Modality.find();
+    return Modality.find().sort({ name: 1 });
   }
 }
 
