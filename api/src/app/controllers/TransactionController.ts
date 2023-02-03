@@ -19,7 +19,8 @@ class TransactionController {
   }
 
   async store(req: Request, res: Response) {
-    const { description, category, type, modality, value } = req.body;
+    const { description, category, type, modality, amount, createdAt } =
+      req.body;
 
     if (!description) {
       return res.status(400).send({ error: 'Description is required' });
@@ -33,8 +34,8 @@ class TransactionController {
     if (!modality) {
       return res.status(400).send({ error: 'modality is required' });
     }
-    if (!value) {
-      return res.status(400).send({ error: 'value is required' });
+    if (!amount) {
+      return res.status(400).send({ error: 'amount is required' });
     }
 
     const id = req.user.id;
@@ -47,7 +48,8 @@ class TransactionController {
         modality,
         type,
         user,
-        value
+        amount,
+        createdAt
       );
 
       return res.send(newTransaction);

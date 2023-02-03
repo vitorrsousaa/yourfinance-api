@@ -5,7 +5,7 @@ interface TransactionProps {
   category: 'Receita' | 'Despesa';
   type: 'Fixo' | 'Variável';
   modality: string;
-  value: number;
+  amount: number;
 }
 
 class TransactionsRepository {
@@ -19,7 +19,8 @@ class TransactionsRepository {
     modality: string,
     type: string,
     user: string,
-    value: number
+    amount: number,
+    createdAt: string
   ) {
     return Transaction.create({
       description,
@@ -27,7 +28,8 @@ class TransactionsRepository {
       modality,
       type,
       user,
-      value,
+      amount,
+      createdAt,
     });
   }
 }

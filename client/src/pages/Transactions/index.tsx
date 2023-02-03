@@ -2,6 +2,7 @@ import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { Button } from '../../components/Button';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
+import Loading from '../../components/Loading';
 import Modal from '../../components/Modal';
 import Sidebar from '../../components/Sidebar';
 import SideIcon from '../../components/SideIcon';
@@ -34,6 +35,7 @@ const Transactions = () => {
   const [createdAt, setCreatedAt] = useState('');
   const [type, setType] = useState<TypeProps>('Fixo');
   const [selectedModality, setSelectedModality] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const { errors, getErrorMessageByFieldName, removeError, setError } =
     useErrors();
@@ -108,17 +110,28 @@ const Transactions = () => {
     }
   }
 
-  function handleSubmit(event: React.SyntheticEvent) {
+  async function handleSubmit(event: React.SyntheticEvent) {
+    setIsLoading(true);
     event.preventDefault();
-
-    console.log({
+    const transaction = {
       description,
       category,
       amount,
       createdAt,
       type,
-      selectedModality,
-    });
+      modality: selectedModality,
+    };
+
+    const data = await api.post('/transactions', transaction);
+
+    console.log(data);
+
+    setDescription('');
+    setAmount(0);
+    setSelectedModality('');
+    setCreatedAt('');
+    handleCloseModal();
+    setIsLoading(false);
   }
 
   return (
@@ -127,6 +140,7 @@ const Transactions = () => {
         <Sidebar />
         <Content>
           <Header />
+
           <main>
             <div>
               <div className="containerName">
@@ -224,6 +238,7 @@ const Transactions = () => {
                   key={modality._id}
                   onClick={() => setSelectedModality(modality._id)}
                   isSelected={isSelected}
+                  type="button"
                 >
                   <div>{modality.icon}</div>
                   <small>{modality.name}</small>
@@ -232,8 +247,12 @@ const Transactions = () => {
             })}
           </div>
 
-          <Button disabled={!isFormValid} variant="primary" type="submit">
-            Criar nova transação
+          <Button
+            disabled={!isFormValid || isLoading}
+            variant="primary"
+            type="submit"
+          >
+            {isLoading ? <Loading /> : 'Criar nova transação'}
           </Button>
         </ContainerModalTransactions>
       </Modal>

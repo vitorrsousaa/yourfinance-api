@@ -7,14 +7,14 @@ const TransactionSchema = new Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now,
+    require: true,
   },
   category: {
-    type: ['Receita', 'Despesa'],
+    type: String,
     require: true,
   },
   type: {
-    type: ['Fixo', 'Variável'],
+    type: String,
     require: true,
   },
   modality: {
@@ -22,7 +22,7 @@ const TransactionSchema = new Schema({
     require: true,
     ref: 'Modality',
   },
-  value: {
+  amount: {
     type: Number,
     require: true,
   },

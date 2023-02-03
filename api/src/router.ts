@@ -16,6 +16,8 @@ router.use(authValidate);
 
 router.get('/transactions', TransactionController.index);
 
+router.post('/transactions', TransactionController.store);
+
 router.get('/projects', (req, res) => {
   res.send({ ok: true, id: req.user.id });
 });
