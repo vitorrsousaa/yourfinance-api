@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
         <Routes />
 
-        <ToastContainer position="bottom-center" />
+        <ToastContainer position="top-right" />
         <Global />
       </BrowserRouter>
     </AuthProvider>

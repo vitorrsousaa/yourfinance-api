@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import TransactionsService from '../../services/TransactionsService';
 import { Transaction, TransactionsData } from '../../types/Transaction';
 
@@ -21,6 +21,7 @@ import {
   TableTransactions,
 } from './styles';
 import { itemsPerPage, siblingsCounts } from '../../constants/pagination';
+import { toast } from 'react-toastify';
 
 function generatePagesArray(from: number, to: number) {
   return [...new Array(to - from)]
@@ -45,8 +46,6 @@ const Transactions = () => {
         page
       );
 
-      console.log(dataTransactions);
-
       setTransactions(dataTransactions.transactions);
       setTotalItems(dataTransactions.totalItems);
 
@@ -56,15 +55,38 @@ const Transactions = () => {
     loadTransactions();
   }, [page]);
 
-  const lastPage = Math.ceil(totalItems / itemsPerPage);
+  const lastPage = useMemo(
+    () => Math.ceil(totalItems / itemsPerPage),
+    [transactions]
+  );
 
-  const previousPages =
-    page > 1 ? generatePagesArray(page - 1 - siblingsCounts, page - 1) : [];
+  const previousPages = useMemo(
+    () =>
+      page > 1 ? generatePagesArray(page - 1 - siblingsCounts, page - 1) : [],
+    [Transactions]
+  );
 
-  const nextPages =
-    page < lastPage
-      ? generatePagesArray(page, Math.min(page + siblingsCounts, lastPage))
-      : [];
+  const nextPages = useMemo(
+    () =>
+      page < lastPage
+        ? generatePagesArray(page, Math.min(page + siblingsCounts, lastPage))
+        : [],
+    [transactions]
+  );
+
+  function getDates() {
+    const firstElement = transactions[0].createdAt;
+    const lastElement = transactions[transactions.length - 1].createdAt;
+
+    const firstDate = new Date(firstElement).getDate();
+
+    const lastDate = Intl.DateTimeFormat('pt-br', {
+      day: 'numeric',
+      month: 'short',
+    }).format(new Date(lastElement));
+
+    return `${firstDate} até ${lastDate}`;
+  }
 
   function handlePageChange(page: number) {
     setPage(page);
@@ -84,6 +106,7 @@ const Transactions = () => {
     );
 
     setIsLoading(false);
+    toast.success('Conseguimos deletar');
   }
 
   function handleEditTransaction(transactionId: string) {
@@ -119,7 +142,6 @@ const Transactions = () => {
           <section>
             <div className="sectionHeader">
               <h2>Últimas transações</h2>
-              <h3>Mostrando transações de 01 a 15 de jan</h3>
             </div>
 
             <TableTransactions>
@@ -169,7 +191,7 @@ const Transactions = () => {
                 de <strong>{totalItems}</strong>
               </div>
               <div>
-                {page > 1 + siblingsCounts && (
+                {page >= 1 + siblingsCounts && (
                   <>
                     <PaginationItem
                       isSelected={true}

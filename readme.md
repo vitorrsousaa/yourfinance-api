@@ -93,6 +93,7 @@ Afim de facilitar a organização e manutenção do código, foi definido um pad
 
 → \_assets: Contém a estilização global, icones, fontes, tema da aplicação, itens de estilo que são reutilizáveis e imagens; <br />
 → components: Todos os componentes globais do projeto; <br />
+→ constants: Contém constantes que são utilizadas globalmente na aplicação; <br />
 → context: Armazena os contextos da aplicação; <br />
 → services: Todos os acessos externos; <br />
 → utils: Funcionalidades que são utilizadas em diversos locais da aplicação; <br />
