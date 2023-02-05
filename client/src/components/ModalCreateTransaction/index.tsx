@@ -1,9 +1,8 @@
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import useErrors from '../../hooks/useErrors';
-import { api } from '../../services/api';
 import ModalitiesService from '../../services/ModalitiesService';
 import TransactionsService from '../../services/TransactionsService';
-import delay from '../../utils/delay';
+
 import { Button } from '../Button';
 import Input from '../Input';
 import Modal from '../Modal';
@@ -132,102 +131,100 @@ const ModalCreateTransaction = ({
   }
 
   return (
-    <>
-      <Modal
-        title="Cadastrar nova transação"
-        isOpen={isOpen}
-        onClose={handleCloseModal}
-      >
-        <ContainerModal onSubmit={handleSubmit}>
-          <Input
-            category="description"
-            placeholder="Descrição"
-            type="text"
-            value={description}
-            onChange={handleChangeDescription}
-            error={getErrorMessageByFieldName('description')}
-          />
-          <div className="containerDualOption">
-            <Button
-              variant="secondary"
-              onClick={handleChangeCategory}
-              disabled={!(category === 'Receitas')}
-            >
-              Receitas
-            </Button>
-            <Button
-              variant="secondary"
-              disabled={!(category === 'Despesas')}
-              onClick={handleChangeCategory}
-            >
-              Despesas
-            </Button>
-          </div>
-          <div className="containerDualOption">
-            <Input
-              category="value"
-              placeholder="Valor"
-              type="number"
-              value={amount}
-              onChange={handleChangeAmount}
-              error={getErrorMessageByFieldName('value')}
-            />
-            <Input
-              category="date"
-              placeholder="Data"
-              type="date"
-              min="2023-01-01"
-              maxLength={10}
-              value={createdAt}
-              onChange={handleChangeDate}
-              error={getErrorMessageByFieldName('date')}
-            />
-          </div>
-          <div className="containerDualOption">
-            <Button
-              variant="secondary"
-              onClick={handleChangeType}
-              disabled={!(type === 'Fixo')}
-            >
-              Fixo
-            </Button>
-            <Button
-              variant="secondary"
-              onClick={handleChangeType}
-              disabled={!(type === 'Variável')}
-            >
-              Variável
-            </Button>
-          </div>
-
-          <div className="containerSectionModality">
-            {modalities.map((modality) => {
-              const isSelected = selectedModality === modality._id;
-
-              return (
-                <ContainerModality
-                  key={modality._id}
-                  onClick={() => setSelectedModality(modality._id)}
-                  isSelected={isSelected}
-                  type="button"
-                >
-                  <div>{modality.icon}</div>
-                  <small>{modality.name}</small>
-                </ContainerModality>
-              );
-            })}
-          </div>
-
+    <Modal
+      title="Cadastrar nova transação"
+      isOpen={isOpen}
+      onClose={handleCloseModal}
+    >
+      <ContainerModal onSubmit={handleSubmit}>
+        <Input
+          category="description"
+          placeholder="Descrição"
+          type="text"
+          value={description}
+          onChange={handleChangeDescription}
+          error={getErrorMessageByFieldName('description')}
+        />
+        <div className="containerDualOption">
           <Button
-            disabled={!isFormValid || isLoading}
-            variant="primary"
-            type="submit"
+            variant="secondary"
+            onClick={handleChangeCategory}
+            disabled={!(category === 'Receitas')}
           >
-            {isLoading ? 'Enviando dados...' : 'Criar nova transação'}
+            Receitas
           </Button>
-        </ContainerModal>
-      </Modal>
-    </>
+          <Button
+            variant="secondary"
+            disabled={!(category === 'Despesas')}
+            onClick={handleChangeCategory}
+          >
+            Despesas
+          </Button>
+        </div>
+        <div className="containerDualOption">
+          <Input
+            category="value"
+            placeholder="Valor"
+            type="number"
+            value={amount}
+            onChange={handleChangeAmount}
+            error={getErrorMessageByFieldName('value')}
+          />
+          <Input
+            category="date"
+            placeholder="Data"
+            type="date"
+            min="2023-01-01"
+            maxLength={10}
+            value={createdAt}
+            onChange={handleChangeDate}
+            error={getErrorMessageByFieldName('date')}
+          />
+        </div>
+        <div className="containerDualOption">
+          <Button
+            variant="secondary"
+            onClick={handleChangeType}
+            disabled={!(type === 'Fixo')}
+          >
+            Fixo
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={handleChangeType}
+            disabled={!(type === 'Variável')}
+          >
+            Variável
+          </Button>
+        </div>
+
+        <div className="containerSectionModality">
+          {modalities.map((modality) => {
+            const isSelected = selectedModality === modality._id;
+
+            return (
+              <ContainerModality
+                key={modality._id}
+                onClick={() => setSelectedModality(modality._id)}
+                isSelected={isSelected}
+                type="button"
+              >
+                <div>{modality.icon}</div>
+                <small>{modality.name}</small>
+              </ContainerModality>
+            );
+          })}
+        </div>
+
+        <Button
+          disabled={!isFormValid || isLoading}
+          variant="primary"
+          type="submit"
+        >
+          {isLoading ? 'Enviando dados...' : 'Criar nova transação'}
+        </Button>
+      </ContainerModal>
+    </Modal>
   );
 };
 

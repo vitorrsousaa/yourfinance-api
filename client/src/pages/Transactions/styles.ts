@@ -61,6 +61,23 @@ export const Content = styled.div`
   }
 `;
 
+export const IconTable = styled.button`
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+
+  /* White */
+
+  background: var(--white-200);
+  /* shadow light */
+
+  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.3);
+  border-radius: 100%;
+`;
+
 export const TableTransactions = styled.table`
   border: solid 1px var(--gray-200);
   border-collapse: collapse;

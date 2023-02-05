@@ -1,4 +1,10 @@
 import { useEffect, useState } from 'react';
+import TransactionsService from '../../services/TransactionsService';
+import { TransactionResponse } from '../../types/Transaction';
+
+import formatAmount from '../../utils/formatAmount';
+import formatDate from '../../utils/formatDate';
+
 import { Button } from '../../components/Button';
 import Header from '../../components/Header';
 import Loader from '../../components/Loader';
@@ -6,14 +12,10 @@ import ModalCreateTransaction from '../../components/ModalCreateTransaction';
 import Sidebar from '../../components/Sidebar';
 import SideIcon from '../../components/SideIcon';
 
-import TransactionsService from '../../services/TransactionsService';
-import Transaction from '../../types/Transaction';
-import formatAmount from '../../utils/formatAmount';
-import formatDate from '../../utils/formatDate';
-import { Container, Content, TableTransactions } from './styles';
+import { Container, Content, IconTable, TableTransactions } from './styles';
 
 const Transactions = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [transactions, setTransactions] = useState<TransactionResponse[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -99,12 +101,11 @@ const Transactions = () => {
                     <td>{transaction.modality.name}</td>
                     <td>{formatAmount(transaction.amount)}</td>
                     <td>
-                      <Button
-                        variant="secondary"
+                      <IconTable
                         onClick={() => handleDeleteTransaction(transaction._id)}
                       >
-                        Lixo
-                      </Button>
+                        🗑️
+                      </IconTable>
                     </td>
                   </tr>
                 ))}

@@ -1,4 +1,4 @@
-import Transaction from '../types/Transaction';
+import { TransactionCreateProps } from '../types/Transaction';
 import HttpClient from './HttpClient';
 
 class TransactionsService {
@@ -6,7 +6,7 @@ class TransactionsService {
     return HttpClient.get('/transactions');
   }
 
-  async create(transaction: Transaction) {
+  async create(transaction: TransactionCreateProps) {
     return HttpClient.post('/transactions', transaction);
   }
 

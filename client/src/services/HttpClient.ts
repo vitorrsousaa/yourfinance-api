@@ -1,4 +1,4 @@
-import Transaction from '../types/Transaction';
+import { TransactionCreateProps } from '../types/Transaction';
 import delay from '../utils/delay';
 import { api } from './api';
 
@@ -19,7 +19,7 @@ class HttpClient {
     return response;
   }
 
-  async post(path: string, data: Transaction) {
+  async post(path: string, data: TransactionCreateProps) {
     const response = await api.post(path, data);
 
     await delay();

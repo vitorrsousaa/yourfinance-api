@@ -10,7 +10,7 @@ interface TransactionProps {
 
 class TransactionsRepository {
   findAll() {
-    return Transaction.find().populate('modality');
+    return Transaction.find().populate('modality').sort({ createdAt: -1 });
   }
 
   create(
