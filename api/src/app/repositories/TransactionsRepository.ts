@@ -32,6 +32,10 @@ class TransactionsRepository {
       createdAt,
     });
   }
+
+  delete(transactionId: string) {
+    return Transaction.findByIdAndDelete(transactionId);
+  }
 }
 
 export default new TransactionsRepository();

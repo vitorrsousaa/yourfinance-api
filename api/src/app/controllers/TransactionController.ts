@@ -63,8 +63,26 @@ class TransactionController {
     // Atualizar
   }
 
-  async delete() {
+  async delete(req: Request, res: Response) {
     // Deletar
+    const { transactionId } = req.params;
+
+    if (!transactionId) {
+      return res.status(400).send({ error: 'Transaction id is required' });
+    }
+
+    try {
+      const transaction = await TransactionsRepository.delete(transactionId);
+
+      if (!transaction) {
+        return res.status(400).send({ error: 'Transaction does not exists' });
+      }
+
+      return res.status(204).send({ message: 'Transaction Deleted' });
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ error: 'Registration failed' });
+    }
   }
 }
 

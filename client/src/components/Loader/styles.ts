@@ -4,6 +4,19 @@ interface ContainerProps {
   size?: string;
 }
 
+export const Overlay = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(246, 245, 252, 0.85);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const Container = styled.div<ContainerProps>`
   display: flex;
   align-items: center;
@@ -13,9 +26,9 @@ export const Container = styled.div<ContainerProps>`
   height: 100%;
 
   .loader {
-    width: ${({ size }) => (size ? size : '2rem')};
-    height: ${({ size }) => (size ? size : '2rem')};
-    border: 6px solid var(--gray-200);
+    width: ${({ size }) => (size ? size : '5rem')};
+    height: ${({ size }) => (size ? size : '5rem')};
+    border: 1rem solid var(--gray-200);
     border-top-color: var(--blue-900);
     border-radius: 100%;
 

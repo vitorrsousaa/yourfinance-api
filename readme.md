@@ -34,6 +34,7 @@ Tecnologias e ferramentas utilizadas no desenvolvimento do projeto:
 -  [React Router Dom](https://reactrouter.com/)
 -  [Axios](https://github.com/axios/axios)
 -  [StyledComponents](https://styled-components.com/)
+-  [React Toastify](https://www.npmjs.com/package/react-toastify)
 
 #### **Mobile** ( [React Native](https://reactnative.dev/) + [TypeScript](https://www.typescriptlang.org/) )
 

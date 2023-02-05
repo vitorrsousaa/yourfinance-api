@@ -15,8 +15,8 @@ router.post('/auth/authenticate', AuthController.authenticate);
 router.use(authValidate);
 
 router.get('/transactions', TransactionController.index);
-
 router.post('/transactions', TransactionController.store);
+router.delete('/transactions/:transactionId', TransactionController.delete);
 
 router.get('/projects', (req, res) => {
   res.send({ ok: true, id: req.user.id });

@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { Button } from '../../components/Button';
 import Header from '../../components/Header';
+import Loader from '../../components/Loader';
 import ModalCreateTransaction from '../../components/ModalCreateTransaction';
 import Sidebar from '../../components/Sidebar';
 import SideIcon from '../../components/SideIcon';
 
 import { api } from '../../services/api';
 import Transaction from '../../types/Transaction';
+import delay from '../../utils/delay';
 import formatAmount from '../../utils/formatAmount';
 import formatDate from '../../utils/formatDate';
 import { Container, Content, TableTransactions } from './styles';
@@ -14,17 +17,40 @@ import { Container, Content, TableTransactions } from './styles';
 const Transactions = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    api.get('/transactions').then((response) => setTransactions(response.data));
+    async function loadTransactions() {
+      const dataTransactions = await api.get('/transactions');
+
+      await delay(500);
+
+      setTransactions(dataTransactions.data);
+      setIsLoading(false);
+    }
+
+    loadTransactions();
   }, []);
 
   function handleOpenModal() {
     setIsModalOpen(true);
   }
 
+  async function handleDeleteTransaction(transactionId: string) {
+    setIsLoading(true);
+
+    await api.delete(`/transactions/${transactionId}`);
+
+    setTransactions((prevState) =>
+      prevState.filter((transaction) => transaction._id !== transactionId)
+    );
+
+    setIsLoading(false);
+  }
+
   return (
     <>
+      <Loader isLoading={isLoading} />
       <ModalCreateTransaction
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -75,7 +101,14 @@ const Transactions = () => {
                     <td>{transaction.type}</td>
                     <td>{transaction.modality.name}</td>
                     <td>{formatAmount(transaction.amount)}</td>
-                    <td>Lixo</td>
+                    <td>
+                      <Button
+                        variant="secondary"
+                        onClick={() => handleDeleteTransaction(transaction._id)}
+                      >
+                        Lixo
+                      </Button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
