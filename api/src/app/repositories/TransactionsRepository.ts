@@ -10,7 +10,7 @@ interface TransactionProps {
 
 class TransactionsRepository {
   findAll() {
-    return Transaction.find();
+    return Transaction.find().populate('modality');
   }
 
   create(

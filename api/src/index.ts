@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import connect from './database/connect';
 import { router } from './router';
+import errorHandler from './app/middlewares/errorHandler';
 
 connect();
 

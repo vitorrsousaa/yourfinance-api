@@ -23,17 +23,17 @@ O **EASY**Finance é um software para gerenciamento e controle de finanças pess
 
 O projeto foi desenvolvido inteiramente em TypeScript, com o objetivo de reforçar os conceitos aprendidos sobre NodeJs e ReactJS, e além disso, desenvolver habilidades utilizando React Native e ainda melhorar a integração entre o front/back.
 
+O Objetivo é construir o MVP do projeto e deixar rodando para realizar testes com usuários reais. O MVP vai ter algumas funcionalidades que serão core da aplicação.
+
 ## 🚀 Tecnologias
 
 Tecnologias e ferramentas utilizadas no desenvolvimento do projeto:
 
 #### **Website** ( [ReactJS](https://reactjs.org/) + [TypeScript](https://www.typescriptlang.org/) )
 
--  [React Hook Form](https://react-hook-form.com/)
 -  [React Router Dom](https://reactrouter.com/)
 -  [Axios](https://github.com/axios/axios)
 -  [StyledComponents](https://styled-components.com/)
--  [Yup](https://github.com/jquense/yup)
 
 #### **Mobile** ( [React Native](https://reactnative.dev/) + [TypeScript](https://www.typescriptlang.org/) )
 
@@ -44,6 +44,10 @@ Tecnologias e ferramentas utilizadas no desenvolvimento do projeto:
 #### **API** ( [NodeJS](https://nodejs.org/en/) + [TypeScript](https://www.typescriptlang.org/) )
 
 -  [Express](https://expressjs.com/pt-br/)
+-  [bcryptjs](https://www.npmjs.com/package/bcryptjs)
+-  [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+-  [MongoDB Atlas](https://www.mongodb.com/atlas/database)
+-  [Mongoose](https://mongoosejs.com/)
 
 #### **Utilitários**
 
@@ -57,18 +61,18 @@ Tecnologias e ferramentas utilizadas no desenvolvimento do projeto:
 
 O layout da aplicação está disponível no Figma:
 
+<p align="center">
+  <img src="./.github/layout.png" alt="FITLIFE" />
+</p>
+
 ## ⚙️ Funcionalidades
 
 Features que estão sendo adicionadas na aplicação
 
 **Coisas para fazer**
 
--  [ ] Adicionar conexão ao Figma
--  [ ] Atualizar aba sobre o projeto
-
 **Front-end Web**
 
--  [x] Criar componente HeaderPages
 -  [ ] Estilizar o componente Header
 -  [ ] Alterar o armazenamento do token JWT do localStorage para os cookies
 
@@ -78,7 +82,6 @@ Features que estão sendo adicionadas na aplicação
 
 **Back-end**
 
--  [x] Iniciar back-end
 -  [ ] Criar um error handler
 
 ## 🛠 Estrutura de pastas e componentes
@@ -123,9 +126,10 @@ Todos os componentes criados vão seguir uma mesma estrutura de organização:
 
 → config: Armazena todos os arquivos de configurações; <br />
 → controllers: Armazena todos os Controllers da aplicação, utilizados para armazenar a regra de negócio; <br />
+→ repositories: Armazena todos os Repositories da aplicação, utilizados para armazenar todo o vínculo ao banco de dados; <br />
 → database: Acesso ao banco de dados; <br />
 → models: Armazena todos os models utilizados para adicionar ao banco de dados; <br />
-→ utils: Funcionalides que são utilizadas em diversos locais da aplicação; <br />
+→ utils: Funcionalidades que são utilizadas em diversos locais da aplicação; <br />
 
 ## 🚀 Como executar o projeto
 
