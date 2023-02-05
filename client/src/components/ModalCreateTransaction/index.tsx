@@ -1,11 +1,11 @@
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import useErrors from '../../hooks/useErrors';
 import { api } from '../../services/api';
+import ModalitiesService from '../../services/ModalitiesService';
+import TransactionsService from '../../services/TransactionsService';
 import delay from '../../utils/delay';
 import { Button } from '../Button';
 import Input from '../Input';
-import Loader from '../Loader';
-import Loading from '../Loader';
 import Modal from '../Modal';
 import { ContainerModality, ContainerModal } from './styles';
 
@@ -50,7 +50,9 @@ const ModalCreateTransaction = ({
     errors.length === 0;
 
   useEffect(() => {
-    api.get('/modality').then((response) => setModalities(response.data));
+    ModalitiesService.list().then((response) => {
+      setModalities(response);
+    });
   }, []);
 
   function handleCloseModal() {
@@ -121,9 +123,7 @@ const ModalCreateTransaction = ({
       modality: selectedModality,
     };
 
-    const data = await api.post('/transactions', transaction);
-
-    await delay(1000);
+    const data = await TransactionsService.create(transaction);
 
     console.log('handleSubmit - ModalCreateTransaction', data);
 

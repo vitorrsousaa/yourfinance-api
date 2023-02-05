@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import { Button } from '../../components/Button';
 import Header from '../../components/Header';
 import Loader from '../../components/Loader';
@@ -7,9 +6,8 @@ import ModalCreateTransaction from '../../components/ModalCreateTransaction';
 import Sidebar from '../../components/Sidebar';
 import SideIcon from '../../components/SideIcon';
 
-import { api } from '../../services/api';
+import TransactionsService from '../../services/TransactionsService';
 import Transaction from '../../types/Transaction';
-import delay from '../../utils/delay';
 import formatAmount from '../../utils/formatAmount';
 import formatDate from '../../utils/formatDate';
 import { Container, Content, TableTransactions } from './styles';
@@ -21,11 +19,10 @@ const Transactions = () => {
 
   useEffect(() => {
     async function loadTransactions() {
-      const dataTransactions = await api.get('/transactions');
+      const dataTransactions = await TransactionsService.list();
 
-      await delay(500);
+      setTransactions(dataTransactions);
 
-      setTransactions(dataTransactions.data);
       setIsLoading(false);
     }
 
@@ -39,7 +36,7 @@ const Transactions = () => {
   async function handleDeleteTransaction(transactionId: string) {
     setIsLoading(true);
 
-    await api.delete(`/transactions/${transactionId}`);
+    await TransactionsService.delete(transactionId);
 
     setTransactions((prevState) =>
       prevState.filter((transaction) => transaction._id !== transactionId)
