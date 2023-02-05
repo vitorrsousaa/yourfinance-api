@@ -1,4 +1,4 @@
-export interface TransactionResponse {
+export interface Transaction {
   _id: string;
   __v: 0;
   user: string;
@@ -22,4 +22,10 @@ export interface TransactionCreateProps {
   category: 'Despesas' | 'Receitas';
   type: 'Fixo' | 'Variável';
   createdAt: string;
+}
+
+export interface TransactionsData {
+  transactions: Transaction[];
+  itemsPerPage: number;
+  totalItems: number;
 }

@@ -45,6 +45,7 @@ const ModalCreateTransaction = ({
     amount &&
     category &&
     type &&
+    createdAt &&
     selectedModality &&
     errors.length === 0;
 

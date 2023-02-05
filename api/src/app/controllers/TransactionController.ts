@@ -4,10 +4,33 @@ import TransactionsRepository from '../repositories/TransactionsRepository';
 class TransactionController {
   async index(req: Request, res: Response) {
     // Listar todos os registros
-    try {
-      const transaction = await TransactionsRepository.findAll();
+    const itemsPerPage = 15;
+    const { page } = req.query;
 
-      return res.send(transaction);
+    try {
+      const transactions = await TransactionsRepository.findAll();
+
+      const total = transactions.length;
+
+      if (!page) {
+        return res.send({
+          itemsPerPage,
+          totalItems: total,
+          transactions,
+        });
+      }
+
+      const pageStart = (Number(page) - 1) * itemsPerPage;
+
+      const pageEnd = pageStart + itemsPerPage;
+
+      const selectedTransactions = transactions.slice(pageStart, pageEnd);
+
+      return res.send({
+        itemsPerPage,
+        totalItems: total,
+        transactions: selectedTransactions,
+      });
     } catch (error) {
       console.log(error);
       return res.status(400).send({ error: 'Registration failed' });

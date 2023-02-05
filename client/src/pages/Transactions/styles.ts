@@ -105,3 +105,45 @@ export const TableTransactions = styled.table`
     }
   }
 `;
+
+export const Pagination = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: var(--black-800);
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+`;
+
+interface PaginationItemProps {
+  isSelected: boolean;
+}
+
+export const PaginationItem = styled.button<PaginationItemProps>`
+  background: ${({ isSelected }) =>
+    !isSelected ? 'var(--blue-900)' : 'transparent'};
+  border-radius: 4px;
+  border: solid 2px;
+  border-color: ${({ isSelected }) =>
+    !isSelected ? 'var(--blue-900)' : 'var(--gray-700)'};
+
+  width: 1.5rem;
+  height: 1.5rem;
+
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: ${({ isSelected }) =>
+    !isSelected ? 'var(--white-100)' : 'var(--gray-700)'};
+
+  :hover {
+    transition: background-color 0.7s all;
+    background: var(--gray-200);
+    border: solid 2px var(--gray-700);
+    color: var(--gray-700);
+  }
+`;

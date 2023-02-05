@@ -2,8 +2,8 @@ import { TransactionCreateProps } from '../types/Transaction';
 import HttpClient from './HttpClient';
 
 class TransactionsService {
-  async list() {
-    return HttpClient.get('/transactions');
+  async list(page: number) {
+    return HttpClient.get(`/transactions/?page=${page}`);
   }
 
   async create(transaction: TransactionCreateProps) {
