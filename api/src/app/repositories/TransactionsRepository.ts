@@ -9,8 +9,12 @@ interface TransactionProps {
 }
 
 class TransactionsRepository {
-  findAll() {
-    return Transaction.find().populate('modality').sort({ createdAt: -1 });
+  findAll(id: string) {
+    return Transaction.find()
+      .where('user')
+      .equals(id)
+      .populate('modality')
+      .sort({ createdAt: -1 });
   }
 
   create(

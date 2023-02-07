@@ -7,8 +7,10 @@ class TransactionController {
     const itemsPerPage = 15;
     const { page } = req.query;
 
+    const id = req.user.id;
+
     try {
-      const transactions = await TransactionsRepository.findAll();
+      const transactions = await TransactionsRepository.findAll(id);
 
       const total = transactions.length;
 
