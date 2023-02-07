@@ -1,6 +1,9 @@
 import { TransactionCreateProps } from '../types/Transaction';
+import { User } from '../types/User';
 import delay from '../utils/delay';
 import { api } from './api';
+
+type dataRequestProps = TransactionCreateProps | User;
 
 class HttpClient {
   async get(path: string) {
@@ -19,7 +22,7 @@ class HttpClient {
     return response;
   }
 
-  async post(path: string, data: TransactionCreateProps) {
+  async post(path: string, data: dataRequestProps) {
     const response = await api.post(path, data);
 
     await delay();

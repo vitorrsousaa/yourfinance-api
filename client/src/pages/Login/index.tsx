@@ -2,6 +2,7 @@ import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/Button';
 import Input from '../../components/Input';
+import Loader from '../../components/Loader';
 import Logo from '../../components/Logo';
 import { useAuthContext } from '../../context/AuthContext';
 import useErrors from '../../hooks/useErrors';
@@ -14,9 +15,17 @@ const Login = () => {
   const { errors, getErrorMessageByFieldName, removeError, setError } =
     useErrors();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
   const { handleLogin, authenticated } = useAuthContext();
   const isFormValid = password && email && errors.length === 0;
+
+  useEffect(() => {
+    if (authenticated) {
+      navigate('/home');
+    }
+  }, [authenticated]);
 
   function handleEmailChange(event: BaseSyntheticEvent) {
     setEmail(event.target.value);
@@ -39,6 +48,7 @@ const Login = () => {
   }
 
   async function handleSubmit(event: React.BaseSyntheticEvent) {
+    setIsLoading(true);
     event.preventDefault();
 
     const user = { email, password };
@@ -49,16 +59,13 @@ const Login = () => {
       setPassword('');
       setError({ field: 'email', message: 'Email ou senha inválido' });
     }
-  }
 
-  useEffect(() => {
-    if (authenticated) {
-      navigate('/home');
-    }
-  }, [authenticated]);
+    setIsLoading(false);
+  }
 
   return (
     <Container>
+      <Loader isLoading={isLoading} />
       <Logo />
       <form onSubmit={handleSubmit}>
         <h1>Faça seu login</h1>

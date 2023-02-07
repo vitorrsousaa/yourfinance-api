@@ -2,6 +2,7 @@ import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/Button';
 import Input from '../../components/Input';
+import Loader from '../../components/Loader';
 import Logo from '../../components/Logo';
 import { useAuthContext } from '../../context/AuthContext';
 import useErrors from '../../hooks/useErrors';
@@ -13,6 +14,7 @@ const SignUp = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { errors, getErrorMessageByFieldName, removeError, setError } =
     useErrors();
 
@@ -65,6 +67,7 @@ const SignUp = () => {
   }
 
   async function handleSubmit(event: React.BaseSyntheticEvent) {
+    setIsLoading(true);
     event.preventDefault();
 
     if (password !== passwordConfirmation) {
@@ -85,6 +88,8 @@ const SignUp = () => {
       setPasswordConfirmation('');
       setError({ field: 'email', message: 'Esse email já foi cadastrado' });
     }
+
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -95,6 +100,7 @@ const SignUp = () => {
 
   return (
     <Container>
+      <Loader isLoading={isLoading} />
       <Logo />
       <form onSubmit={handleSubmit}>
         <h1>Registre-se agora</h1>
