@@ -31,32 +31,32 @@ Tecnologias e ferramentas utilizadas no desenvolvimento do projeto:
 
 #### **Website** ( [ReactJS](https://reactjs.org/) + [TypeScript](https://www.typescriptlang.org/) )
 
--  [React Router Dom](https://reactrouter.com/)
--  [Axios](https://github.com/axios/axios)
--  [StyledComponents](https://styled-components.com/)
--  [React Toastify](https://www.npmjs.com/package/react-toastify)
+- [React Router Dom](https://reactrouter.com/)
+- [Axios](https://github.com/axios/axios)
+- [StyledComponents](https://styled-components.com/)
+- [React Toastify](https://www.npmjs.com/package/react-toastify)
 
 #### **Mobile** ( [React Native](https://reactnative.dev/) + [TypeScript](https://www.typescriptlang.org/) )
 
--  [Expo](https://expo.dev/)
--  [Axios](https://github.com/axios/axios)
--  [StyledComponents](https://styled-components.com/)
+- [Expo](https://expo.dev/)
+- [Axios](https://github.com/axios/axios)
+- [StyledComponents](https://styled-components.com/)
 
 #### **API** ( [NodeJS](https://nodejs.org/en/) + [TypeScript](https://www.typescriptlang.org/) )
 
--  [Express](https://expressjs.com/pt-br/)
--  [bcryptjs](https://www.npmjs.com/package/bcryptjs)
--  [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
--  [MongoDB Atlas](https://www.mongodb.com/atlas/database)
--  [Mongoose](https://mongoosejs.com/)
+- [Express](https://expressjs.com/pt-br/)
+- [bcryptjs](https://www.npmjs.com/package/bcryptjs)
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+- [MongoDB Atlas](https://www.mongodb.com/atlas/database)
+- [Mongoose](https://mongoosejs.com/)
 
 #### **Utilitários**
 
--  Protótipo: **[Figma](https://www.figma.com/)** → **[Protótipo (EasyFinance)](https://www.figma.com/file/OhR4sfXRpR2eO20o4T7mr9/EasyFinance)**
--  Editor: **[Visual Studio Code](https://code.visualstudio.com/)** → Extensions: **[Prettier](https://prettier.io/)** + **[EditorConfig](https://editorconfig.org/)**
--  Fontes: **[Manrope](https://fonts.google.com/specimen/Manrope)**
--  Versionamento: **[Git](https://git-scm.com)**
--  Padronização de código: **[ESLint](https://eslint.org/)**
+- Protótipo: **[Figma](https://www.figma.com/)** → **[Protótipo (EasyFinance)](https://www.figma.com/file/OhR4sfXRpR2eO20o4T7mr9/EasyFinance)**
+- Editor: **[Visual Studio Code](https://code.visualstudio.com/)** → Extensions: **[Prettier](https://prettier.io/)** + **[EditorConfig](https://editorconfig.org/)**
+- Fontes: **[Manrope](https://fonts.google.com/specimen/Manrope)**
+- Versionamento: **[Git](https://git-scm.com)**
+- Padronização de código: **[ESLint](https://eslint.org/)**
 
 ## 🎨 Layout
 
@@ -74,16 +74,18 @@ Features que estão sendo adicionadas na aplicação
 
 **Front-end Web**
 
--  [ ] Estilizar o componente Header
--  [ ] Alterar o armazenamento do token JWT do localStorage para os cookies
+- [ ] Alterar a páginação conforme atualização das transactions
+- [x] Verificar porque a data de criação esta diminuindo
+- [ ] Adicionar ModalDanger for to delete transaction
+- [ ] Alterar o armazenamento do token JWT do localStorage para os cookies
 
 **Front-end Mobile**
 
--  [ ]
+- [ ]
 
 **Back-end**
 
--  [ ] Criar um error handler
+- [ ] Criar um error handler
 
 ## 🛠 Estrutura de pastas e componentes
 
@@ -203,13 +205,13 @@ yarn start
 
 Caso queira contribuir, seja corrigindo bugs, adicionando comentários ou novas features, você pode seguir o seguinte tutorial:
 
--  Faça um **[fork](https://help.github.com/pt/github/getting-started-with-github/fork-a-repo)** desse repositório
--  **[Clone](https://help.github.com/pt/github/creating-cloning-and-archiving-repositories/cloning-a-repository)** o repositório que você fez o fork em seu computador
--  Crie uma branch com a sua feature: `git checkout -b minha-alteracao`
--  Envie suas alterações para a _staging area_: `git add .`
--  Faça um commit contando o que você fez: `git commit -m "feat: minha nova alteracao!"`
--  Faça um push para a sua branch: `git push origin minha-alteracao`
--  Agora é só abrir uma _pull request!_
+- Faça um **[fork](https://help.github.com/pt/github/getting-started-with-github/fork-a-repo)** desse repositório
+- **[Clone](https://help.github.com/pt/github/creating-cloning-and-archiving-repositories/cloning-a-repository)** o repositório que você fez o fork em seu computador
+- Crie uma branch com a sua feature: `git checkout -b minha-alteracao`
+- Envie suas alterações para a _staging area_: `git add .`
+- Faça um commit contando o que você fez: `git commit -m "feat: minha nova alteracao!"`
+- Faça um push para a sua branch: `git push origin minha-alteracao`
+- Agora é só abrir uma _pull request!_
 
 _Caso tenha alguma dúvida, confira este [guia de como contribuir no GitHub](https://github.com/firstcontributions/first-contributions/blob/master/translations/README.pt_br.md) :)_
 

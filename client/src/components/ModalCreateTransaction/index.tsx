@@ -1,4 +1,5 @@
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import useErrors from '../../hooks/useErrors';
 import ModalitiesService from '../../services/ModalitiesService';
 import TransactionsService from '../../services/TransactionsService';
@@ -6,6 +7,7 @@ import TransactionsService from '../../services/TransactionsService';
 import { Button } from '../Button';
 import Input from '../Input';
 import Modal from '../Modal';
+
 import { ContainerModality, ContainerModal } from './styles';
 
 interface ModalCreateTransactionProps {
@@ -99,6 +101,8 @@ const ModalCreateTransaction = ({
   function handleChangeDate(event: BaseSyntheticEvent) {
     setCreatedAt(event.target.value);
 
+    console.log(typeof event.target.value);
+
     if (!event.target.value) {
       setError({ field: 'date', message: 'Data é obrigatória' });
     } else if (new Date(event.target.value) > new Date()) {
@@ -128,6 +132,7 @@ const ModalCreateTransaction = ({
     console.log('handleSubmit - ModalCreateTransaction', data);
 
     handleCloseModal();
+    toast.success('Transação adicionada');
     setIsLoading(false);
   }
 

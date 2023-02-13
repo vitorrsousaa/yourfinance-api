@@ -17,6 +17,10 @@ class TransactionsRepository {
       .sort({ createdAt: -1 });
   }
 
+  findById(id: string) {
+    return Transaction.findById(id).populate('modality');
+  }
+
   create(
     description: string,
     category: string,

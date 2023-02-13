@@ -16,6 +16,7 @@ function PrivateRoute({ children }: PrivateRouteProps) {
   if (loading) {
     return <h1>Loading ...</h1>;
   }
+  console.log(authenticated);
 
   if (!authenticated) {
     return <Navigate to="/" />;

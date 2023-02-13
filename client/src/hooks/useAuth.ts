@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { api } from '../services/api';
 import { User } from '../types/User';
+import delay from '../utils/delay';
 
 export default function useAuth() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -9,15 +10,21 @@ export default function useAuth() {
   const [user, setUser] = useState<User>({});
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    api
+      .get('/auth')
+      .then(() => {
+        const token = localStorage.getItem('token');
 
-    if (token) {
-      api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
-      setAuthenticated(true);
-    }
-
-    setLoading(false);
-  });
+        if (token) {
+          api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
+          setAuthenticated(true);
+        }
+      })
+      .catch(() => {
+        setAuthenticated(false);
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   async function handleLogin(user: User) {
     const route = user.name ? 'auth/register' : 'auth/authenticate';

@@ -7,8 +7,6 @@ interface PayloadProps {
   id: string;
 }
 
-// SEPARAR O ERRO DO MIDDLEWARE PARA OUTRO HANDLER
-
 export default function authValidate(
   req: Request,
   res: Response,
