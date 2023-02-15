@@ -72,6 +72,18 @@ Features que estão sendo adicionadas na aplicação
 
 **Coisas para fazer**
 
+- [ ] Adicionar no readme a aba de MVP e new Features
+- [ ] Atualizar o componente Button
+- [ ] Converter o readme para inglês
+- [ ] Adicionar no readme uma aba para tasks no modelo kanban
+- [ ] Criar o fluxo para alteração de senha
+- [ ] Refatorar os componentes para o Model MVVM
+- index - Importa o componente e a tipagem, para exportar tudo de um único lugar
+- component.styles.ts - Responsável por armazenar a estilização do componente
+- component.tsx - Importa a View do componente, exporta o componente com o react.memo, une a interação com o usuário e a regra de negócio
+- componente.view.tsx - Cria o componente e adiciona toda a lógica de interação com o usuário
+- componente.view-model.ts - Cria uma classe que armazena a regra de negócio do componente
+
 **Front-end Web**
 
 - [ ] Alterar a páginação conforme atualização das transactions

@@ -101,8 +101,6 @@ const ModalCreateTransaction = ({
   function handleChangeDate(event: BaseSyntheticEvent) {
     setCreatedAt(event.target.value);
 
-    console.log(typeof event.target.value);
-
     if (!event.target.value) {
       setError({ field: 'date', message: 'Data é obrigatória' });
     } else if (new Date(event.target.value) > new Date()) {

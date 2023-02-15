@@ -121,24 +121,24 @@ export const Pagination = styled.div`
 `;
 
 interface PaginationItemProps {
-  isSelected: boolean;
+  isNotSelected: boolean;
 }
 
 export const PaginationItem = styled.button<PaginationItemProps>`
-  background: ${({ isSelected }) =>
-    !isSelected ? 'var(--blue-900)' : 'transparent'};
+  background: ${({ isNotSelected }) =>
+    !isNotSelected ? 'var(--blue-900)' : 'transparent'};
   border-radius: 4px;
   border: solid 2px;
-  border-color: ${({ isSelected }) =>
-    !isSelected ? 'var(--blue-900)' : 'var(--gray-700)'};
+  border-color: ${({ isNotSelected }) =>
+    !isNotSelected ? 'var(--blue-900)' : 'var(--gray-700)'};
 
   width: 1.5rem;
   height: 1.5rem;
 
   font-size: 0.75rem;
   font-weight: 600;
-  color: ${({ isSelected }) =>
-    !isSelected ? 'var(--white-100)' : 'var(--gray-700)'};
+  color: ${({ isNotSelected }) =>
+    !isNotSelected ? 'var(--white-100)' : 'var(--gray-700)'};
 
   :hover {
     transition: background-color 0.7s all;

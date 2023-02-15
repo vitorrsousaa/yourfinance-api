@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 import { api } from '../services/api';
 import { User } from '../types/User';
-import delay from '../utils/delay';
 
 export default function useAuth() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -10,20 +9,29 @@ export default function useAuth() {
   const [user, setUser] = useState<User>({});
 
   useEffect(() => {
-    api
-      .get('/auth')
-      .then(() => {
-        const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
-        if (token) {
-          api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
-          setAuthenticated(true);
-        }
-      })
-      .catch(() => {
-        setAuthenticated(false);
-      })
-      .finally(() => setLoading(false));
+    if (token) {
+      api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
+      setAuthenticated(true);
+    }
+
+    setLoading(false);
+    // api
+    //   .get('/auth')
+    //   .then(() => {
+    //     const token = localStorage.getItem('token');
+
+    //     if (token) {
+    //       api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
+    //       setAuthenticated(true);
+    //     }
+    //   })
+    //   .catch(() => {
+    //     console.log('erro');
+    //     setAuthenticated(false);
+    //   })
+    //   .finally(() => setLoading(false));
   }, []);
 
   async function handleLogin(user: User) {

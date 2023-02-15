@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import { Routes as RoutesProvider, Route, Navigate } from 'react-router-dom';
+import Loader from './components/Loader';
 import { useAuthContext } from './context/AuthContext';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -14,9 +15,8 @@ function PrivateRoute({ children }: PrivateRouteProps) {
   const { authenticated, loading } = useAuthContext();
 
   if (loading) {
-    return <h1>Loading ...</h1>;
+    return <Loader isLoading={loading} />;
   }
-  console.log(authenticated);
 
   if (!authenticated) {
     return <Navigate to="/" />;

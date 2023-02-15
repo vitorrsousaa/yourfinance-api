@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import TransactionsService from '../../services/TransactionsService';
 import { Transaction, TransactionsData } from '../../types/Transaction';
+import { itemsPerPage, siblingsCounts } from '../../constants/pagination';
 import { toast } from 'react-toastify';
 
 import formatAmount from '../../utils/formatAmount';
@@ -21,7 +22,6 @@ import {
   PaginationItem,
   TableTransactions,
 } from './styles';
-import { itemsPerPage, siblingsCounts } from '../../constants/pagination';
 
 function generatePagesArray(from: number, to: number) {
   return [...new Array(to - from)]
@@ -58,13 +58,13 @@ const Transactions = () => {
 
   const lastPage = useMemo(
     () => Math.ceil(totalItems / itemsPerPage),
-    [transactions]
+    [transactions, page]
   );
 
   const previousPages = useMemo(
     () =>
       page > 1 ? generatePagesArray(page - 1 - siblingsCounts, page - 1) : [],
-    [transactions]
+    [transactions, page]
   );
 
   const nextPages = useMemo(
@@ -72,7 +72,7 @@ const Transactions = () => {
       page < lastPage
         ? generatePagesArray(page, Math.min(page + siblingsCounts, lastPage))
         : [],
-    [transactions]
+    [transactions, page]
   );
 
   function getDates() {
@@ -213,7 +213,7 @@ const Transactions = () => {
                     {page >= 1 + siblingsCounts && (
                       <>
                         <PaginationItem
-                          isSelected={true}
+                          isNotSelected={true}
                           onClick={() => handlePageChange(1)}
                         >
                           1
@@ -228,7 +228,7 @@ const Transactions = () => {
                           <PaginationItem
                             key={page}
                             onClick={() => handlePageChange(page)}
-                            isSelected
+                            isNotSelected
                           >
                             {page}
                           </PaginationItem>
@@ -236,7 +236,7 @@ const Transactions = () => {
                       })}
 
                     <PaginationItem
-                      isSelected={false}
+                      isNotSelected={false}
                       onClick={() => handlePageChange(page)}
                     >
                       {page}
@@ -246,7 +246,7 @@ const Transactions = () => {
                       nextPages.map((page) => {
                         return (
                           <PaginationItem
-                            isSelected
+                            isNotSelected
                             key={page}
                             onClick={() => handlePageChange(page)}
                           >
@@ -261,7 +261,7 @@ const Transactions = () => {
                           <strong>...</strong>
                         )}
                         <PaginationItem
-                          isSelected
+                          isNotSelected
                           onClick={() => handlePageChange(lastPage)}
                         >
                           {lastPage}
