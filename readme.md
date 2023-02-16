@@ -77,6 +77,7 @@ Features que estão sendo adicionadas na aplicação
 - [ ] Converter o readme para inglês
 - [ ] Adicionar no readme uma aba para tasks no modelo kanban
 - [ ] Criar o fluxo para alteração de senha
+
 - [ ] Refatorar os componentes para o Model MVVM
 - index - Importa o componente e a tipagem, para exportar tudo de um único lugar
 - component.styles.ts - Responsável por armazenar a estilização do componente
