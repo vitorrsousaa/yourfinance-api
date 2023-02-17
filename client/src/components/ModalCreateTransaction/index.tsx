@@ -4,7 +4,7 @@ import useErrors from '../../hooks/useErrors';
 import ModalitiesService from '../../services/ModalitiesService';
 import TransactionsService from '../../services/TransactionsService';
 
-import { Button } from '../Button';
+import Button from '../Button';
 import Input from '../Input';
 import Modal from '../Modal';
 

@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import formatAmount from '../../utils/formatAmount';
 import formatDate from '../../utils/formatDate';
 
-import { Button } from '../../components/Button';
+import Button from '../../components/Button';
 import Header from '../../components/Header';
 import Loader from '../../components/Loader';
 import ModalCreateTransaction from '../../components/ModalCreateTransaction';
