@@ -13,15 +13,34 @@ import { Transaction, TransactionsData } from '../../types/Transaction';
 import TransactionsService from '../../services/TransactionsService';
 import Loader from '../../components/Loader';
 import formatAmount from '../../utils/formatAmount';
-import { Cell, Pie, PieChart } from 'recharts';
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  Cell,
+  Pie,
+  PieChart,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 import { Modality } from '../../types/Modality';
 import ModalitiesService from '../../services/ModalitiesService';
 import Ballon from '../../components/Ballon';
+import transactionsMock from '../../mocks/transactions';
 
 type biggestModality = [
   {
     modality: string;
     amount: number;
+  }
+];
+
+type amountByMonth = [
+  {
+    date: string;
+    deposits: number;
+    expenses: number;
   }
 ];
 
@@ -93,7 +112,69 @@ const Home = () => {
     .sort((a, b) => (a.amount > b.amount ? -1 : 1))
     .slice(0, 5);
 
-  console.log(modalities);
+  const getAmountByMonth = transactions
+    .map((transaction) => {
+      const date = new Date(transaction.createdAt);
+
+      const newDate = new Date(date.getFullYear(), date.getMonth(), 1);
+
+      return {
+        ...transaction,
+        createdAt: newDate.toString(),
+      };
+    })
+    .reduce<amountByMonth>(
+      (acc: amountByMonth, transaction) => {
+        const { amount, category, createdAt } = transaction;
+
+        const dataExists = acc.find((item) => item.date === createdAt);
+
+        if (dataExists) {
+          if (category === 'Despesas') {
+            dataExists.expenses += amount;
+          } else {
+            dataExists.deposits += amount;
+          }
+        } else {
+          if (category === 'Despesas') {
+            acc.push({ date: createdAt, expenses: amount, deposits: 0 });
+          } else {
+            acc.push({ date: createdAt, expenses: 0, deposits: amount });
+          }
+        }
+
+        return acc;
+      },
+      [
+        {
+          date: '',
+          deposits: 0,
+          expenses: 0,
+        },
+      ]
+    )
+    .filter((amount) => amount.date !== '')
+    .map((amount) => {
+      const { date, deposits, expenses } = amount;
+
+      const dateInDate = new Date(amount.date);
+
+      const formatedDate = new Intl.DateTimeFormat('pt-br', {
+        month: 'short',
+        year: 'numeric',
+      }).format(dateInDate);
+
+      console.log(formatedDate);
+
+      return {
+        date: formatedDate,
+        deposits,
+        expenses,
+      };
+    })
+    .sort((a, b) => (a.date > b.date ? -1 : 1));
+
+  console.log(getAmountByMonth);
 
   return (
     <Container>
@@ -128,6 +209,46 @@ const Home = () => {
             </div>
           </div>
         </Summary>
+
+        <section>
+          <header>
+            <h1>Fluxo Financeiro</h1>
+            <button>
+              <small>Últimos 6 meses</small>
+              <img src={Arrow} alt="Arrow" />
+            </button>
+          </header>
+          <AreaChart width={730} height={300} data={getAmountByMonth}>
+            <defs>
+              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+              </linearGradient>
+              <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <XAxis dataKey="date" />
+            <YAxis />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Tooltip />
+            <Area
+              type="monotone"
+              dataKey="expenses"
+              stroke="#8884d8"
+              fillOpacity={1}
+              fill="url(#colorUv)"
+            />
+            <Area
+              type="monotone"
+              dataKey="deposits"
+              stroke="#82ca9d"
+              fillOpacity={1}
+              fill="url(#colorPv)"
+            />
+          </AreaChart>
+        </section>
 
         <div className="containerSections">
           <section>
@@ -180,7 +301,9 @@ const Home = () => {
                   );
 
                   return (
-                    <BiggestModalityContainer key={modalityExist?._id}>
+                    <BiggestModalityContainer
+                      key={`modality-${modalityExist?._id}`}
+                    >
                       <Ballon>{modalityExist?.icon}</Ballon>
                       <h6>{modalityExist?.name}</h6>
                     </BiggestModalityContainer>

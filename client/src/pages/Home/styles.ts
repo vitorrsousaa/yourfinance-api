@@ -37,12 +37,6 @@ export const Content = styled.section`
       font-weight: 700;
       font-size: 32px;
     }
-  }
-
-  .containerSections {
-    display: flex;
-    align-items: flex-start;
-    gap: 2rem;
 
     header {
       display: flex;
@@ -62,6 +56,12 @@ export const Content = styled.section`
         }
       }
     }
+  }
+
+  .containerSections {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
   }
 `;
 
