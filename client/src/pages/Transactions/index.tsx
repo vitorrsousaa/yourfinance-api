@@ -43,14 +43,17 @@ const Transactions = () => {
     setIsLoading(true);
 
     async function loadTransactions() {
-      const dataTransactions: TransactionsData = await TransactionsService.list(
-        page
-      );
+      try {
+        const dataTransactions: TransactionsData =
+          await TransactionsService.list(page);
 
-      setTransactions(dataTransactions.transactions);
-      setTotalItems(dataTransactions.totalItems);
-
-      setIsLoading(false);
+        setTransactions(dataTransactions.transactions);
+        setTotalItems(dataTransactions.totalItems);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
     }
 
     loadTransactions();

@@ -87,3 +87,13 @@ export const Summary = styled.section`
     }
   }
 `;
+
+export const BiggestModalityContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  & + & {
+    margin-top: 1rem;
+  }
+`;
