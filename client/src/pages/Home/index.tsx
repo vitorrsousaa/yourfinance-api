@@ -20,6 +20,7 @@ import {
   Cell,
   Pie,
   PieChart,
+  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
@@ -27,7 +28,7 @@ import {
 import { Modality } from '../../types/Modality';
 import ModalitiesService from '../../services/ModalitiesService';
 import Ballon from '../../components/Ballon';
-import transactionsMock from '../../mocks/transactions';
+import LastTransactions from '../../components/LastTransacions';
 
 type biggestModality = [
   {
@@ -70,24 +71,30 @@ const Home = () => {
     loadTransactions();
   }, []);
 
-  const summary = transactions.reduce(
-    (acc, transaction) => {
-      if (transaction.category === 'Receitas') {
-        acc.deposits += transaction.amount;
-      } else {
-        acc.expenses += transaction.amount;
+  function getSummary(transactions: Transaction[]) {
+    const summary = transactions.reduce(
+      (acc, transaction) => {
+        if (transaction.category === 'Receitas') {
+          acc.deposits += transaction.amount;
+        } else {
+          acc.expenses += transaction.amount;
+        }
+
+        return acc;
+      },
+      {
+        deposits: 0,
+        expenses: 0,
       }
+    );
 
-      return acc;
-    },
-    {
-      deposits: 0,
-      expenses: 0,
-    }
-  );
+    return summary;
+  }
 
-  const biggestExpensesByModality = transactions
-    .reduce<biggestModality>(
+  const summary = getSummary(transactions);
+
+  function getExpensesByModality(transactions: Transaction[]) {
+    const addingExpenses = transactions.reduce<biggestModality>(
       (acc: biggestModality, transaction) => {
         const { modality, amount, category } = transaction;
 
@@ -108,13 +115,26 @@ const Home = () => {
         return acc;
       },
       [{ modality: '', amount: 0 }]
-    )
-    .sort((a, b) => (a.amount > b.amount ? -1 : 1))
-    .slice(0, 5);
+    );
 
-  const getAmountByMonth = transactions
-    .map((transaction) => {
-      const date = new Date(transaction.createdAt);
+    const ordenedBiggestExpenses = addingExpenses.sort((a, b) =>
+      a.amount > b.amount ? -1 : 1
+    );
+
+    const biggestExpensesByModality = ordenedBiggestExpenses.slice(0, 5);
+
+    return biggestExpensesByModality;
+  }
+
+  const biggestExpensesByModality = getExpensesByModality(transactions);
+
+  function getAmountByMonth(transactions: Transaction[]) {
+    const convertDate = transactions.map((transaction) => {
+      const previousDate = new Date(transaction.createdAt);
+      const timezoneOffset = previousDate.getTimezoneOffset() * 60 * 1000;
+      const localDate = new Date(previousDate.getTime() + timezoneOffset);
+
+      const date = new Date(localDate);
 
       const newDate = new Date(date.getFullYear(), date.getMonth(), 1);
 
@@ -122,8 +142,9 @@ const Home = () => {
         ...transaction,
         createdAt: newDate.toString(),
       };
-    })
-    .reduce<amountByMonth>(
+    });
+
+    const addingAmounts = convertDate.reduce<amountByMonth>(
       (acc: amountByMonth, transaction) => {
         const { amount, category, createdAt } = transaction;
 
@@ -152,29 +173,35 @@ const Home = () => {
           expenses: 0,
         },
       ]
-    )
-    .filter((amount) => amount.date !== '')
-    .map((amount) => {
+    );
+
+    const removeDateNull = addingAmounts.filter((amount) => amount.date !== '');
+
+    const formatedAmounts = removeDateNull.map((amount) => {
       const { date, deposits, expenses } = amount;
 
-      const dateInDate = new Date(amount.date);
+      const dateInDate = new Date(date);
 
       const formatedDate = new Intl.DateTimeFormat('pt-br', {
         month: 'short',
         year: 'numeric',
       }).format(dateInDate);
 
-      console.log(formatedDate);
-
       return {
         date: formatedDate,
-        deposits,
-        expenses,
+        receita: deposits,
+        despesa: expenses,
       };
-    })
-    .sort((a, b) => (a.date > b.date ? -1 : 1));
+    });
 
-  console.log(getAmountByMonth);
+    const ordenedAmounts = formatedAmounts.sort((a, b) =>
+      a.date > b.date ? -1 : 1
+    );
+
+    return ordenedAmounts;
+  }
+
+  const amountByMonth = getAmountByMonth(transactions);
 
   return (
     <Container>
@@ -218,36 +245,46 @@ const Home = () => {
               <img src={Arrow} alt="Arrow" />
             </button>
           </header>
-          <AreaChart width={730} height={300} data={getAmountByMonth}>
-            <defs>
-              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-              </linearGradient>
-              <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <XAxis dataKey="date" />
-            <YAxis />
-            <CartesianGrid strokeDasharray="3 3" />
-            <Tooltip />
-            <Area
-              type="monotone"
-              dataKey="expenses"
-              stroke="#8884d8"
-              fillOpacity={1}
-              fill="url(#colorUv)"
-            />
-            <Area
-              type="monotone"
-              dataKey="deposits"
-              stroke="#82ca9d"
-              fillOpacity={1}
-              fill="url(#colorPv)"
-            />
-          </AreaChart>
+          <ResponsiveContainer width="100%" height={300}>
+            <AreaChart data={amountByMonth}>
+              <defs>
+                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <XAxis dataKey="date" fontSize="12px" />
+              <YAxis
+                tickFormatter={(value) =>
+                  `R$ ${value.toLocaleString('pt-BR', {
+                    minimumFractionDigits: 2,
+                  })}`
+                }
+                fontSize="10px"
+              />
+              <CartesianGrid strokeDasharray="3 3" />
+
+              <Area
+                type="monotone"
+                dataKey="receita"
+                stroke="#8884d8"
+                fillOpacity={1}
+                fill="url(#colorUv)"
+              />
+              <Area
+                type="monotone"
+                dataKey="despesa"
+                stroke="#82ca9d"
+                fillOpacity={1}
+                fill="url(#colorPv)"
+              />
+              <Tooltip formatter={(value: any) => formatAmount(value)} />
+            </AreaChart>
+          </ResponsiveContainer>
         </section>
 
         <div className="containerSections">
@@ -259,6 +296,16 @@ const Home = () => {
                 <img src={Arrow} alt="Arrow" />
               </button>
             </header>
+            {transactions.slice(0, 3).map((transaction) => (
+              <LastTransactions
+                key={transaction._id}
+                category={transaction.category}
+                icon={transaction.modality.icon}
+                description={transaction.description}
+                createdAt={transaction.createdAt}
+                amount={transaction.amount}
+              />
+            ))}
           </section>
 
           <section>
@@ -277,7 +324,7 @@ const Home = () => {
                 justifyContent: 'space-between',
               }}
             >
-              <PieChart width={360} height={300}>
+              <PieChart width={360} height={292}>
                 <Pie
                   data={biggestExpensesByModality}
                   dataKey="amount"
