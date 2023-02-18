@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-interface ContainerProps {
+export interface BaseLoaderProps {
   size?: string;
 }
 
@@ -13,7 +13,7 @@ export const Overlay = styled.div`
   background: rgba(246, 245, 252, 0.85);
 `;
 
-export const Container = styled.div<ContainerProps>`
+export const BaseLoader = styled.div<BaseLoaderProps>`
   display: flex;
   align-items: center;
   justify-content: center;

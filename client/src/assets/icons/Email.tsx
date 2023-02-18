@@ -1,8 +1,4 @@
-interface EmailProps {
-  color?: string;
-}
-
-export function Email({ color }: EmailProps) {
+export default function Email() {
   return (
     <svg
       width="20"
@@ -13,14 +9,14 @@ export function Email({ color }: EmailProps) {
     >
       <path
         d="M3.6 3.50818H16.4C17.28 3.50818 18 4.18858 18 5.02018V14.0922C18 14.9238 17.28 15.6042 16.4 15.6042H3.6C2.72 15.6042 2 14.9238 2 14.0922V5.02018C2 4.18858 2.72 3.50818 3.6 3.50818Z"
-        stroke={color ? color : '#2d2d2d'}
+        stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M18 5.59631L10 10.6363L2 5.59631"
-        stroke={color ? color : '#2d2d2d'}
+        stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"

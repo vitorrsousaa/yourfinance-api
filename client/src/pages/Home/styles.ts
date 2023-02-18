@@ -37,12 +37,6 @@ export const Content = styled.section`
       font-weight: 700;
       font-size: 32px;
     }
-  }
-
-  .containerSections {
-    display: flex;
-    align-items: flex-start;
-    gap: 2rem;
 
     header {
       display: flex;
@@ -62,6 +56,12 @@ export const Content = styled.section`
         }
       }
     }
+  }
+
+  .containerSections {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
   }
 `;
 
@@ -85,5 +85,15 @@ export const Summary = styled.section`
       border-left: solid 2px var(--gray-700);
       padding-left: 1rem;
     }
+  }
+`;
+
+export const BiggestModalityContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  & + & {
+    margin-top: 0.5rem;
   }
 `;

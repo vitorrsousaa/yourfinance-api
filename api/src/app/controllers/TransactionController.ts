@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import TransactionsRepository from '../repositories/TransactionsRepository';
+import { itemsPerPage } from '../../constants/pagination';
 
 class TransactionController {
   async index(req: Request, res: Response) {
     // Listar todos os registros
-    const itemsPerPage = 15;
     const { page } = req.query;
 
     const id = req.user.id;

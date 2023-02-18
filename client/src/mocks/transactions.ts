@@ -1,0 +1,86 @@
+import { Transaction } from '../types/Transaction';
+
+const transactionsMock: Transaction[] = [
+  {
+    _id: 'string',
+    __v: 0,
+    user: 'string',
+    modality: {
+      _id: 'string',
+      name: 'string',
+      icon: 'string',
+      __v: 0,
+    },
+    description: 'string',
+    amount: 100,
+    category: 'Despesas',
+    type: 'Fixo',
+    createdAt: '2023-02-12T00:00:00.000Z',
+  },
+  {
+    _id: 'string',
+    __v: 0,
+    user: 'string',
+    modality: {
+      _id: 'string',
+      name: 'string',
+      icon: 'string',
+      __v: 0,
+    },
+    description: 'string',
+    amount: 200,
+    category: 'Receitas',
+    type: 'Fixo',
+    createdAt: '2023-02-12T00:00:00.000Z',
+  },
+  {
+    _id: 'string',
+    __v: 0,
+    user: 'string',
+    modality: {
+      _id: 'string',
+      name: 'string',
+      icon: 'string',
+      __v: 0,
+    },
+    description: 'string',
+    amount: 500,
+    category: 'Receitas',
+    type: 'Fixo',
+    createdAt: '2023-01-12T00:00:00.000Z',
+  },
+  {
+    _id: 'string',
+    __v: 0,
+    user: 'string',
+    modality: {
+      _id: 'string',
+      name: 'string',
+      icon: 'string',
+      __v: 0,
+    },
+    description: 'string',
+    amount: 100,
+    category: 'Despesas',
+    type: 'Fixo',
+    createdAt: '2023-01-12T00:00:00.000Z',
+  },
+  {
+    _id: 'string',
+    __v: 0,
+    user: 'string',
+    modality: {
+      _id: 'string',
+      name: 'string',
+      icon: 'string',
+      __v: 0,
+    },
+    description: 'string',
+    amount: 100,
+    category: 'Despesas',
+    type: 'Fixo',
+    createdAt: '2023-01-12T00:00:00.000Z',
+  },
+];
+
+export default transactionsMock;
