@@ -1,9 +1,3 @@
-import { BallonStyles } from './styles';
+import Ballon from './Ballon';
 
-interface BallonProps {
-  children: string | undefined;
-}
-
-export default function Ballon({ children }: BallonProps) {
-  return <BallonStyles>{children}</BallonStyles>;
-}
+export default Ballon;

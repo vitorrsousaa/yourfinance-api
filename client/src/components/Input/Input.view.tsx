@@ -1,4 +1,4 @@
-import { InputBase } from './Input.styles';
+import { InputBase, InputBaseProps } from './Input.styles';
 
 import Description from '../../assets/icons/Description';
 import Email from '../../assets/icons/Email';
@@ -16,8 +16,7 @@ type categories =
   | 'value'
   | 'description';
 
-export interface InputViewProps {
-  error?: string;
+export interface InputViewProps extends Pick<InputBaseProps, 'error'> {
   category: categories;
 }
 
@@ -44,7 +43,7 @@ function InputView({ error, category, ...props }: InputViewProps) {
   }
 
   return (
-    <InputBase isFocus={isFocus} error={!!error} customTheme={customTheme}>
+    <InputBase isFocus={isFocus} error={error} customTheme={customTheme}>
       <label>
         <input
           type="text"

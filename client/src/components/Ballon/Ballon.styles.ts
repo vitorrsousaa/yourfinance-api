@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const BallonStyles = styled.div`
+export const BaseBallon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;

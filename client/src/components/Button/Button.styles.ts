@@ -1,8 +1,10 @@
 import styled from 'styled-components';
-import { variants } from './Button.view';
+
 import { ButtonThemeProps } from './theme/types';
 
-interface BaseButtonProps {
+export type variants = 'primary' | 'secondary' | 'empty' | 'delete';
+
+export interface BaseButtonProps {
   variant: variants;
   disabled?: boolean;
   customTheme: ButtonThemeProps;

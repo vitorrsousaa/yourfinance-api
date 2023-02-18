@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
 import { InputThemeProps } from './theme/types';
 
-interface InputBaseProps {
+export interface InputBaseProps {
   isFocus: boolean;
-  error: boolean;
+  error?: string;
   customTheme: InputThemeProps;
 }
 
