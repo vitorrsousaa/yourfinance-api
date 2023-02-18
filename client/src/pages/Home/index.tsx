@@ -3,97 +3,55 @@ import { Container, Content, Summary } from './styles';
 import { useAuthContext } from '../../context/AuthContext';
 import Sidebar from '../../components/Sidebar';
 import Header from '../../components/Header';
-import { useState } from 'react';
-import { PaginationItem } from '../Transactions/styles';
-
-const itemsPerPage = 5;
-const totalItems = 50;
-const siblingsCounts = 1;
-
-function generatePagesArray(from: number, to: number) {
-  return [...new Array(to - from)]
-    .map((_, index) => {
-      return from + index + 1;
-    })
-    .filter((page) => page > 0);
-}
+import { useEffect, useState } from 'react';
+import { Transaction, TransactionsData } from '../../types/Transaction';
+import TransactionsService from '../../services/TransactionsService';
+import Loader from '../../components/Loader';
+import formatAmount from '../../utils/formatAmount';
 
 const Home = () => {
   const { user } = useAuthContext();
-  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  const lastPage = Math.ceil(totalItems / itemsPerPage);
+  useEffect(() => {
+    setIsLoading(true);
 
-  const nextPages = page < lastPage ? generatePagesArray(page, lastPage) : [];
+    async function loadTransactions() {
+      const dataTransactions: TransactionsData =
+        await TransactionsService.list();
 
-  const previousPages = page > 1 ? generatePagesArray(0, page - 1) : [];
+      setTransactions(dataTransactions.transactions);
 
-  console.log('next', nextPages);
-  console.log('previous', previousPages);
+      setIsLoading(false);
+    }
 
-  function handlePageChange(page: number) {
-    setPage(page);
-  }
+    loadTransactions();
+  }, []);
+
+  const summary = transactions.reduce(
+    (acc, transaction) => {
+      if (transaction.category === 'Receitas') {
+        acc.income += transaction.amount;
+      } else {
+        acc.outcome += transaction.amount;
+      }
+
+      return acc;
+    },
+    {
+      income: 0,
+      outcome: 0,
+    }
+  );
 
   return (
     <Container>
+      <Loader isLoading={isLoading} />
       <Sidebar />
 
       <Content>
         <Header />
-
-        <div>
-          {/* {previousPages.length > 0 &&
-            previousPages.map((page) => (
-              <PaginationItem
-                isNotSelected
-                key={page}
-                onClick={() => handlePageChange(page)}
-              >
-                {page}
-              </PaginationItem>
-            ))} */}
-          {page - siblingsCounts > 1 && <small>...</small>}
-
-          <PaginationItem
-            isNotSelected={false}
-            onClick={() => handlePageChange(page)}
-          >
-            {page}
-          </PaginationItem>
-
-          {page + siblingsCounts < lastPage && (
-            <>
-              <PaginationItem
-                isNotSelected
-                onClick={() => handlePageChange(page + siblingsCounts)}
-              >
-                {page + siblingsCounts}
-              </PaginationItem>
-              <small>....</small>
-            </>
-          )}
-
-          {page < lastPage && (
-            <PaginationItem
-              isNotSelected
-              onClick={() => handlePageChange(lastPage)}
-            >
-              {lastPage}
-            </PaginationItem>
-          )}
-
-          {/* {nextPages.length > 0 &&
-            nextPages.map((page) => (
-              <PaginationItem
-                isNotSelected
-                key={page}
-                onClick={() => handlePageChange(page)}
-              >
-                {page}
-              </PaginationItem>
-            ))} */}
-        </div>
 
         <main>
           <div>
@@ -101,7 +59,6 @@ const Home = () => {
             <h2>{user.name}</h2>
             <small>Acompanhe todas as suas finanças</small>
           </div>
-          <small>X</small>
         </main>
 
         <Summary>
@@ -109,15 +66,15 @@ const Home = () => {
           <div className="containerSummary">
             <div>
               <h3>Minhas receitas</h3>
-              <strong>R$12.253,70</strong>
+              <strong>
+                {formatAmount(summary.income > 0 ? summary.income : 0)}
+              </strong>
             </div>
             <div>
               <h3>Minhas despesas</h3>
-              <strong>R$12.253,70</strong>
-            </div>
-            <div>
-              <h3>Meus cartões</h3>
-              <strong>R$12.253,70</strong>
+              <strong>
+                {formatAmount(summary.outcome > 0 ? summary.outcome : 0)}
+              </strong>
             </div>
           </div>
         </Summary>
