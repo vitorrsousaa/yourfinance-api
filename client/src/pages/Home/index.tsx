@@ -296,7 +296,7 @@ const Home = () => {
                 <img src={Arrow} alt="Arrow" />
               </button>
             </header>
-            {transactions.slice(0, 3).map((transaction) => (
+            {transactions.slice(0, 4).map((transaction) => (
               <LastTransactions
                 key={transaction._id}
                 category={transaction.category}
@@ -324,7 +324,7 @@ const Home = () => {
                 justifyContent: 'space-between',
               }}
             >
-              <PieChart width={360} height={292}>
+              <PieChart width={360} height={290}>
                 <Pie
                   data={biggestExpensesByModality}
                   dataKey="amount"

@@ -1,5 +1,5 @@
 import { InputHTMLAttributes } from 'react';
-import InputView, { InputViewProps } from './Input.view';
+import { InputViewProps, InputView } from './Input.view';
 
 type Props = InputViewProps & InputHTMLAttributes<HTMLInputElement>;
 

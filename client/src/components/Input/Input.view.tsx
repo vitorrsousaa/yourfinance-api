@@ -29,7 +29,7 @@ const categories = {
   date: '',
 };
 
-function InputView({ error, category, ...props }: InputViewProps) {
+export function InputView({ error, category, ...props }: InputViewProps) {
   const [isFocus, setIsFocus] = useState(false);
 
   const CategorySVG = categories[category];
@@ -56,5 +56,3 @@ function InputView({ error, category, ...props }: InputViewProps) {
     </InputBase>
   );
 }
-
-export default InputView;

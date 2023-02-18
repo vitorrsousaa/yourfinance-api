@@ -15,7 +15,7 @@ export const Overlay = styled.div`
   justify-content: center;
 `;
 
-export const ModalBody = styled.div`
+export const BaseModal = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: auto;

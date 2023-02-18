@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { Transaction } from '../../types/Transaction';
 
-interface LastTransactionsContainer extends Pick<Transaction, 'category'> {}
+interface BaseLastTransaction extends Pick<Transaction, 'category'> {}
 
-export const LastTransactionsContainer = styled.div<LastTransactionsContainer>`
+export const BaseLastTransaction = styled.div<BaseLastTransaction>`
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -46,6 +46,6 @@ export const LastTransactionsContainer = styled.div<LastTransactionsContainer>`
   }
 
   & + & {
-    margin-top: 2rem;
+    margin-top: 0.25rem;
   }
 `;

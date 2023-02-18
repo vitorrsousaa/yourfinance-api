@@ -1,8 +1,6 @@
 import { ButtonHTMLAttributes } from 'react';
 
-import ButtonView, { ButtonViewProps } from './Button.view';
-
-// aqui vou adicionar o theme
+import { ButtonViewProps, ButtonView } from './Button.view';
 
 type Props = ButtonViewProps & ButtonHTMLAttributes<HTMLButtonElement>;
 

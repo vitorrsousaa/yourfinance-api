@@ -1,4 +1,4 @@
-import BallonView, { BallonViewProps } from './Ballon.view';
+import { BallonViewProps, BallonView } from './Ballon.view';
 
 interface BallonProps extends BallonViewProps {}
 

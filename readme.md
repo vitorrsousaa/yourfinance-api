@@ -68,37 +68,32 @@ O layout da aplicação está disponível no Figma:
 
 ## ⚙️ Funcionalidades
 
-Features que estão sendo adicionadas na aplicação
+Para auxiliar o desenvolvimento, as features que serão adicionadas serão agrupadas através de um sistema de Kanban. E todos os itens que são necessários para o MVP do projeto terão prioridade.
 
-**Coisas para fazer**
+## → Features MVP
 
-- [ ] Adicionar no readme a aba de MVP e new Features
-- [ ] Atualizar o componente Button
-- [ ] Converter o readme para inglês
-- [ ] Adicionar no readme uma aba para tasks no modelo kanban
-- [ ] Criar o fluxo para alteração de senha
+**Backlog**
 
-- [ ] Refatorar os componentes para o Model MVVM
-- index - Importa o componente e a tipagem, para exportar tudo de um único lugar
-- component.styles.ts - Responsável por armazenar a estilização do componente
-- component.tsx - Importa a View do componente, exporta o componente com o react.memo, une a interação com o usuário e a regra de negócio
-- componente.view.tsx - Cria o componente e adiciona toda a lógica de interação com o usuário
-- componente.view-model.ts - Cria uma classe que armazena a regra de negócio do componente
+- [ ] Adicionar o modalDanger para deletar a transaction - FrontEnd (MVP)
+- [ ] Entender o que ta acontecendo na autenticação - FrontEnd (MVP)
+- [ ] Alterar o armazenamento do token JWT do localStorage para os cookies - FrontEnd (MVP)
+- [ ] Adicionar a funcionalidade no button de Fluxo Financeiro - Front e Back (MVP)
+- [ ] Adicionar a funcionalidade no button de Últimas transações - Front e Back (MVP)
+- [ ] Adicionar a funcionalidade no button de Maiores Despesas - Front e Back (MVP)
+- [ ] Criar fluxo de alteração de senha - Backend
+- [ ] Realizar integração com API externa para verificação do usuário - FrontEnd
+- [ ] Adicionar paginação na página de transactions - FrontEnd
+- [ ] Implementar ErrorHandler - BackEnd
 
-**Front-end Web**
+**Em andamento**
 
-- [ ] Alterar a páginação conforme atualização das transactions
-- [x] Verificar porque a data de criação esta diminuindo
-- [ ] Adicionar ModalDanger for to delete transaction
-- [ ] Alterar o armazenamento do token JWT do localStorage para os cookies
+- [ ] Refatorar os componentes para estrutura MVVM - FrontEnd
 
-**Front-end Mobile**
+**Em teste**
 
-- [ ]
+**Concluído**
 
-**Back-end**
-
-- [ ] Criar um error handler
+- [x] Verificar porque a data de criação esta diminuindo - FrontEnd
 
 ## 🛠 Estrutura de pastas e componentes
 
@@ -116,12 +111,14 @@ Afim de facilitar a organização e manutenção do código, foi definido um pad
 → hooks: Custom hooks; <br />
 → pages: Armazena todas as páginas da aplicação; <br />
 
-Todos os componentes criados vão seguir uma mesma estrutura de organização:
+Todos os componentes criados vão seguir a estrutura MVVM, com os seguintes arquivos:
 → index.tsx: Responsável por exportar o componente; <br />
-→ interface.ts: Responsável por exportar as interfaces; <br />
-→ styles.ts: Responsável por toda estilização do componente; <br />
+→ component.styles.ts: Responsável por toda estilização do componente; <br />
+→ component.view.tsx: Responsável por armazenar a View do componente, e toda a regra associada a interação com o usuário; <br />
+→ component.view-model.ts: Responsável por armazenar a Model do componente, toda a regra de negócio exigida para o funcionamento do componente; <br />
+→ component.tsx: Responsável por unir a interação com o usuário com a regra de negócio da aplicação; <br />
 
-Como cada página não deixa de ser um componente, as pastas dentro da pasta pages vão seguir a mesma estrutura de um componente.
+Como cada página não deixa de ser um componente, todas as páginas são seguir a mesma estrutura de componentes, e os componentes que são utilizados apenas naquela página vão ser armazenados na pasta components dentro de pages.
 
 **Front-end Mobile**
 

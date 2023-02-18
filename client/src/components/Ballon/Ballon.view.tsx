@@ -4,6 +4,6 @@ export interface BallonViewProps {
   children: string | undefined;
 }
 
-export default function BallonView({ children }: BallonViewProps) {
+export function BallonView({ children }: BallonViewProps) {
   return <BaseBallon>{children}</BaseBallon>;
 }
