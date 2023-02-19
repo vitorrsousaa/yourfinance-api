@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
-import { BaseButton, BaseButtonProps } from './Button.styles';
 import customTheme from './theme';
+
+import { BaseButton, BaseButtonProps } from './Button.styles';
 
 export interface ButtonViewProps extends Omit<BaseButtonProps, 'customTheme'> {
   children: ReactNode;

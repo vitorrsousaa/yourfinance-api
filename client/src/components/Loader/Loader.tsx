@@ -1,4 +1,5 @@
 import ReactDOM from 'react-dom';
+
 import { LoaderView, LoaderViewProps } from './Loader.view';
 
 interface Loader extends LoaderViewProps {

@@ -70,11 +70,10 @@ O layout da aplicação está disponível no Figma:
 
 Para auxiliar o desenvolvimento, as features que serão adicionadas serão agrupadas através de um sistema de Kanban. E todos os itens que são necessários para o MVP do projeto terão prioridade.
 
-## → Features MVP
+### Features MVP
 
 **Backlog**
 
-- [ ] Adicionar o modalDanger para deletar a transaction - FrontEnd (MVP)
 - [ ] Entender o que ta acontecendo na autenticação - FrontEnd (MVP)
 - [ ] Alterar o armazenamento do token JWT do localStorage para os cookies - FrontEnd (MVP)
 - [ ] Adicionar a funcionalidade no button de Fluxo Financeiro - Front e Back (MVP)
@@ -90,6 +89,8 @@ Para auxiliar o desenvolvimento, as features que serão adicionadas serão agrup
 - [ ] Refatorar os componentes para estrutura MVVM - FrontEnd
 
 **Em teste**
+
+- [ ] Adicionar o modalDanger para deletar a transaction - FrontEnd (MVP)
 
 **Concluído**
 
@@ -144,6 +145,16 @@ Todos os componentes criados vão seguir uma mesma estrutura de organização:
 → database: Acesso ao banco de dados; <br />
 → models: Armazena todos os models utilizados para adicionar ao banco de dados; <br />
 → utils: Funcionalidades que são utilizadas em diversos locais da aplicação; <br />
+
+**Importações**
+
+-> As importações no projeto vão seguir uma mesma padronização
+
+1. React
+2. Tipagens
+3. Componentes
+4. Funções e utilitários
+5. Estilização
 
 ## 🚀 Como executar o projeto
 

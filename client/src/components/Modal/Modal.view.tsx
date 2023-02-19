@@ -12,7 +12,7 @@ export interface ModalViewProps {
 export function ModalView({
   title,
   onClose,
-  header,
+  header = true,
   children,
 }: ModalViewProps) {
   return (
