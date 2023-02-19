@@ -82,7 +82,7 @@ const ModalCreateTransaction = ({
   }
 
   function handleChangeAmount(event: BaseSyntheticEvent) {
-    setAmount(parseFloat(event.target.value));
+    setAmount(event.target.value === '' ? 0 : parseFloat(event.target.value));
 
     if (!event.target.value) {
       setError({
@@ -127,8 +127,6 @@ const ModalCreateTransaction = ({
 
     const data = await TransactionsService.create(transaction);
 
-    console.log('handleSubmit - ModalCreateTransaction', data);
-
     handleCloseModal();
     toast.success('Transação adicionada');
     setIsLoading(false);
@@ -149,6 +147,7 @@ const ModalCreateTransaction = ({
           value={description}
           onChange={handleChangeDescription}
           error={getErrorMessageByFieldName('description')}
+          maxLength={60}
         />
         <div className="containerDualOption">
           <Button
@@ -222,9 +221,9 @@ const ModalCreateTransaction = ({
         </div>
 
         <Button
-          disabled={!isFormValid || isLoading}
           variant="primary"
           type="submit"
+          disabled={!isFormValid || isLoading}
         >
           {isLoading ? 'Enviando dados...' : 'Criar nova transação'}
         </Button>

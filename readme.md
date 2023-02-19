@@ -72,6 +72,8 @@ Para auxiliar o desenvolvimento, as features que serão adicionadas serão agrup
 
 ### Features MVP
 
+**Erros**
+
 **Backlog**
 
 - [ ] Entender o que ta acontecendo na autenticação - FrontEnd (MVP)
