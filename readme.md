@@ -157,7 +157,7 @@ Todos os componentes criados vão seguir uma mesma estrutura de organização:
 
 **Importações**
 
--> As importações no projeto vão seguir uma mesma padronização
+→ As importações no projeto vão seguir uma mesma padronização
 
 1. React
 2. Tipagens

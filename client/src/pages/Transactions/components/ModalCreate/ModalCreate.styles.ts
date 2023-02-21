@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ContainerModal = styled.form`
+export const BaseModalContainer = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;

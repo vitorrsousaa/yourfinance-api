@@ -78,7 +78,6 @@ const Home = () => {
   const [selectedExpenses, setSelectedExpenses] = useState(3);
   const [animationExpensesComplete, setAnimationExpensesComplete] =
     useState(false);
-  const [selectedTransactions, setSelectedTransactions] = useState(3);
 
   const { colors } = useTheme();
 
@@ -111,7 +110,11 @@ const Home = () => {
         if (transaction.category === 'Receitas') {
           acc.deposits += transaction.amount;
         } else {
-          acc.expenses += transaction.amount;
+          if (transaction.modality.name === 'Cartões') {
+            acc.credit += transaction.amount;
+          } else {
+            acc.expenses += transaction.amount;
+          }
         }
 
         return acc;
@@ -119,6 +122,7 @@ const Home = () => {
       {
         deposits: 0,
         expenses: 0,
+        credit: 0,
       }
     );
 
@@ -242,10 +246,6 @@ const Home = () => {
     setSelectedExpenses(event.target.value);
   }
 
-  function handleSelectedTransactions(event: BaseSyntheticEvent) {
-    setSelectedTransactions(event.target.value);
-  }
-
   function handleSelectedMonth(event: BaseSyntheticEvent) {
     setSelectedMonth(event.target.value);
   }
@@ -272,15 +272,21 @@ const Home = () => {
 
           <div className="containerSummary">
             <div>
-              <h3>Minhas receitas</h3>
+              <h3>Receitas</h3>
               <strong>
                 {formatAmount(summary.deposits > 0 ? summary.deposits : 0)}
               </strong>
             </div>
             <div>
-              <h3>Minhas despesas</h3>
+              <h3>Despesas</h3>
               <strong>
                 {formatAmount(summary.expenses > 0 ? summary.expenses : 0)}
+              </strong>
+            </div>
+            <div>
+              <h3>Cartões</h3>
+              <strong>
+                {formatAmount(summary.credit > 0 ? summary.credit : 0)}
               </strong>
             </div>
           </div>
@@ -421,6 +427,7 @@ const Home = () => {
                 <Pie
                   data={biggestExpensesByModality}
                   dataKey="amount"
+                  nameKey="modality"
                   cx={150}
                   innerRadius={60}
                   fill="#82ca9d"
@@ -434,7 +441,15 @@ const Home = () => {
                     />
                   ))}
                 </Pie>
-                <Tooltip />
+                <Tooltip
+                  formatter={(value: any, name) => {
+                    const modality = modalities.find(
+                      (modality) => modality._id === name
+                    );
+
+                    return [formatAmount(value), modality?.name];
+                  }}
+                />
               </PieChart>
 
               <div
