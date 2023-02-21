@@ -1,7 +1,7 @@
 import { Transaction } from '../../types/Transaction';
 
 import formatAmount from '../../utils/formatAmount';
-import formatDate from '../../utils/formatDate';
+import { formatDate } from '../../utils/formatDate';
 
 import Ballon from '../Ballon';
 

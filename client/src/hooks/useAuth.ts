@@ -6,32 +6,38 @@ import { User } from '../types/User';
 export default function useAuth() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<User>({});
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    if (token) {
-      api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
-      setAuthenticated(true);
+  const [user, setUser] = useState<User>(() => {
+    const name = localStorage.getItem('@Aion-user');
+    if (name) {
+      return { name: JSON.parse(name) };
     }
 
-    setLoading(false);
-    // api
-    //   .get('/auth')
-    //   .then(() => {
-    //     const token = localStorage.getItem('token');
+    return {};
+  });
 
-    //     if (token) {
-    //       api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
-    //       setAuthenticated(true);
-    //     }
-    //   })
-    //   .catch(() => {
-    //     console.log('erro');
-    //     setAuthenticated(false);
-    //   })
-    //   .finally(() => setLoading(false));
+  useEffect(() => {
+    async function loadUser() {
+      const token = localStorage.getItem('@Aion-token');
+
+      if (token) {
+        api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
+      }
+
+      try {
+        const response = await api.get('/auth');
+
+        if (response.status === 200) {
+          setAuthenticated(true);
+        }
+      } catch {
+        setAuthenticated(false);
+        handleLogout();
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadUser();
   }, []);
 
   async function handleLogin(user: User) {
@@ -40,15 +46,11 @@ export default function useAuth() {
     try {
       const { data } = await api.post(route, user);
 
-      localStorage.setItem('token', JSON.stringify(data.token));
+      localStorage.setItem('@Aion-token', JSON.stringify(data.token));
+      localStorage.setItem('@Aion-user', JSON.stringify(data.user.name));
       api.defaults.headers.Authorization = `Bearer ${data.token}`;
-      setUser({
-        _id: data.user._id,
-        email: data.user.email,
-        name: data.user.name,
-        createdAt: data.user.createdAt,
-      });
 
+      setUser({ name: data.user.name });
       setAuthenticated(true);
     } catch (error: any) {
       if (error) {

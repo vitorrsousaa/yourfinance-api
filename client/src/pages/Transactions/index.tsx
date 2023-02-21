@@ -5,7 +5,7 @@ import { itemsPerPage, siblingsCounts } from '../../constants/pagination';
 import { toast } from 'react-toastify';
 
 import formatAmount from '../../utils/formatAmount';
-import formatDate from '../../utils/formatDate';
+import { formatDate } from '../../utils/formatDate';
 
 import Button from '../../components/Button';
 import Header from '../../components/Header';

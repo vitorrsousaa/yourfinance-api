@@ -74,17 +74,21 @@ Para auxiliar o desenvolvimento, as features que serão adicionadas serão agrup
 
 **Erros**
 
+- [ ] Retirar a table e substituir por div
+
 **Backlog**
 
-- [ ] Entender o que ta acontecendo na autenticação - FrontEnd (MVP)
+- [ ] Implementar conexão com Stripe - FrontEnd (MVP)
+- [ ] Adicionar modalidade de trabalho - FrontEnd (MVP)
 - [ ] Alterar o armazenamento do token JWT do localStorage para os cookies - FrontEnd (MVP)
-- [ ] Adicionar a funcionalidade no button de Fluxo Financeiro - Front e Back (MVP)
-- [ ] Adicionar a funcionalidade no button de Últimas transações - Front e Back (MVP)
-- [ ] Adicionar a funcionalidade no button de Maiores Despesas - Front e Back (MVP)
-- [ ] Criar fluxo de alteração de senha - Backend
+- [ ] Criar fluxo de alteração de senha - Backend (MVP)
+- [ ] Adicinoar updateAt no model User - Backend (MVP)
 - [ ] Realizar integração com API externa para verificação do usuário - FrontEnd
 - [ ] Adicionar paginação na página de transactions - FrontEnd
 - [ ] Implementar ErrorHandler - BackEnd
+- [ ] Alterar a lógica do gráfico de fluxo financeiro - FrontEnd
+      -> O elemento converte a data para o dia primeiro do mês, quando na verdade deveria verificar se os meses são iguais
+- [ ] Usar a lib ReactSpring para alinhar a animação dos gráficos e dos dados
 
 **Em andamento**
 
@@ -92,11 +96,14 @@ Para auxiliar o desenvolvimento, as features que serão adicionadas serão agrup
 
 **Em teste**
 
-- [ ] Adicionar o modalDanger para deletar a transaction - FrontEnd (MVP)
+- [ ] Adicionar a funcionalidade no button de Maiores Despesas - Front e Back (MVP)
+- [ ] Adicionar a funcionalidade no button de Fluxo Financeiro - Front e Back (MVP)
+- [ ] Entender o que ta acontecendo na autenticação - FrontEnd (MVP)
 
 **Concluído**
 
 - [x] Verificar porque a data de criação esta diminuindo - FrontEnd
+- [x] Adicionar o modalDanger para deletar a transaction - FrontEnd (MVP)
 
 ## 🛠 Estrutura de pastas e componentes
 
