@@ -10,7 +10,7 @@ export const Overlay = styled.div`
   height: 100%;
   top: 0;
   left: 0;
-  background: rgba(246, 245, 252, 0.85);
+  background: rgba(246, 245, 252, 1);
 `;
 
 export const BaseLoader = styled.div<BaseLoaderProps>`
@@ -22,9 +22,9 @@ export const BaseLoader = styled.div<BaseLoaderProps>`
   height: 100%;
 
   .loader {
-    width: ${({ size }) => (size ? size : '5rem')};
-    height: ${({ size }) => (size ? size : '5rem')};
-    border: 1rem solid var(--gray-200);
+    width: ${({ size }) => (size ? size : '8rem')};
+    height: ${({ size }) => (size ? size : '8rem')};
+    border: 1.2rem solid var(--gray-200);
     border-top-color: var(--blue-900);
     border-radius: 100%;
 

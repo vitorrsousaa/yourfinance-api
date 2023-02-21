@@ -5,7 +5,7 @@ import { itemsPerPage, siblingsCounts } from '../../constants/pagination';
 import { toast } from 'react-toastify';
 
 import formatAmount from '../../utils/formatAmount';
-import formatDate from '../../utils/formatDate';
+import { formatDate } from '../../utils/formatDate';
 
 import Button from '../../components/Button';
 import Header from '../../components/Header';
@@ -22,6 +22,7 @@ import {
   PaginationItem,
   TableTransactions,
 } from './styles';
+import ModalDelete from './components/ModalDelete';
 
 function generatePagesArray(from: number, to: number) {
   return [...new Array(to - from)]
@@ -34,7 +35,9 @@ function generatePagesArray(from: number, to: number) {
 const Transactions = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [idDeleteTransaction, setIdDeleteTransaction] = useState('');
 
   const [page, setPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
@@ -57,7 +60,7 @@ const Transactions = () => {
     }
 
     loadTransactions();
-  }, [page, isModalOpen]);
+  }, [page]);
 
   const lastPage = useMemo(
     () => Math.ceil(totalItems / itemsPerPage),
@@ -96,12 +99,19 @@ const Transactions = () => {
     setPage(page);
   }
 
-  function handleOpenModal() {
+  function handleOpenTransactionModal() {
     setIsModalOpen(true);
+  }
+
+  function handleOpenDeleteModal(transactionId: string) {
+    setIsModalDeleteOpen(true);
+    setIdDeleteTransaction(transactionId);
   }
 
   async function handleDeleteTransaction(transactionId: string) {
     setIsLoading(true);
+
+    console.log('aqui dentro');
 
     await TransactionsService.delete(transactionId);
 
@@ -122,9 +132,17 @@ const Transactions = () => {
   return (
     <>
       <Loader isLoading={isLoading} />
+
       <ModalCreateTransaction
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+      />
+
+      <ModalDelete
+        isOpen={isModalDeleteOpen}
+        onClose={() => setIsModalDeleteOpen(false)}
+        id={idDeleteTransaction}
+        onDelete={handleDeleteTransaction}
       />
 
       <Container>
@@ -140,7 +158,7 @@ const Transactions = () => {
               </div>
               <small>Visualize todas as transações anteriores</small>
             </div>
-            <Button variant="primary" onClick={handleOpenModal}>
+            <Button variant="primary" onClick={handleOpenTransactionModal}>
               Cadastrar nova transação +{' '}
             </Button>
           </main>
@@ -191,7 +209,7 @@ const Transactions = () => {
                           </IconTable>
                           <IconTable
                             onClick={() =>
-                              handleDeleteTransaction(transaction._id)
+                              handleOpenDeleteModal(transaction._id)
                             }
                           >
                             🗑️

@@ -70,20 +70,25 @@ O layout da aplicação está disponível no Figma:
 
 Para auxiliar o desenvolvimento, as features que serão adicionadas serão agrupadas através de um sistema de Kanban. E todos os itens que são necessários para o MVP do projeto terão prioridade.
 
-## → Features MVP
+### Features MVP
+
+**Erros**
+
+- [ ] Retirar a table e substituir por div
 
 **Backlog**
 
-- [ ] Adicionar o modalDanger para deletar a transaction - FrontEnd (MVP)
-- [ ] Entender o que ta acontecendo na autenticação - FrontEnd (MVP)
+- [ ] Implementar conexão com Stripe - FrontEnd (MVP)
+- [ ] Adicionar modalidade de trabalho - FrontEnd (MVP)
 - [ ] Alterar o armazenamento do token JWT do localStorage para os cookies - FrontEnd (MVP)
-- [ ] Adicionar a funcionalidade no button de Fluxo Financeiro - Front e Back (MVP)
-- [ ] Adicionar a funcionalidade no button de Últimas transações - Front e Back (MVP)
-- [ ] Adicionar a funcionalidade no button de Maiores Despesas - Front e Back (MVP)
-- [ ] Criar fluxo de alteração de senha - Backend
+- [ ] Criar fluxo de alteração de senha - Backend (MVP)
+- [ ] Adicinoar updateAt no model User - Backend (MVP)
 - [ ] Realizar integração com API externa para verificação do usuário - FrontEnd
 - [ ] Adicionar paginação na página de transactions - FrontEnd
 - [ ] Implementar ErrorHandler - BackEnd
+- [ ] Alterar a lógica do gráfico de fluxo financeiro - FrontEnd
+      -> O elemento converte a data para o dia primeiro do mês, quando na verdade deveria verificar se os meses são iguais
+- [ ] Usar a lib ReactSpring para alinhar a animação dos gráficos e dos dados
 
 **Em andamento**
 
@@ -91,9 +96,14 @@ Para auxiliar o desenvolvimento, as features que serão adicionadas serão agrup
 
 **Em teste**
 
+- [ ] Adicionar a funcionalidade no button de Maiores Despesas - Front e Back (MVP)
+- [ ] Adicionar a funcionalidade no button de Fluxo Financeiro - Front e Back (MVP)
+- [ ] Entender o que ta acontecendo na autenticação - FrontEnd (MVP)
+
 **Concluído**
 
 - [x] Verificar porque a data de criação esta diminuindo - FrontEnd
+- [x] Adicionar o modalDanger para deletar a transaction - FrontEnd (MVP)
 
 ## 🛠 Estrutura de pastas e componentes
 
@@ -144,6 +154,16 @@ Todos os componentes criados vão seguir uma mesma estrutura de organização:
 → database: Acesso ao banco de dados; <br />
 → models: Armazena todos os models utilizados para adicionar ao banco de dados; <br />
 → utils: Funcionalidades que são utilizadas em diversos locais da aplicação; <br />
+
+**Importações**
+
+-> As importações no projeto vão seguir uma mesma padronização
+
+1. React
+2. Tipagens
+3. Componentes
+4. Funções e utilitários
+5. Estilização
 
 ## 🚀 Como executar o projeto
 

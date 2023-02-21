@@ -63,6 +63,25 @@ export const Content = styled.section`
     align-items: flex-start;
     gap: 2rem;
   }
+
+  .containerPieChart {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+
+    .containerModalityPieChart {
+      width: 100%;
+      height: 100%;
+
+      opacity: 0;
+    }
+
+    .show {
+      transition: opacity 0.7s ease;
+      opacity: 1;
+    }
+  }
 `;
 
 export const Summary = styled.section`

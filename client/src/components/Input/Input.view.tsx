@@ -53,6 +53,7 @@ export function InputView({ error, category, ...props }: InputViewProps) {
         />
         {CategorySVG && <CategorySVG />}
       </label>
+      {!!error && <small>{error}</small>}
     </InputBase>
   );
 }
