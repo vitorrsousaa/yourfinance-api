@@ -100,7 +100,7 @@ const SignUp = () => {
         <Input
           category="person"
           type="text"
-          placeholder="Seu nome"
+          placeholder="Digite seu nome"
           value={name}
           onChange={handleNameChange}
           error={getErrorMessageByFieldName('name')}
@@ -108,7 +108,7 @@ const SignUp = () => {
 
         <Input
           category="email"
-          placeholder="Seu E-mail"
+          placeholder="Digite seu e-mail"
           type="email"
           value={email}
           onChange={handleEmailChange}
@@ -117,7 +117,7 @@ const SignUp = () => {
 
         <Input
           category="password"
-          placeholder="Sua senha"
+          placeholder="Digite sua senha"
           type="password"
           value={password}
           onChange={handlePasswordChange}
@@ -126,7 +126,7 @@ const SignUp = () => {
 
         <Input
           category="password"
-          placeholder="Confirmação de senha"
+          placeholder="Confirme sua senha"
           type="password"
           value={passwordConfirmation}
           onChange={handlePasswordConfirmationChange}

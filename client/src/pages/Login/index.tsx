@@ -72,7 +72,7 @@ const Login = () => {
 
         <Input
           category="email"
-          placeholder="Seu E-mail"
+          placeholder="Digite seu e-mail"
           type="email"
           value={email}
           onChange={handleEmailChange}
@@ -81,7 +81,7 @@ const Login = () => {
 
         <Input
           category="password"
-          placeholder="Sua senha"
+          placeholder="Digite sua senha"
           type="password"
           value={password}
           onChange={handlePasswordChange}
