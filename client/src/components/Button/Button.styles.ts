@@ -18,6 +18,7 @@ export const BaseButton = styled.button<BaseButtonProps>`
   border-radius: 10px;
   font-weight: 700;
   font-size: 1rem;
+  transition: all 0.5s;
 
   background: ${({ customTheme, variant }) =>
     customTheme[variant].initial.background};
