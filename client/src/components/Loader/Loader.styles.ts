@@ -24,8 +24,9 @@ export const BaseLoader = styled.div<BaseLoaderProps>`
   .loader {
     width: ${({ size }) => (size ? size : '8rem')};
     height: ${({ size }) => (size ? size : '8rem')};
-    border: 1.2rem solid var(--gray-200);
-    border-top-color: var(--blue-900);
+    border: 1.2rem solid;
+    border-color: ${({ theme }) => theme.colors.black[200]};
+    border-top-color: ${({ theme }) => theme.colors.green[400]};
     border-radius: 100%;
 
     animation: is-rotating 1s infinite;

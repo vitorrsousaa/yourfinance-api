@@ -61,7 +61,8 @@ export default function useAuth() {
 
   function handleLogout() {
     setAuthenticated(false);
-    localStorage.removeItem('token');
+    localStorage.removeItem('@Aion-token');
+    localStorage.removeItem('@Aion-user');
     api.defaults.headers.Authorization = null;
   }
 

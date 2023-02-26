@@ -46,10 +46,12 @@ const SignUp = () => {
   function handlePasswordConfirmationChange(event: BaseSyntheticEvent) {
     setPasswordConfirmation(event.target.value);
 
-    if (!event.target.value) {
+    console.log(event.target.value);
+
+    if (password !== event.target.value) {
       setError({
         field: 'passwordConfirmation',
-        message: 'Confirmação de senha é obrigatória',
+        message: 'Confirmação de senha incorreta',
       });
     } else {
       removeError('passwordConfirmation');
@@ -69,15 +71,6 @@ const SignUp = () => {
   async function handleSubmit(event: React.BaseSyntheticEvent) {
     setIsLoading(true);
     event.preventDefault();
-
-    if (password !== passwordConfirmation) {
-      setPasswordConfirmation('');
-      setError({
-        field: 'passwordConfirmation',
-        message: 'Confirmação de senha incorreta',
-      });
-      return;
-    }
 
     const user = { name, email, password };
 
@@ -107,7 +100,7 @@ const SignUp = () => {
         <Input
           category="person"
           type="text"
-          placeholder="Seu nome"
+          placeholder="Digite seu nome"
           value={name}
           onChange={handleNameChange}
           error={getErrorMessageByFieldName('name')}
@@ -115,7 +108,7 @@ const SignUp = () => {
 
         <Input
           category="email"
-          placeholder="Seu E-mail"
+          placeholder="Digite seu e-mail"
           type="email"
           value={email}
           onChange={handleEmailChange}
@@ -124,7 +117,7 @@ const SignUp = () => {
 
         <Input
           category="password"
-          placeholder="Sua senha"
+          placeholder="Digite sua senha"
           type="password"
           value={password}
           onChange={handlePasswordChange}
@@ -133,7 +126,7 @@ const SignUp = () => {
 
         <Input
           category="password"
-          placeholder="Confirmação de senha"
+          placeholder="Confirme sua senha"
           type="password"
           value={passwordConfirmation}
           onChange={handlePasswordConfirmationChange}
