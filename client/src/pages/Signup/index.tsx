@@ -46,10 +46,12 @@ const SignUp = () => {
   function handlePasswordConfirmationChange(event: BaseSyntheticEvent) {
     setPasswordConfirmation(event.target.value);
 
-    if (!event.target.value) {
+    console.log(event.target.value);
+
+    if (password !== event.target.value) {
       setError({
         field: 'passwordConfirmation',
-        message: 'Confirmação de senha é obrigatória',
+        message: 'Confirmação de senha incorreta',
       });
     } else {
       removeError('passwordConfirmation');
@@ -69,15 +71,6 @@ const SignUp = () => {
   async function handleSubmit(event: React.BaseSyntheticEvent) {
     setIsLoading(true);
     event.preventDefault();
-
-    if (password !== passwordConfirmation) {
-      setPasswordConfirmation('');
-      setError({
-        field: 'passwordConfirmation',
-        message: 'Confirmação de senha incorreta',
-      });
-      return;
-    }
 
     const user = { name, email, password };
 
