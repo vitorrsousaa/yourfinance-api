@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { api } from '../services/api';
 import { User } from '../types/User';
+import delay from '../utils/delay';
 
 export default function useAuth() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -42,6 +43,7 @@ export default function useAuth() {
 
   async function handleLogin(user: User) {
     const route = user.name ? 'auth/register' : 'auth/authenticate';
+    await delay(2000);
 
     try {
       const { data } = await api.post(route, user);

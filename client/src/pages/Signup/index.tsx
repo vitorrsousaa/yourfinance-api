@@ -2,7 +2,6 @@ import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import Loader from '../../components/Loader';
 import Logo from '../../components/Logo';
 import { useAuthContext } from '../../context/AuthContext';
 import useErrors from '../../hooks/useErrors';
@@ -14,7 +13,7 @@ const SignUp = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { errors, getErrorMessageByFieldName, removeError, setError } =
     useErrors();
 
@@ -69,8 +68,8 @@ const SignUp = () => {
   }
 
   async function handleSubmit(event: React.BaseSyntheticEvent) {
-    setIsLoading(true);
     event.preventDefault();
+    setIsSubmitting(true);
 
     const user = { name, email, password };
 
@@ -82,7 +81,7 @@ const SignUp = () => {
       setError({ field: 'email', message: 'Esse email já foi cadastrado' });
     }
 
-    setIsLoading(false);
+    setIsSubmitting(false);
   }
 
   useEffect(() => {
@@ -93,7 +92,6 @@ const SignUp = () => {
 
   return (
     <Container>
-      <Loader isLoading={isLoading} />
       <Logo />
       <form onSubmit={handleSubmit}>
         <h1>Registre-se agora</h1>
@@ -104,6 +102,7 @@ const SignUp = () => {
           value={name}
           onChange={handleNameChange}
           error={getErrorMessageByFieldName('name')}
+          disabled={isSubmitting}
         />
 
         <Input
@@ -113,6 +112,7 @@ const SignUp = () => {
           value={email}
           onChange={handleEmailChange}
           error={getErrorMessageByFieldName('email')}
+          disabled={isSubmitting}
         />
 
         <Input
@@ -122,6 +122,7 @@ const SignUp = () => {
           value={password}
           onChange={handlePasswordChange}
           error={getErrorMessageByFieldName('password')}
+          disabled={isSubmitting}
         />
 
         <Input
@@ -131,9 +132,15 @@ const SignUp = () => {
           value={passwordConfirmation}
           onChange={handlePasswordConfirmationChange}
           error={getErrorMessageByFieldName('passwordConfirmation')}
+          disabled={isSubmitting}
         />
 
-        <Button variant="primary" type="submit" disabled={!isFormValid}>
+        <Button
+          variant="primary"
+          type="submit"
+          disabled={!isFormValid}
+          isLoading={isSubmitting}
+        >
           Registre-se
         </Button>
       </form>

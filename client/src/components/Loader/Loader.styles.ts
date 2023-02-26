@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-export interface BaseLoaderProps {
-  size?: string;
-}
-
 export const Overlay = styled.div`
   position: fixed;
   width: 100%;
@@ -13,28 +9,11 @@ export const Overlay = styled.div`
   background: rgba(246, 245, 252, 1);
 `;
 
-export const BaseLoader = styled.div<BaseLoaderProps>`
+export const BaseLoader = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 1;
   width: 100%;
   height: 100%;
-
-  .loader {
-    width: ${({ size }) => (size ? size : '8rem')};
-    height: ${({ size }) => (size ? size : '8rem')};
-    border: 1.2rem solid;
-    border-color: ${({ theme }) => theme.colors.black[200]};
-    border-top-color: ${({ theme }) => theme.colors.green[400]};
-    border-radius: 100%;
-
-    animation: is-rotating 1s infinite;
-  }
-
-  @keyframes is-rotating {
-    to {
-      transform: rotate(1turn);
-    }
-  }
 `;

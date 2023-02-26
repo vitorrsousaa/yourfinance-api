@@ -252,7 +252,7 @@ const Home = () => {
 
   return (
     <Container>
-      <Loader isLoading={isLoading} />
+      <Loader isLoading={isLoading} variant="large" />
 
       <Sidebar />
 

@@ -1,12 +1,13 @@
-import { BaseLoader, BaseLoaderProps, Overlay } from './Loader.styles';
+import { Spinner, SpinnerProps } from '../Spinner';
+import { BaseLoader, Overlay } from './Loader.styles';
 
-export interface LoaderViewProps extends BaseLoaderProps {}
+export interface LoaderViewProps extends SpinnerProps {}
 
-export function LoaderView({ size }: LoaderViewProps) {
+export function LoaderView({ ...props }: LoaderViewProps) {
   return (
     <Overlay>
-      <BaseLoader size={size}>
-        <div className="loader"></div>
+      <BaseLoader>
+        <Spinner {...props} />
       </BaseLoader>
     </Overlay>
   );

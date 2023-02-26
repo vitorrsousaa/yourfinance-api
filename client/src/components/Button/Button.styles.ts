@@ -13,6 +13,7 @@ export interface BaseButtonProps {
 export const BaseButton = styled.button<BaseButtonProps>`
   width: 100%;
   height: 3.375rem;
+  display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
