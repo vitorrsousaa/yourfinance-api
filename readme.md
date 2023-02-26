@@ -75,11 +75,11 @@ Para auxiliar o desenvolvimento, as features que serão adicionadas serão agrup
 **Erros**
 
 - [ ] Retirar a table e substituir por div
+- [ ] A funçtion handleLogout não ta excluindo o token d usuário
 
 **Backlog**
 
 - [ ] Implementar conexão com Stripe - FrontEnd (MVP)
-- [ ] Adicionar modalidade de trabalho - FrontEnd (MVP)
 - [ ] Alterar o armazenamento do token JWT do localStorage para os cookies - FrontEnd (MVP)
 - [ ] Criar fluxo de alteração de senha - Backend (MVP)
 - [ ] Adicinoar updateAt no model User - Backend (MVP)
@@ -96,8 +96,9 @@ Para auxiliar o desenvolvimento, as features que serão adicionadas serão agrup
 
 **Em teste**
 
-- [ ] Adicionar a funcionalidade no button de Maiores Despesas - Front e Back (MVP)
-- [ ] Adicionar a funcionalidade no button de Fluxo Financeiro - Front e Back (MVP)
+- [x] Adicionar a funcionalidade no button de Maiores Despesas - Front e Back (MVP)
+- [x] Adicionar a funcionalidade no button de Fluxo Financeiro - Front e Back (MVP)
+- [x] Adicionar modalidade de trabalho - FrontEnd (MVP)
 - [ ] Entender o que ta acontecendo na autenticação - FrontEnd (MVP)
 
 **Concluído**

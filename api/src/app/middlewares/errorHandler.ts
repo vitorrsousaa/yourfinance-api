@@ -1,10 +1,13 @@
-import { ErrorRequestHandler, Request, Response } from 'express';
+import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
 
 export default function errorHandler(
   error: ErrorRequestHandler,
   request: Request,
-  response: Response
+  response: Response,
+  next: NextFunction
 ) {
-  console.log(error);
+  // console.log(error);
+  console.log('inside errorHandler');
+  // console.log(error);
   response.sendStatus(500);
 }

@@ -14,6 +14,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const { errors, getErrorMessageByFieldName, removeError, setError } =
     useErrors();
+  const [loginError, setLoginError] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -34,6 +35,7 @@ const Login = () => {
       return setError({ field: 'email', message: 'E-mail inválido' });
     } else {
       removeError('email');
+      setLoginError('');
     }
   }
 
@@ -44,6 +46,7 @@ const Login = () => {
       setError({ field: 'password', message: 'Senha é obrigatória' });
     } else {
       removeError('password');
+      setLoginError('');
     }
   }
 
@@ -57,7 +60,7 @@ const Login = () => {
 
     if (err) {
       setPassword('');
-      setError({ field: 'email', message: 'Email ou senha inválido' });
+      setLoginError('Email ou senha inválido');
     }
 
     setIsLoading(false);
@@ -87,6 +90,8 @@ const Login = () => {
           onChange={handlePasswordChange}
           error={getErrorMessageByFieldName('password')}
         />
+
+        {loginError && <small className="login-error">{loginError}</small>}
 
         <Button variant="primary" type="submit" disabled={!isFormValid}>
           Fazer Login
