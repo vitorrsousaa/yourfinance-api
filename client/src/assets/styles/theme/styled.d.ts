@@ -5,9 +5,17 @@ declare module 'styled-components' {
     colors: {
       black: {
         900: string;
-        800: string;
+
         700: string;
+        600: string;
+        300: string;
+        200: string;
+      };
+      green: {
         500: string;
+        400: string;
+        300: string;
+        200: string;
       };
       blue: {
         950: string;
@@ -15,7 +23,6 @@ declare module 'styled-components' {
         700: string;
       };
       white: {
-        300: string;
         200: string;
         100: string;
       };
@@ -26,6 +33,11 @@ declare module 'styled-components' {
       error: {
         900: string;
         700: string;
+      };
+      red: {
+        600: string;
+        400: string;
+        300: string;
       };
     };
   }
