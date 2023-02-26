@@ -1,13 +1,13 @@
 import styled, { css } from 'styled-components';
 import { InputThemeProps } from './theme/types';
 
-export interface InputBaseProps {
+export interface InputStyledProps {
   isFocus: boolean;
   error?: string;
   customTheme: InputThemeProps;
 }
 
-export const InputBase = styled.div<InputBaseProps>`
+export const InputStyled = styled.div<InputStyledProps>`
   display: flex;
   flex-direction: column;
 
@@ -19,12 +19,13 @@ export const InputBase = styled.div<InputBaseProps>`
   }
 
   label {
-    height: 2rem;
-
     display: flex;
     align-items: center;
 
-    border-bottom: solid 2px;
+    border: solid 1px;
+    border-radius: 4px;
+    padding: 0.65rem;
+    background: ${({ theme }) => theme.colors.white[200]};
 
     ${({ isFocus, error, customTheme }) => {
       if (error) {

@@ -10,7 +10,7 @@ import { formatDate } from '../../utils/formatDate';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import Loader from '../../components/Loader';
-import ModalCreateTransaction from '../../components/ModalCreateTransaction';
+
 import Sidebar from '../../components/Sidebar';
 import SideIcon from '../../components/SideIcon';
 
@@ -23,6 +23,7 @@ import {
   TableTransactions,
 } from './styles';
 import ModalDelete from './components/ModalDelete';
+import ModalCreate from './components/ModalCreate';
 
 function generatePagesArray(from: number, to: number) {
   return [...new Array(to - from)]
@@ -133,10 +134,7 @@ const Transactions = () => {
     <>
       <Loader isLoading={isLoading} />
 
-      <ModalCreateTransaction
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+      <ModalCreate isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
       <ModalDelete
         isOpen={isModalDeleteOpen}
