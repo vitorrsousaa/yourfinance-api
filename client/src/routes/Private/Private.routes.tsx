@@ -1,11 +1,10 @@
 import { ReactElement } from 'react';
 import { Routes as RoutesProvider, Route, Navigate } from 'react-router-dom';
-import Loader from './components/Loader';
-import { useAuthContext } from './context/AuthContext';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import SignUp from './pages/Signup';
-import Transactions from './pages/Transactions';
+import Loader from '../../components/Loader';
+import { useAuthContext } from '../../context/AuthContext';
+import Home from '../../pages/Home';
+import Overview from '../../pages/Overview';
+import Transactions from '../../pages/Transactions';
 
 interface PrivateRouteProps {
   children: ReactElement;
@@ -25,11 +24,9 @@ function PrivateRoute({ children }: PrivateRouteProps) {
   return children;
 }
 
-export default function Routes() {
+export function PrivateRoutes() {
   return (
     <RoutesProvider>
-      <Route path="/" element={<Login />} />
-      <Route path="/signup" element={<SignUp />} />
       <Route
         path="/home"
         element={
@@ -44,6 +41,14 @@ export default function Routes() {
         element={
           <PrivateRoute>
             <Transactions />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/overview"
+        element={
+          <PrivateRoute>
+            <Overview />
           </PrivateRoute>
         }
       />

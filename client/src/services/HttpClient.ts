@@ -25,7 +25,7 @@ class HttpClient {
   async post(path: string, data: dataRequestProps) {
     const response = await api.post(path, data);
 
-    await delay();
+    await delay(2000);
 
     return response.data;
   }

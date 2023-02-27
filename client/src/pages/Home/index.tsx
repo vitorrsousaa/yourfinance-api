@@ -6,7 +6,6 @@ import {
   Summary,
 } from './styles';
 import { useAuthContext } from '../../context/AuthContext';
-import Sidebar from '../../components/Sidebar';
 import Header from '../../components/Header';
 import { BaseSyntheticEvent, useEffect, useMemo, useState } from 'react';
 import { Transaction, TransactionsData } from '../../types/Transaction';
@@ -252,9 +251,7 @@ const Home = () => {
 
   return (
     <Container>
-      <Loader isLoading={isLoading} />
-
-      <Sidebar />
+      <Loader isLoading={isLoading} variant="large" />
 
       <Content>
         <Header />

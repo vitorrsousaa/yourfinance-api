@@ -2,7 +2,6 @@ import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import Loader from '../../components/Loader';
 import Logo from '../../components/Logo';
 import { useAuthContext } from '../../context/AuthContext';
 import useErrors from '../../hooks/useErrors';
@@ -15,7 +14,7 @@ const Login = () => {
   const { errors, getErrorMessageByFieldName, removeError, setError } =
     useErrors();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
   const { handleLogin, authenticated } = useAuthContext();
@@ -48,8 +47,8 @@ const Login = () => {
   }
 
   async function handleSubmit(event: React.BaseSyntheticEvent) {
-    setIsLoading(true);
     event.preventDefault();
+    setIsSubmitting(true);
 
     const user = { email, password };
 
@@ -57,15 +56,14 @@ const Login = () => {
 
     if (err) {
       setPassword('');
-      setError({ field: 'email', message: 'Email ou senha inválido' });
+      setError({ field: 'password', message: 'Email ou senha inválido' });
     }
 
-    setIsLoading(false);
+    setIsSubmitting(false);
   }
 
   return (
     <Container>
-      <Loader isLoading={isLoading} />
       <Logo />
       <form onSubmit={handleSubmit}>
         <h1>Faça seu login</h1>
@@ -77,6 +75,7 @@ const Login = () => {
           value={email}
           onChange={handleEmailChange}
           error={getErrorMessageByFieldName('email')}
+          disabled={isSubmitting}
         />
 
         <Input
@@ -86,9 +85,15 @@ const Login = () => {
           value={password}
           onChange={handlePasswordChange}
           error={getErrorMessageByFieldName('password')}
+          disabled={isSubmitting}
         />
 
-        <Button variant="primary" type="submit" disabled={!isFormValid}>
+        <Button
+          variant="primary"
+          type="submit"
+          disabled={!isFormValid}
+          isLoading={isSubmitting}
+        >
           Fazer Login
         </Button>
       </form>
