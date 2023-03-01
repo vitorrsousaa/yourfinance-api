@@ -68,7 +68,7 @@ const options = [
   },
 ];
 
-const Home = () => {
+const Home2 = () => {
   const { user } = useAuthContext();
   const [isLoading, setIsLoading] = useState(true);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -478,4 +478,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Home2;

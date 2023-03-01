@@ -45,8 +45,6 @@ const SignUp = () => {
   function handlePasswordConfirmationChange(event: BaseSyntheticEvent) {
     setPasswordConfirmation(event.target.value);
 
-    console.log(event.target.value);
-
     if (password !== event.target.value) {
       setError({
         field: 'passwordConfirmation',

@@ -1,26 +1,26 @@
 import { StyledSidebar } from './Sidebar.styles';
 import NavLink from './NavLink';
-import Overview from '../../assets/icons/Overview';
+import IconOverview from '../../assets/icons/IconOverview';
 import Transaction from '../../assets/icons/Transaction';
-import Analytics from '../../assets/icons/Analytics';
+import IconAnalytics from '../../assets/icons/IconAnalytics';
 import Settings from '../../assets/icons/Settings';
 import Logout from '../../assets/icons/Logout';
 
 export function SidebarView() {
   return (
     <StyledSidebar>
-      <header>logo</header>
+      <header className="header">logo</header>
       <div className="content">
         <nav>
-          <NavLink href="/overview" icon={<Overview />}>
+          <NavLink href="/overview" icon={<IconOverview />}>
             Overview
           </NavLink>
 
-          <NavLink href="/transactions" icon={<Transaction />}>
-            Transações
+          <NavLink href="/home" icon={<Transaction />}>
+            Transaçõess
           </NavLink>
 
-          <NavLink href="/analytics" icon={<Analytics />}>
+          <NavLink href="/analytics" icon={<IconAnalytics />}>
             Analytics
           </NavLink>
         </nav>
