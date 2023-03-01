@@ -9,6 +9,10 @@ export const StyledNavLink = styled.div<{ isActive: boolean }>`
   border-radius: 4px;
   padding: 8px;
 
+  small {
+    font-weight: 500;
+  }
+
   color: ${({ isActive, theme }) =>
     isActive ? theme.colors.white[100] : theme.colors.black[300]};
 

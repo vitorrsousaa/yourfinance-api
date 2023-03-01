@@ -34,14 +34,7 @@ export function PrivateRoutesProvider() {
           </PrivateRoute>
         }
       />
-      <Route
-        path="/teste"
-        element={
-          <PrivateRoute>
-            <Overview />
-          </PrivateRoute>
-        }
-      />
+
       <Route
         path="/home"
         element={

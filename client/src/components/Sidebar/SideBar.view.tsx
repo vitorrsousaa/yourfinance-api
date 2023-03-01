@@ -17,7 +17,7 @@ export function SidebarView() {
           </NavLink>
 
           <NavLink href="/home" icon={<Transaction />}>
-            Transaçõess
+            Transações
           </NavLink>
 
           <NavLink href="/analytics" icon={<IconAnalytics />}>
