@@ -1,11 +1,8 @@
-import { ElementType } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import NavLinkView from './NavLink.view';
+import NavLinkView, { NavLinkViewProps } from './NavLink.view';
 
-interface NavLinkProps {
+interface NavLinkProps extends Omit<NavLinkViewProps, 'isActive'> {
   href: string;
-  children: string;
-  icon: ElementType;
 }
 
 export function NavLink({ href, ...props }: NavLinkProps) {

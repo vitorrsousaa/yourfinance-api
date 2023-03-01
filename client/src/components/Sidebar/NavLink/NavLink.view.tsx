@@ -1,11 +1,11 @@
-import { ElementType } from 'react';
+import { ReactNode } from 'react';
 
 import { StyledNavLink } from './NavLink.styles';
 
 export interface NavLinkViewProps {
   children: string;
   isActive: boolean;
-  icon: ElementType;
+  icon: ReactNode;
 }
 
 export default function NavLinkView({

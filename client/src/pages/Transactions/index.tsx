@@ -12,7 +12,6 @@ import Header from '../../components/Header';
 import Loader from '../../components/Loader';
 
 import Sidebar from '../../components/Sidebar';
-import SideIcon from '../../components/SideIcon';
 
 import {
   Container,
@@ -151,7 +150,6 @@ const Transactions = () => {
           <main>
             <div>
               <div className="containerName">
-                <SideIcon category="Transactions" />
                 <h1>Transações</h1>
               </div>
               <small>Visualize todas as transações anteriores</small>
