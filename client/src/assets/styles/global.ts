@@ -1,15 +1,20 @@
 import { createGlobalStyle } from 'styled-components';
+import fonts from './fonts';
 
 export default createGlobalStyle`
+    ${fonts}
+
+
   *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     outline: 0;
+    font-family: 'Gotham', sans-serif;
+    /* font-weight: 400 ; */
   }
 
   body, input, a{
-    font-family: 'Manrope', sans-serif;
     color: ${({ theme }) => theme.colors.black[900]}
   }
 
