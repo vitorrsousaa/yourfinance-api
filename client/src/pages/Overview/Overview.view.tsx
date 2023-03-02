@@ -1,3 +1,4 @@
+import Card from './components/Card';
 import { OverviewStyled } from './Overview.styles';
 
 export function OverviewView() {
@@ -11,7 +12,8 @@ export function OverviewView() {
       </header>
       <div>
         <div>
-          <div>card</div>
+          <Card type="outcome" title="Despesas" amount={1245} />
+          <Card type="income" title="Receitas" amount={4120} />
           <div>card</div>
         </div>
         <div>gráfico</div>
