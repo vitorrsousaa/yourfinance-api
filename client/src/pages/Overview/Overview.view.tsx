@@ -10,14 +10,12 @@ export function OverviewView() {
           Olá, <strong>Natalia Nunes.</strong> Comece a controlar suas finanças.
         </small>
       </header>
-      <div>
-        <div>
-          <Card type="outcome" title="Despesas" amount={1245} />
+      <section className="container-cards-chart">
+        <div className="container-cards">
           <Card type="income" title="Receitas" amount={4120} />
-          <div>card</div>
+          <Card type="outcome" title="Despesas" amount={1245} />
         </div>
-        <div>gráfico</div>
-      </div>
+      </section>
     </OverviewStyled>
   );
 }

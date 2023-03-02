@@ -21,6 +21,20 @@ class TransactionsRepository {
     return Transaction.findById(id).populate('modality');
   }
 
+  findByPeriod(id: string, month: string) {
+    const endDate = new Date();
+
+    const year = endDate.getFullYear();
+    const lastMonths = endDate.getMonth() - parseInt(month);
+    const day = endDate.getDay();
+
+    const startDate = new Date(year, lastMonths, day);
+
+    return Transaction.find({ createdAt: { $gte: startDate, $lte: endDate } })
+      .where('user')
+      .equals(id);
+  }
+
   create(
     description: string,
     category: string,

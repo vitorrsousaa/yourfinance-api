@@ -3,11 +3,11 @@ import styled from 'styled-components';
 export const StyledNavLink = styled.div<{ isActive: boolean }>`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
 
   width: 100%;
-  border-radius: 4px;
-  padding: 8px;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
 
   small {
     font-weight: 500;
@@ -18,5 +18,13 @@ export const StyledNavLink = styled.div<{ isActive: boolean }>`
 
   &:hover {
     background: ${({ theme }) => theme.colors.black[700]};
+  }
+
+  @media (max-width: 600px) {
+    padding: 0.375rem;
+
+    small {
+      display: none;
+    }
   }
 `;

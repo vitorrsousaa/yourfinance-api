@@ -19,4 +19,16 @@ export const OverviewStyled = styled.section`
       }
     }
   }
+
+  .container-cards-chart {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .container-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+  }
 `;

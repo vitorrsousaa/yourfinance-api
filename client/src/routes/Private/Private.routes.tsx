@@ -4,6 +4,7 @@ import Loader from '../../components/Loader';
 import { useAuthContext } from '../../context/AuthContext';
 import Home from '../../pages/Home';
 import Overview from '../../pages/Overview';
+import Transactions from '../../pages/Transactions';
 
 interface PrivateRouteProps {
   children: ReactElement;
@@ -40,6 +41,14 @@ export function PrivateRoutesProvider() {
         element={
           <PrivateRoute>
             <Home />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/transactions"
+        element={
+          <PrivateRoute>
+            <Transactions />
           </PrivateRoute>
         }
       />

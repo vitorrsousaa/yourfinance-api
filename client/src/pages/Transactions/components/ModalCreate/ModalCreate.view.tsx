@@ -97,7 +97,7 @@ export function ModalCreateView({
             category="date"
             placeholder="Data"
             min="2023-01-01"
-            type="date"
+            type="datetime"
             maxLength={10}
             value={date}
             onChange={handleDate}

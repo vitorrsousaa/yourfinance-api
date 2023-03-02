@@ -16,7 +16,7 @@ export const StyledSidebar = styled.aside`
   width: 18rem;
   height: 100vh;
 
-  @media (max-width: 400px) {
+  @media (max-width: 600px) {
     width: 4.5rem;
   }
 
