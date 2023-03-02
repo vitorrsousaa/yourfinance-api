@@ -7,20 +7,27 @@ export interface CardViewProps {
   type: 'income' | 'outcome';
   title: string;
   amount: number;
+  difference: number;
+  percent: number;
 }
 
-export function CardView({ type, title, amount }: CardViewProps) {
+export function CardView({
+  type,
+  title,
+  amount,
+  percent,
+  difference,
+}: CardViewProps) {
   return (
     <StyledCard>
       <div className="header-card-title">
         <strong>{title}</strong>
         <span className={type}>
-          24%
-          {type === 'income' ? <IconTrendUp /> : <IconTrendDown />}
+          {percent}%{percent > 0 ? <IconTrendUp /> : <IconTrendDown />}
         </span>
       </div>
-      <h1>{amount}</h1>
-      <small>+ R$ 254,21 do que o mes anterior</small>
+      <h1>{formatAmount(amount)}</h1>
+      <small> {formatAmount(difference)} do que último mês</small>
     </StyledCard>
   );
 }

@@ -1,31 +1,41 @@
 import { Transaction } from '../../types/Transaction';
+import { addTimeZone } from '../../utils/formatDate';
 
 export interface OverviewViewModelProps {}
 
-export function OverviewViewModel({}: OverviewViewModelProps) {
-  function getSummaryByCategory(transactions: Transaction[]) {
-    const summary = transactions.reduce(
+export function overviewViewModel(fromPeriod: Transaction[]) {
+  function getSummaryByCategory(categoryParam: 'Receitas' | 'Despesas') {
+    const filteredTransactions = fromPeriod.filter(
+      (transaction) => transaction.category === categoryParam
+    );
+    return filteredTransactions.reduce(
       (acc, transaction) => {
-        if (transaction.category === 'Receitas') {
-          acc.deposits += transaction.amount;
-        } else {
-          if (transaction.modality.name === 'Cartões') {
-            acc.credit += transaction.amount;
-          } else {
-            acc.expenses += transaction.amount;
-          }
+        const { amount, createdAt } = transaction;
+        const today = new Date();
+        const lastMonth = new Date(
+          today.getFullYear(),
+          today.getMonth() - 1,
+          1
+        );
+        const currentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+        const dateTransaction = addTimeZone(createdAt);
+
+        if (dateTransaction >= currentMonth) {
+          acc.currentMonth += amount;
+        }
+
+        if (dateTransaction < currentMonth && dateTransaction > lastMonth) {
+          acc.lastMonth += amount;
         }
 
         return acc;
       },
       {
-        deposits: 0,
-        expenses: 0,
-        credit: 0,
+        currentMonth: 0,
+        lastMonth: 0,
       }
     );
-
-    return summary;
   }
 
   return {

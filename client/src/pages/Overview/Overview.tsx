@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import TransactionsService from '../../services/TransactionsService';
 import { Transaction, TransactionsData } from '../../types/Transaction';
 import { OverviewView } from './Overview.view';
+import { overviewViewModel } from './Overview.view-model';
 
 export function Overview() {
   const [isLoading, setIsLoading] = useState(true);
@@ -11,34 +12,56 @@ export function Overview() {
   >([]);
   const [hasError, setHasError] = useState(false);
 
-  useEffect(() => {
-    async function loadTransactions() {
-      try {
-        setIsLoading(true);
-        const [dataTransaction, dataTransactionsPeriod] = await Promise.all([
-          TransactionsService.list(),
-          TransactionsService.listByPeriod(2),
-        ]);
+  const { getSummaryByCategory } = overviewViewModel(transactionFromPeriod);
 
-        // if (
-        //   dataTransaction.status === 'rejected' ||
-        //   dataTransactionsPeriod.status === 'rejected'
-        // ) {
-        //   return setHasError(true);
-        // }
+  const loadTransactions = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const [dataTransaction, dataTransactionsPeriod] = await Promise.all([
+        TransactionsService.list(),
+        TransactionsService.listByPeriod(2),
+      ]);
 
-        setTransactions(dataTransaction.value);
-        setTransactionsFromPeriod(dataTransactionsPeriod.value);
-      } catch (error) {
-        setHasError(true);
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
+      setTransactions(dataTransaction);
+      setTransactionsFromPeriod(dataTransactionsPeriod.transactions);
+    } catch (error) {
+      setHasError(true);
+    } finally {
+      setIsLoading(false);
     }
+  }, []);
 
+  useEffect(() => {
     loadTransactions();
   }, []);
 
-  return <OverviewView hasError={hasError} />;
+  function getCardsData(category: 'Receitas' | 'Despesas') {
+    const data = getSummaryByCategory(category);
+
+    return {
+      ...data,
+      difference: data.currentMonth - data.lastMonth,
+      percent: (data.currentMonth / data.lastMonth - 1) * 100,
+    };
+  }
+
+  const incomeData = useMemo(
+    () => getCardsData('Receitas'),
+    [transactionFromPeriod]
+  );
+
+  const outcomeData = useMemo(
+    () => getCardsData('Despesas'),
+    [transactionFromPeriod]
+  );
+
+  return (
+    <OverviewView
+      hasError={hasError}
+      handleError={loadTransactions}
+      isLoading={isLoading}
+      incomeData={incomeData}
+      outcomeData={outcomeData}
+    />
+  );
 }

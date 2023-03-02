@@ -27,6 +27,7 @@ export const OverviewStyled = styled.section`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    width: 100%;
 
     .container-cards {
       display: flex;
