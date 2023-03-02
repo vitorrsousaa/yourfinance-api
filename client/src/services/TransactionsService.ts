@@ -13,7 +13,7 @@ class TransactionsService {
       return this.httpClient.get(`/transactions/?page=${page}`);
     }
 
-    return this.httpClient.get('/transactions');
+    return this.httpClient.get('/transactionss');
   }
 
   async create(transaction: TransactionCreateProps) {

@@ -3,9 +3,12 @@ import styled from 'styled-components';
 export const OverviewStyled = styled.section`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 1.5rem;
 
   .header-overview {
+    width: 100%;
     h1 {
       font-weight: 500;
     }

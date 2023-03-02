@@ -15,25 +15,20 @@ export function Overview() {
     async function loadTransactions() {
       try {
         setIsLoading(true);
-        // const [dataTransaction, dataTransactionsPeriod] =
-        //   await Promise.allSettled([
-        //     TransactionsService.list(),
-        //     TransactionsService.listByPeriod(2),
-        //   ]);
+        const [dataTransaction, dataTransactionsPeriod] = await Promise.all([
+          TransactionsService.list(),
+          TransactionsService.listByPeriod(2),
+        ]);
 
-        // console.log(dataTransaction);
-        // console.log(dataTransactionsPeriod);
+        // if (
+        //   dataTransaction.status === 'rejected' ||
+        //   dataTransactionsPeriod.status === 'rejected'
+        // ) {
+        //   return setHasError(true);
+        // }
 
-        const response = await TransactionsService.list();
-
-        console.log(response);
-
-        // setTransactions(dataTransactions.transactions);
-        // setTransactions(transactionsMock);
-
-        // const response = await api.get('/transactions?period=2');
-
-        // console.log(response.data);
+        setTransactions(dataTransaction.value);
+        setTransactionsFromPeriod(dataTransactionsPeriod.value);
       } catch (error) {
         setHasError(true);
         console.log(error);
@@ -45,5 +40,5 @@ export function Overview() {
     loadTransactions();
   }, []);
 
-  return <OverviewView />;
+  return <OverviewView hasError={hasError} />;
 }

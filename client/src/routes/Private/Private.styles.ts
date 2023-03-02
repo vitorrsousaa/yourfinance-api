@@ -12,5 +12,6 @@ export const PrivateStyled = styled.div`
     flex-direction: column;
     gap: 1.5rem; */
     padding: 2rem;
+    width: 100%;
   }
 `;
