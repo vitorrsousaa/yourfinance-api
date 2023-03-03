@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import TransactionsService from '../../services/TransactionsService';
-import { Transaction, TransactionsData } from '../../types/Transaction';
+
+import { Transaction } from '../../types/Transaction';
+
 import { OverviewView } from './Overview.view';
-import { overviewViewModel } from './Overview.view-model';
+import { OverviewViewModel } from './Overview.view-model';
+
+import TransactionsService from '../../services/TransactionsService';
 
 export function Overview() {
   const [isLoading, setIsLoading] = useState(true);
@@ -12,7 +15,10 @@ export function Overview() {
   >([]);
   const [hasError, setHasError] = useState(false);
 
-  const { getSummaryByCategory } = overviewViewModel(transactionFromPeriod);
+  const { getSummaryByCategory, getIncomeByMonths } = OverviewViewModel(
+    transactionFromPeriod,
+    transactions
+  );
 
   const loadTransactions = useCallback(async () => {
     try {
@@ -22,7 +28,7 @@ export function Overview() {
         TransactionsService.listByPeriod(2),
       ]);
 
-      setTransactions(dataTransaction);
+      setTransactions(dataTransaction.transactions);
       setTransactionsFromPeriod(dataTransactionsPeriod.transactions);
     } catch (error) {
       setHasError(true);
@@ -55,6 +61,8 @@ export function Overview() {
     [transactionFromPeriod]
   );
 
+  const dataTransactions = useMemo(() => getIncomeByMonths(), [transactions]);
+
   return (
     <OverviewView
       hasError={hasError}
@@ -62,6 +70,7 @@ export function Overview() {
       isLoading={isLoading}
       incomeData={incomeData}
       outcomeData={outcomeData}
+      transactions={dataTransactions}
     />
   );
 }

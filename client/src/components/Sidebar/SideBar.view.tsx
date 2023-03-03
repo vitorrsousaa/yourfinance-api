@@ -1,5 +1,6 @@
-import { StyledSidebar } from './Sidebar.styles';
 import NavLink from './NavLink';
+
+import { StyledSidebar } from './Sidebar.styles';
 import IconOverview from '../../assets/icons/IconOverview';
 import Transaction from '../../assets/icons/Transaction';
 import IconAnalytics from '../../assets/icons/IconAnalytics';

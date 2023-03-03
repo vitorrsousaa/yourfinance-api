@@ -3,7 +3,10 @@ import { addTimeZone } from '../../utils/formatDate';
 
 export interface OverviewViewModelProps {}
 
-export function overviewViewModel(fromPeriod: Transaction[]) {
+export function OverviewViewModel(
+  fromPeriod: Transaction[],
+  transactions: Transaction[]
+) {
   function getSummaryByCategory(categoryParam: 'Receitas' | 'Despesas') {
     const filteredTransactions = fromPeriod.filter(
       (transaction) => transaction.category === categoryParam
@@ -38,7 +41,16 @@ export function overviewViewModel(fromPeriod: Transaction[]) {
     );
   }
 
+  function getIncomeByMonths() {
+    const incomeTransactions = transactions.filter(
+      (transaction) => transaction.category === 'Receitas'
+    );
+
+    return incomeTransactions;
+  }
+
   return {
     getSummaryByCategory,
+    getIncomeByMonths,
   };
 }

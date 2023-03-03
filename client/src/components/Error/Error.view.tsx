@@ -1,4 +1,5 @@
 import Button from '../Button';
+
 import errorImage from '../../assets/icons/images/error.svg';
 import { StyledError } from './Error.styles';
 

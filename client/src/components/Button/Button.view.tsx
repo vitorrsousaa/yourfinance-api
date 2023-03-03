@@ -1,8 +1,9 @@
 import { ReactNode } from 'react';
+import { Spinner } from '../Spinner';
+
 import customTheme from './theme';
 
 import { BaseButton, BaseButtonProps } from './Button.styles';
-import { Spinner } from '../Spinner';
 
 export interface ButtonViewProps extends Omit<BaseButtonProps, 'customTheme'> {
   children: ReactNode;

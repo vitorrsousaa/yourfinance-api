@@ -1,6 +1,10 @@
+import { Transaction } from '../../types/Transaction';
+
 import Error from '../../components/Error';
 import Loader from '../../components/Loader';
+import BarChart from './components/BarChart';
 import Card from './components/Card';
+
 import { OverviewStyled } from './Overview.styles';
 
 interface dataCards {
@@ -16,10 +20,18 @@ interface OverviewViewProps {
   isLoading: boolean;
   incomeData: dataCards;
   outcomeData: dataCards;
+  transactions: Transaction[];
 }
 
 export function OverviewView(props: OverviewViewProps) {
-  const { hasError, isLoading, incomeData, outcomeData, handleError } = props;
+  const {
+    hasError,
+    isLoading,
+    incomeData,
+    outcomeData,
+    transactions,
+    handleError,
+  } = props;
 
   return (
     <OverviewStyled>
@@ -51,6 +63,7 @@ export function OverviewView(props: OverviewViewProps) {
                 percent={outcomeData.percent}
               />
             </div>
+            <BarChart transactions={transactions} />
           </section>
         </>
       )}
