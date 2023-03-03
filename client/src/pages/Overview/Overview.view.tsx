@@ -6,7 +6,7 @@ import BarChart from './components/BarChart';
 import Card from './components/Card';
 
 import { OverviewStyled } from './Overview.styles';
-import LastTransaction from '../../components/LastTransactions';
+import LastTransactions from '../../components/LastTransactions';
 
 interface dataCards {
   currentMonth: number;
@@ -66,6 +66,7 @@ export function OverviewView(props: OverviewViewProps) {
             </div>
             <BarChart transactions={transactions} />
           </section>
+          <LastTransactions />
         </>
       )}
     </OverviewStyled>

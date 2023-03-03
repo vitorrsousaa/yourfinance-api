@@ -20,7 +20,7 @@ export const StyledNavLink = styled.div<{ isActive: boolean }>`
     background: ${({ theme }) => theme.colors.black[700]};
   }
 
-  @media (max-width: 600px) {
+  @media screen and (max-width: 600px) {
     padding: 0.375rem;
 
     small {
