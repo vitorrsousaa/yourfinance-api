@@ -14,4 +14,10 @@ export const PrivateStyled = styled.div`
     padding: 2rem;
     width: 100%;
   }
+
+  @media (max-width: 650px) {
+    .content-private {
+      padding: 0.75rem;
+    }
+  }
 `;

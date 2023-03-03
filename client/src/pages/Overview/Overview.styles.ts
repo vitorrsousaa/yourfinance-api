@@ -36,4 +36,10 @@ export const OverviewStyled = styled.section`
       gap: 1.5rem;
     }
   }
+
+  @media (max-width: 740px) {
+    .container-cards-chart {
+      flex-direction: column;
+    }
+  }
 `;

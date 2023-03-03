@@ -16,10 +16,6 @@ export const StyledSidebar = styled.aside`
   width: 18rem;
   height: 100vh;
 
-  @media (max-width: 600px) {
-    width: 4.5rem;
-  }
-
   header {
     padding: 0 1rem 1rem;
     width: 100%;
@@ -39,5 +35,10 @@ export const StyledSidebar = styled.aside`
     display: block;
     font-size: 1rem;
     font-weight: 700;
+  }
+
+  @media (max-width: 600px) {
+    width: 4.5rem;
+    padding: 0.75rem 0;
   }
 `;

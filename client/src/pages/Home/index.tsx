@@ -316,7 +316,7 @@ const Home2 = () => {
                 const lastMonth = new Date(
                   today.getFullYear(),
                   today.getMonth() - selectedMonth + 1,
-                  today.getDate()
+                  1
                 );
 
                 const byMonthDate = new Date(byMonth.date);
