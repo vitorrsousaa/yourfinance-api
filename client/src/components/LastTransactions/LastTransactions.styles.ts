@@ -11,4 +11,11 @@ export const StyledLastTransactions = styled.div`
 
   width: 100%;
   padding: 1rem;
+
+  @media screen and (max-width: 350px) {
+    padding: 0.5rem;
+    h1 {
+      font-size: 1rem;
+    }
+  }
 `;

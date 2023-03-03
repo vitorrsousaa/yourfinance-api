@@ -1,6 +1,13 @@
+import { Transaction } from '../../../types/Transaction';
+import formatAmount from '../../../utils/formatAmount';
+import { formatDate } from '../../../utils/formatDate';
 import { StyledTable } from './Table.styles';
 
-export function TableView() {
+export interface TableViewProps {
+  transactions: Transaction[];
+}
+
+export function TableView({ transactions }: TableViewProps) {
   return (
     <StyledTable>
       <div className="header-table">
@@ -10,20 +17,20 @@ export function TableView() {
         <strong>Data</strong>
         <strong>Tipo</strong>
       </div>
-      <div>
-        <small>Trabalho</small>
-        <small>Role com a morena</small>
-        <small>R$ 1200,00</small>
-        <small>01/02/2023</small>
-        <small>Fixo</small>
-      </div>
-      <div>
-        <small>Gastos pessoais</small>
-        <small>Role com a morena</small>
-        <small>R$ 90,00</small>
-        <small>01/01/2023</small>
-        <small>Variável</small>
-      </div>
+      {transactions.map((transaction) => {
+        const { _id, modality, description, amount, createdAt, type } =
+          transaction;
+
+        return (
+          <div key={_id}>
+            <small>{modality.name}</small>
+            <small>{description}</small>
+            <small>{formatAmount(amount)}</small>
+            <small>{formatDate(createdAt)}</small>
+            <small>{type}</small>
+          </div>
+        );
+      })}
     </StyledTable>
   );
 }

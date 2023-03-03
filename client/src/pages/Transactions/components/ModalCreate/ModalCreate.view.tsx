@@ -66,7 +66,7 @@ export function ModalCreateView({
           value={description}
           onChange={handleDescription}
           error={handleDescriptionError()}
-          maxLength={60}
+          maxLength={31}
         />
         <div className="containerDualOption">
           <Button

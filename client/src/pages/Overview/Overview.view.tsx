@@ -66,7 +66,9 @@ export function OverviewView(props: OverviewViewProps) {
             </div>
             <BarChart transactions={transactions} />
           </section>
-          <LastTransactions />
+          <div className="container-transactions">
+            <LastTransactions transactions={transactions.slice(0, 4)} />
+          </div>
         </>
       )}
     </OverviewStyled>

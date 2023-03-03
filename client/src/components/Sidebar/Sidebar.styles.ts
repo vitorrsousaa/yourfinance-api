@@ -38,7 +38,7 @@ export const StyledSidebar = styled.aside`
     font-weight: 700;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 640px) {
     width: 4.5rem;
     padding: 0.75rem 0;
   }

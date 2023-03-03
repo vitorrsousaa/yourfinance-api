@@ -37,6 +37,12 @@ export const OverviewStyled = styled.section`
     }
   }
 
+  .container-transactions {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+  }
+
   @media (max-width: 740px) {
     .container-cards-chart {
       flex-direction: column;
