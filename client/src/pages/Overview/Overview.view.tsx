@@ -6,6 +6,7 @@ import BarChart from './components/BarChart';
 import Card from './components/Card';
 
 import { OverviewStyled } from './Overview.styles';
+import LastTransaction from '../../components/LastTransactions';
 
 interface dataCards {
   currentMonth: number;

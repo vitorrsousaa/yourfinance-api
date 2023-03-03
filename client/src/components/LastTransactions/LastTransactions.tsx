@@ -5,6 +5,6 @@ import {
 
 type Props = LastTransactionsViewProps;
 
-export default function LastTransaction(props: Props) {
+export default function LastTransactions(props: Props) {
   return <LastTransactionsView {...props} />;
 }

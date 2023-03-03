@@ -27,7 +27,7 @@ import {
 import { Modality } from '../../types/Modality';
 import ModalitiesService from '../../services/ModalitiesService';
 import Ballon from '../../components/Ballon';
-import LastTransactions from '../../components/LastTransacions';
+import LastTransactions from '../../components/LastTransactions';
 import transactionsMock from '../../mocks/transactions';
 import { convertDateList, formatShortDate } from '../../utils/formatDate';
 import { useTheme } from 'styled-components';

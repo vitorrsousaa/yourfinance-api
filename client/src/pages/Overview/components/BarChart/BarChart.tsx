@@ -9,7 +9,6 @@ import {
 } from './BarChart.view';
 
 import { convertDateList } from '../../../../utils/formatDate';
-import transactionsMock from '../../../../mocks/transactions';
 
 interface BarChart extends Omit<BarChartViewProps, 'data'> {
   transactions: Transaction[];
@@ -56,7 +55,7 @@ export function BarChart({ transactions, ...props }: BarChart) {
   }
 
   const formatedData = useMemo(
-    () => getFormatedData(transactionsMock),
+    () => getFormatedData(transactions),
     [transactions]
   );
 
