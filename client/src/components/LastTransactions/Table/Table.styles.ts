@@ -23,11 +23,14 @@ export const StyledTable = styled.div`
       font-size: 0.875rem;
     }
   }
+  div + div {
+    height: 4rem;
+  }
 
   .header-table {
     strong:nth-child(2) {
       background: red;
-      width: 100%;
+      width: 400px;
     }
   }
 

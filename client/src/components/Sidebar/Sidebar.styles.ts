@@ -20,7 +20,8 @@ export const StyledSidebar = styled.aside`
     padding: 0 1rem 1rem;
     width: 100%;
     text-align: center;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.black[700]};
+    border-bottom: 1px solid;
+    border-color: ${({ theme }) => theme.colors.black[700]};
   }
 
   .content {

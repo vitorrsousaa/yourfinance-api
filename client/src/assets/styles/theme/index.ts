@@ -4,7 +4,6 @@ const theme: DefaultTheme = {
   colors: {
     black: {
       900: '#101010',
-
       700: '#404040',
       600: '#595959',
       300: '#A6A6A6',
