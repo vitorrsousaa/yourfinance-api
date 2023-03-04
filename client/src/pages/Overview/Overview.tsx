@@ -7,6 +7,9 @@ import { OverviewViewModel } from './Overview.view-model';
 
 import TransactionsService from '../../services/TransactionsService';
 import { useNavigate } from 'react-router-dom';
+import Error from '../../components/Error';
+import NoData from '../../components/NoData';
+import Loader from '../../components/Loader';
 
 export function Overview() {
   const [isLoading, setIsLoading] = useState(true);
@@ -70,14 +73,19 @@ export function Overview() {
   const dataTransactions = useMemo(() => getIncomeByMonths(), [transactions]);
 
   return (
-    <OverviewView
-      hasError={hasError}
-      handleError={loadTransactions}
-      handleDataContent={handleDataContent}
-      isLoading={isLoading}
-      incomeData={incomeData}
-      outcomeData={outcomeData}
-      transactions={dataTransactions}
-    />
+    <>
+      <Loader isLoading={isLoading} variant="large" />
+      {hasError ? (
+        <Error onError={loadTransactions} />
+      ) : transactions.length > 0 ? (
+        <OverviewView
+          incomeData={incomeData}
+          outcomeData={outcomeData}
+          transactions={dataTransactions}
+        />
+      ) : (
+        <NoData onDataContent={handleDataContent} />
+      )}
+    </>
   );
 }
