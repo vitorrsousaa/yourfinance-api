@@ -1,3 +1,4 @@
+import APIError from '../errors/APIError';
 import { TransactionCreateProps } from '../types/Transaction';
 import { User } from '../types/User';
 import delay from '../utils/delay';
@@ -5,13 +6,23 @@ import { api } from './api';
 
 type dataRequestProps = TransactionCreateProps | User;
 
+interface optionsProps {
+  method: 'get' | 'post' | 'delete';
+  url: string;
+}
+
 class HttpClient {
-  async get(path: string) {
-    const response = await api.get(path);
+  baseURL;
 
-    await delay();
+  constructor(baseURL: string) {
+    this.baseURL = baseURL;
+  }
 
-    return response.data;
+  get(path: string) {
+    return this.makeRequest({
+      method: 'get',
+      url: `${this.baseURL}${path}`,
+    });
   }
 
   async delete(path: string) {
@@ -25,10 +36,27 @@ class HttpClient {
   async post(path: string, data: dataRequestProps) {
     const response = await api.post(path, data);
 
-    await delay();
+    await delay(2000);
 
     return response.data;
   }
+
+  async makeRequest(options: optionsProps) {
+    await delay(1000);
+
+    const response = await api({
+      ...options,
+      validateStatus: function (status) {
+        return status >= 200 && status < 500;
+      },
+    });
+
+    if (response.statusText === 'OK') {
+      return response.data;
+    }
+
+    throw new APIError(response);
+  }
 }
 
-export default new HttpClient();
+export default HttpClient;

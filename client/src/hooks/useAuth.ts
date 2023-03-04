@@ -1,7 +1,9 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 import { api } from '../services/api';
 import { User } from '../types/User';
+import delay from '../utils/delay';
 
 export default function useAuth() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -24,7 +26,7 @@ export default function useAuth() {
       }
 
       try {
-        const response = await api.get('/auth');
+        const response = await api.get('http://localhost:3001/auth');
 
         if (response.status === 200) {
           setAuthenticated(true);
@@ -41,7 +43,10 @@ export default function useAuth() {
   }, []);
 
   async function handleLogin(user: User) {
-    const route = user.name ? 'auth/register' : 'auth/authenticate';
+    const route = user.name
+      ? 'http://localhost:3001/auth/register'
+      : 'http://localhost:3001/auth/authenticate';
+    await delay(2000);
 
     try {
       const { data } = await api.post(route, user);
@@ -61,7 +66,8 @@ export default function useAuth() {
 
   function handleLogout() {
     setAuthenticated(false);
-    localStorage.removeItem('token');
+    localStorage.removeItem('@Aion-token');
+    localStorage.removeItem('@Aion-user');
     api.defaults.headers.Authorization = null;
   }
 

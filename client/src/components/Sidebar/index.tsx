@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthContext';
 import { api } from '../../services/api';
@@ -43,5 +44,8 @@ const Sidebar = () => {
     </Container>
   );
 };
+=======
+import { Sidebar } from './Sidebar';
+>>>>>>> 0b41e4b4e11fa9a5d1bf5cea1ee538804f01bba5
 
 export default Sidebar;

@@ -8,10 +8,7 @@ export const Content = styled.section`
   display: flex;
   flex-direction: column;
 
-  padding: 3.5rem 2rem;
   gap: 2rem;
-  flex: 1;
-
   main {
     display: flex;
     align-items: center;

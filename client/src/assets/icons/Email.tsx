@@ -1,25 +1,19 @@
 export default function Email() {
   return (
-    <svg
-      width="20"
-      height="19"
-      viewBox="0 0 20 19"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="none">
       <path
-        d="M3.6 3.50818H16.4C17.28 3.50818 18 4.18858 18 5.02018V14.0922C18 14.9238 17.28 15.6042 16.4 15.6042H3.6C2.72 15.6042 2 14.9238 2 14.0922V5.02018C2 4.18858 2.72 3.50818 3.6 3.50818Z"
         stroke="currentColor"
-        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+        strokeWidth="2"
+        d="M12 15.332a3.333 3.333 0 1 0 0-6.667 3.333 3.333 0 0 0 0 6.667Z"
       />
       <path
-        d="M18 5.59631L10 10.6363L2 5.59631"
         stroke="currentColor"
-        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+        strokeWidth="2"
+        d="M16.425 18.665A8 8 0 1 1 20 11.998c0 1.842-.667 3.334-2.333 3.334-1.667 0-2.334-1.492-2.334-3.334V8.665"
       />
     </svg>
   );

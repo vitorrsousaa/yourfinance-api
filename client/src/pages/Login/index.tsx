@@ -2,7 +2,6 @@ import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import Loader from '../../components/Loader';
 import Logo from '../../components/Logo';
 import { useAuthContext } from '../../context/AuthContext';
 import useErrors from '../../hooks/useErrors';
@@ -16,7 +15,7 @@ const Login = () => {
     useErrors();
   const [loginError, setLoginError] = useState('');
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
   const { handleLogin, authenticated } = useAuthContext();
@@ -24,7 +23,7 @@ const Login = () => {
 
   useEffect(() => {
     if (authenticated) {
-      navigate('/home');
+      navigate('/overview');
     }
   }, [authenticated]);
 
@@ -51,8 +50,8 @@ const Login = () => {
   }
 
   async function handleSubmit(event: React.BaseSyntheticEvent) {
-    setIsLoading(true);
     event.preventDefault();
+    setIsSubmitting(true);
 
     const user = { email, password };
 
@@ -60,40 +59,54 @@ const Login = () => {
 
     if (err) {
       setPassword('');
+<<<<<<< HEAD
       setLoginError('Email ou senha inválido');
+=======
+      setError({ field: 'password', message: 'Email ou senha inválido' });
+>>>>>>> 0b41e4b4e11fa9a5d1bf5cea1ee538804f01bba5
     }
 
-    setIsLoading(false);
+    setIsSubmitting(false);
   }
 
   return (
     <Container>
-      <Loader isLoading={isLoading} />
       <Logo />
       <form onSubmit={handleSubmit}>
         <h1>Faça seu login</h1>
 
         <Input
           category="email"
-          placeholder="Seu E-mail"
+          placeholder="Digite seu e-mail"
           type="email"
           value={email}
           onChange={handleEmailChange}
           error={getErrorMessageByFieldName('email')}
+          disabled={isSubmitting}
         />
 
         <Input
           category="password"
-          placeholder="Sua senha"
+          placeholder="Digite sua senha"
           type="password"
           value={password}
           onChange={handlePasswordChange}
           error={getErrorMessageByFieldName('password')}
+          disabled={isSubmitting}
         />
 
+<<<<<<< HEAD
         {loginError && <small className="login-error">{loginError}</small>}
 
         <Button variant="primary" type="submit" disabled={!isFormValid}>
+=======
+        <Button
+          variant="primary"
+          type="submit"
+          disabled={!isFormValid}
+          isLoading={isSubmitting}
+        >
+>>>>>>> 0b41e4b4e11fa9a5d1bf5cea1ee538804f01bba5
           Fazer Login
         </Button>
       </form>

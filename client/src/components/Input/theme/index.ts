@@ -3,16 +3,16 @@ import theme from '../../../assets/styles/theme';
 
 const customTheme: InputThemeProps = {
   initial: {
-    color: theme.colors.black[800],
+    color: theme.colors.black[900],
   },
   focus: {
-    color: theme.colors.blue[900],
+    color: theme.colors.green[500],
   },
   error: {
-    color: theme.colors.error[900],
+    color: theme.colors.red[400],
   },
   disabled: {
-    color: theme.colors.gray[700],
+    color: theme.colors.black[200],
   },
 };
 

@@ -2,7 +2,6 @@ import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import Loader from '../../components/Loader';
 import Logo from '../../components/Logo';
 import { useAuthContext } from '../../context/AuthContext';
 import useErrors from '../../hooks/useErrors';
@@ -14,7 +13,7 @@ const SignUp = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { errors, getErrorMessageByFieldName, removeError, setError } =
     useErrors();
 
@@ -46,10 +45,10 @@ const SignUp = () => {
   function handlePasswordConfirmationChange(event: BaseSyntheticEvent) {
     setPasswordConfirmation(event.target.value);
 
-    if (!event.target.value) {
+    if (password !== event.target.value) {
       setError({
         field: 'passwordConfirmation',
-        message: 'Confirmação de senha é obrigatória',
+        message: 'Confirmação de senha incorreta',
       });
     } else {
       removeError('passwordConfirmation');
@@ -67,17 +66,8 @@ const SignUp = () => {
   }
 
   async function handleSubmit(event: React.BaseSyntheticEvent) {
-    setIsLoading(true);
     event.preventDefault();
-
-    if (password !== passwordConfirmation) {
-      setPasswordConfirmation('');
-      setError({
-        field: 'passwordConfirmation',
-        message: 'Confirmação de senha incorreta',
-      });
-      return;
-    }
+    setIsSubmitting(true);
 
     const user = { name, email, password };
 
@@ -89,7 +79,7 @@ const SignUp = () => {
       setError({ field: 'email', message: 'Esse email já foi cadastrado' });
     }
 
-    setIsLoading(false);
+    setIsSubmitting(false);
   }
 
   useEffect(() => {
@@ -100,47 +90,55 @@ const SignUp = () => {
 
   return (
     <Container>
-      <Loader isLoading={isLoading} />
       <Logo />
       <form onSubmit={handleSubmit}>
         <h1>Registre-se agora</h1>
         <Input
           category="person"
           type="text"
-          placeholder="Seu nome"
+          placeholder="Digite seu nome"
           value={name}
           onChange={handleNameChange}
           error={getErrorMessageByFieldName('name')}
+          disabled={isSubmitting}
         />
 
         <Input
           category="email"
-          placeholder="Seu E-mail"
+          placeholder="Digite seu e-mail"
           type="email"
           value={email}
           onChange={handleEmailChange}
           error={getErrorMessageByFieldName('email')}
+          disabled={isSubmitting}
         />
 
         <Input
           category="password"
-          placeholder="Sua senha"
+          placeholder="Digite sua senha"
           type="password"
           value={password}
           onChange={handlePasswordChange}
           error={getErrorMessageByFieldName('password')}
+          disabled={isSubmitting}
         />
 
         <Input
           category="password"
-          placeholder="Confirmação de senha"
+          placeholder="Confirme sua senha"
           type="password"
           value={passwordConfirmation}
           onChange={handlePasswordConfirmationChange}
           error={getErrorMessageByFieldName('passwordConfirmation')}
+          disabled={isSubmitting}
         />
 
-        <Button variant="primary" type="submit" disabled={!isFormValid}>
+        <Button
+          variant="primary"
+          type="submit"
+          disabled={!isFormValid}
+          isLoading={isSubmitting}
+        >
           Registre-se
         </Button>
       </form>

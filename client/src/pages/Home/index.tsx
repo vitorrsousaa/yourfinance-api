@@ -6,7 +6,6 @@ import {
   Summary,
 } from './styles';
 import { useAuthContext } from '../../context/AuthContext';
-import Sidebar from '../../components/Sidebar';
 import Header from '../../components/Header';
 import { BaseSyntheticEvent, useEffect, useMemo, useState } from 'react';
 import { Transaction, TransactionsData } from '../../types/Transaction';
@@ -28,7 +27,7 @@ import {
 import { Modality } from '../../types/Modality';
 import ModalitiesService from '../../services/ModalitiesService';
 import Ballon from '../../components/Ballon';
-import LastTransactions from '../../components/LastTransacions';
+import LastTransactions from '../../components/LastTransactions';
 import transactionsMock from '../../mocks/transactions';
 import { convertDateList, formatShortDate } from '../../utils/formatDate';
 import { useTheme } from 'styled-components';
@@ -69,7 +68,7 @@ const options = [
   },
 ];
 
-const Home = () => {
+const Home2 = () => {
   const { user } = useAuthContext();
   const [isLoading, setIsLoading] = useState(true);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -252,9 +251,7 @@ const Home = () => {
 
   return (
     <Container>
-      <Loader isLoading={isLoading} />
-
-      <Sidebar />
+      <Loader isLoading={isLoading} variant="large" />
 
       <Content>
         <Header />
@@ -315,7 +312,7 @@ const Home = () => {
                 const lastMonth = new Date(
                   today.getFullYear(),
                   today.getMonth() - selectedMonth + 1,
-                  today.getDate()
+                  1
                 );
 
                 const byMonthDate = new Date(byMonth.date);
@@ -479,4 +476,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Home2;

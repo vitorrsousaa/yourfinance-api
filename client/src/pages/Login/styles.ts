@@ -30,7 +30,7 @@ export const Container = styled.div`
 
   a {
     strong {
-      color: var(--blue-900);
+      color: ${({ theme }) => theme.colors.green[500]};
     }
   }
 `;

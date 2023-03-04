@@ -1,12 +1,14 @@
-import { InputBase, InputBaseProps } from './Input.styles';
+import { useState } from 'react';
+
+import customTheme from './theme';
+
+import { InputStyled, InputStyledProps } from './Input.styles';
 
 import Description from '../../assets/icons/Description';
 import Email from '../../assets/icons/Email';
 import Person from '../../assets/icons/Person';
 import Lock from '../../assets/icons/Lock';
 import Real from '../../assets/icons/Real';
-import customTheme from './theme';
-import { useState } from 'react';
 
 type categories =
   | 'email'
@@ -16,7 +18,7 @@ type categories =
   | 'value'
   | 'description';
 
-export interface InputViewProps extends Pick<InputBaseProps, 'error'> {
+export interface InputViewProps extends Pick<InputStyledProps, 'error'> {
   category: categories;
 }
 
@@ -43,7 +45,7 @@ export function InputView({ error, category, ...props }: InputViewProps) {
   }
 
   return (
-    <InputBase isFocus={isFocus} error={error} customTheme={customTheme}>
+    <InputStyled isFocus={isFocus} error={error} customTheme={customTheme}>
       <label>
         <input
           type="text"
@@ -54,6 +56,6 @@ export function InputView({ error, category, ...props }: InputViewProps) {
         {CategorySVG && <CategorySVG />}
       </label>
       {!!error && <small>{error}</small>}
-    </InputBase>
+    </InputStyled>
   );
 }

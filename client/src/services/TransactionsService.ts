@@ -2,20 +2,30 @@ import { TransactionCreateProps } from '../types/Transaction';
 import HttpClient from './HttpClient';
 
 class TransactionsService {
+  httpClient;
+
+  constructor() {
+    this.httpClient = new HttpClient('http://localhost:3001');
+  }
+
   async list(page?: number) {
     if (page) {
-      return HttpClient.get(`/transactions/?page=${page}`);
+      return this.httpClient.get(`/transactions/?page=${page}`);
     }
 
-    return HttpClient.get('/transactions');
+    return this.httpClient.get('/transactions');
   }
 
   async create(transaction: TransactionCreateProps) {
-    return HttpClient.post('/transactions', transaction);
+    return this.httpClient.post('/transactions', transaction);
   }
 
   async delete(transactionId: string) {
-    return HttpClient.delete(`/transactions/${transactionId}`);
+    return this.httpClient.delete(`/transactions/${transactionId}`);
+  }
+
+  async listByPeriod(period = 2) {
+    return this.httpClient.get(`/transactions?period=${period}`);
   }
 }
 
