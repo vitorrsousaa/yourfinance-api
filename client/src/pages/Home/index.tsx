@@ -283,7 +283,7 @@ const Home2 = () => {
             <div>
               <h3>Cartões</h3>
               <strong>
-                {formatAmount(summary.credit > 0 ? summary.credit : 0)}
+                {formatAmount(summary.expenses > 0 ? summary.expenses : 0)}
               </strong>
             </div>
           </div>
@@ -292,10 +292,6 @@ const Home2 = () => {
         <section>
           <header>
             <h1>Fluxo Financeiro</h1>
-            {/* <button>
-              <small>Últimos 6 meses</small>
-              <img src={Arrow} alt="Arrow" />
-            </button> */}
 
             <select value={selectedMonth} onChange={handleSelectedMonth}>
               {options.map((option) => (
@@ -404,7 +400,7 @@ const Home2 = () => {
 
           <section>
             <header>
-              <h1>Maiores despesas</h1>
+              <h1>Despesas por categorias</h1>
               <select
                 value={selectedExpenses}
                 onChange={handleSelectedExpenses}
@@ -420,34 +416,36 @@ const Home2 = () => {
               </select>
             </header>
             <div className="containerPieChart">
-              <PieChart width={360} height={290}>
-                <Pie
-                  data={biggestExpensesByModality}
-                  dataKey="amount"
-                  nameKey="modality"
-                  cx={150}
-                  innerRadius={60}
-                  fill="#82ca9d"
-                  onAnimationEnd={onAnimationEnd}
-                  animationDuration={2000}
-                >
-                  {biggestExpensesByModality.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Pie>
-                <Tooltip
-                  formatter={(value: any, name) => {
-                    const modality = modalities.find(
-                      (modality) => modality._id === name
-                    );
+              <ResponsiveContainer width="100%" height={290}>
+                <PieChart width={360}>
+                  <Pie
+                    data={biggestExpensesByModality}
+                    dataKey="amount"
+                    nameKey="modality"
+                    cx={150}
+                    innerRadius={60}
+                    fill="#82ca9d"
+                    onAnimationEnd={onAnimationEnd}
+                    animationDuration={2000}
+                  >
+                    {biggestExpensesByModality.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={COLORS[index % COLORS.length]}
+                      />
+                    ))}
+                  </Pie>
+                  <Tooltip
+                    formatter={(value: any, name) => {
+                      const modality = modalities.find(
+                        (modality) => modality._id === name
+                      );
 
-                    return [formatAmount(value), modality?.name];
-                  }}
-                />
-              </PieChart>
+                      return [formatAmount(value), modality?.name];
+                    }}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
 
               <div
                 className={`containerModalityPieChart ${
