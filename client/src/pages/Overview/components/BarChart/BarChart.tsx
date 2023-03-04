@@ -1,12 +1,11 @@
 import { useMemo } from 'react';
-
-import { Transaction } from '../../../../types/Transaction';
-
 import {
   BarChartView,
   BarChartViewProps,
   IncomeByMonth,
 } from './BarChart.view';
+
+import { Transaction } from '../../../../types/Transaction';
 
 import { convertDateList } from '../../../../utils/formatDate';
 

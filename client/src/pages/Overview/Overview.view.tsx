@@ -25,7 +25,7 @@ export function OverviewView(props: OverviewViewProps) {
 
   return (
     <OverviewStyled>
-      <Header page="Overview" />
+      <Header page="Overview" subtitle="Comece a controlar suas finanças." />
 
       <section className="container-cards-chart">
         <div className="container-cards">

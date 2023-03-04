@@ -3,10 +3,11 @@ import { HeaderView } from './Header.view';
 
 interface HeaderProps {
   page: string;
+  subtitle?: string;
 }
 
-export function Header({ page }: HeaderProps) {
+export function Header({ ...props }: HeaderProps) {
   const { user } = useAuthContext();
 
-  return <HeaderView name={user.name} page={page} />;
+  return <HeaderView name={user.name} {...props} />;
 }

@@ -160,7 +160,7 @@ Todos os componentes criados vão seguir uma mesma estrutura de organização:
 
 → As importações no projeto vão seguir uma mesma padronização
 
-1. React
+1. React e libs
 2. Tipagens
 3. Componentes
 4. Funções e utilitários

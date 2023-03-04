@@ -2,6 +2,7 @@ import formatAmount from '../../../../utils/formatAmount';
 
 import { IconTrendDown } from '../../../../assets/icons/trendDown';
 import { IconTrendUp } from '../../../../assets/icons/trendUp';
+
 import { StyledCard } from './Card.styles';
 
 export interface CardViewProps {

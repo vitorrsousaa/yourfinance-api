@@ -4,12 +4,12 @@ import { Transaction } from '../../types/Transaction';
 
 import { OverviewView } from './Overview.view';
 import { OverviewViewModel } from './Overview.view-model';
-
-import TransactionsService from '../../services/TransactionsService';
-import { useNavigate } from 'react-router-dom';
 import Error from '../../components/Error';
 import NoData from '../../components/NoData';
 import Loader from '../../components/Loader';
+
+import TransactionsService from '../../services/TransactionsService';
+import { useNavigate } from 'react-router-dom';
 
 export function Overview() {
   const [isLoading, setIsLoading] = useState(true);
