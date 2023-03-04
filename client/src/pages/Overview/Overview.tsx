@@ -30,8 +30,8 @@ export function Overview() {
         TransactionsService.listByPeriod(2),
       ]);
 
-      setTransactions(dataTransaction);
-      setTransactionsFromPeriod(dataTransactionsPeriod);
+      setTransactions(dataTransaction.transactions);
+      setTransactionsFromPeriod(dataTransactionsPeriod.transactions);
     } catch (error) {
       setHasError(true);
     } finally {
