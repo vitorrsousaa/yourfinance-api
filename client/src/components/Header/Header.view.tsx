@@ -1,22 +1,19 @@
-import Arrow from '../../assets/icons/arrow.svg';
-
 import { BaseHeader } from './Header.styles';
 
 export interface HeaderViewProps {
   name: string | undefined;
+  page: string;
 }
 
-export function HeaderView({ name }: HeaderViewProps) {
+export function HeaderView({ name, page }: HeaderViewProps) {
   return (
     <BaseHeader>
-      <h1>
-        Bem vindo(a) de volta, <span>{name}</span>
-      </h1>
-      <div className="containerAvatar">
-        <img src="https://picsum.photos/200/300" alt="ImageAvatar" />
-        <h4>{name}</h4>
-        <img src={Arrow} alt="Arrow" />
-      </div>
+      <header className="header-overview">
+        <h1>{page}</h1>
+        <small>
+          Olá, <strong>{name}.</strong> Comece a controlar suas finanças.
+        </small>
+      </header>
     </BaseHeader>
   );
 }

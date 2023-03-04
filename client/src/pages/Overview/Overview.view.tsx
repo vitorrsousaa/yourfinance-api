@@ -8,6 +8,7 @@ import Card from './components/Card';
 import { OverviewStyled } from './Overview.styles';
 import LastTransactions from '../../components/LastTransactions';
 import NoData from '../../components/NoData';
+import Header from '../../components/Header';
 
 interface dataCards {
   currentMonth: number;
@@ -40,12 +41,7 @@ export function OverviewView(props: OverviewViewProps) {
   return (
     <OverviewStyled>
       <Loader isLoading={isLoading} variant="large" />
-      <header className="header-overview">
-        <h1>Overview Page</h1>
-        <small>
-          Olá, <strong>Natalia Nunes.</strong> Comece a controlar suas finanças.
-        </small>
-      </header>
+      <Header page="Overview" />
       {hasError ? (
         <Error onError={handleError} />
       ) : transactions.length > 0 ? (

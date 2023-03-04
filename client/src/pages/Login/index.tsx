@@ -59,11 +59,7 @@ const Login = () => {
 
     if (err) {
       setPassword('');
-<<<<<<< HEAD
-      setLoginError('Email ou senha inválido');
-=======
       setError({ field: 'password', message: 'Email ou senha inválido' });
->>>>>>> 0b41e4b4e11fa9a5d1bf5cea1ee538804f01bba5
     }
 
     setIsSubmitting(false);
@@ -95,18 +91,12 @@ const Login = () => {
           disabled={isSubmitting}
         />
 
-<<<<<<< HEAD
-        {loginError && <small className="login-error">{loginError}</small>}
-
-        <Button variant="primary" type="submit" disabled={!isFormValid}>
-=======
         <Button
           variant="primary"
           type="submit"
           disabled={!isFormValid}
           isLoading={isSubmitting}
         >
->>>>>>> 0b41e4b4e11fa9a5d1bf5cea1ee538804f01bba5
           Fazer Login
         </Button>
       </form>
