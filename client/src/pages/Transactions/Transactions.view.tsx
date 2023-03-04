@@ -17,7 +17,11 @@ export function TransactionsView(props: TransactionsViewProps) {
         subtitle="Visualize todas as transações anteriores."
       />
 
-      <LastTransactions transactions={transactions} />
+      <LastTransactions
+        transactions={transactions}
+        subtitle={true}
+        hasButton={true}
+      />
     </StyledTransacions>
   );
 }

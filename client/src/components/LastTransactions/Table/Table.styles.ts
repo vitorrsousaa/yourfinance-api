@@ -6,6 +6,15 @@ export const StyledTable = styled.div`
   justify-content: space-between;
   width: 100%;
 
+  .receitas {
+    color: ${({ theme }) => theme.colors.green[500]};
+    font-weight: 500;
+  }
+  .despesas {
+    color: ${({ theme }) => theme.colors.red[400]};
+    font-weight: 500;
+  }
+
   div {
     display: flex;
     align-items: center;
@@ -17,6 +26,14 @@ export const StyledTable = styled.div`
 
   div + div {
     height: 4rem;
+  }
+
+  strong {
+    color: ${({ theme }) => theme.colors.black[700]};
+  }
+
+  small {
+    color: ${({ theme }) => theme.colors.black[600]};
   }
 
   .header-table {

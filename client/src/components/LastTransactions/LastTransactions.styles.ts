@@ -12,6 +12,16 @@ export const StyledLastTransactions = styled.div`
   width: 100%;
   padding: 1rem;
 
+  header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  button {
+    max-width: 20rem;
+  }
+
   @media screen and (max-width: 350px) {
     padding: 0.5rem;
     h1 {

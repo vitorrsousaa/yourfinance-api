@@ -18,14 +18,25 @@ export function TableView({ transactions }: TableViewProps) {
         <strong>Tipo</strong>
       </div>
       {transactions.map((transaction) => {
-        const { _id, modality, description, amount, createdAt, type } =
-          transaction;
+        const {
+          _id,
+          modality,
+          description,
+          amount,
+          createdAt,
+          type,
+          category,
+        } = transaction;
 
         return (
           <div key={_id}>
             <small>{modality.name}</small>
             <small>{description}</small>
-            <small>{formatAmount(amount)}</small>
+            <small className={category.toLocaleLowerCase()}>
+              {`
+                ${category === 'Despesas' ? '-' : ''} ${formatAmount(amount)}
+              `}
+            </small>
             <small>{formatDate(createdAt)}</small>
             <small>{type}</small>
           </div>

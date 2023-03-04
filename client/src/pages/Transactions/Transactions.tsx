@@ -29,7 +29,7 @@ export function Transactions() {
 
   return (
     <>
-      <Loader isLoading={isLoading} />
+      <Loader isLoading={isLoading} variant="large" />
       {hasError ? (
         <Error onError={loadTransactions} />
       ) : transactions.length > 0 ? (
