@@ -46,7 +46,7 @@ export function Transactions() {
           handleCreateModalOpen={() => setIsModalCreateOpen(true)}
         />
       ) : (
-        <NoData onDataContent={() => console.log('executu')} />
+        <NoData onDataContent={() => setIsModalCreateOpen(true)} />
       )}
     </>
   );

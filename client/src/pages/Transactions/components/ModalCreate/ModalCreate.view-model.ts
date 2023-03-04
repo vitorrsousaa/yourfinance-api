@@ -2,29 +2,6 @@ import { BaseSyntheticEvent, useState } from 'react';
 
 import useErrors from '../../../../hooks/useErrors';
 
-export interface ModalCreateViewModelProps {
-  form: {
-    description: string;
-    amount: number;
-    date: string;
-    category: Category;
-    type: TypeProps;
-    isValid: boolean;
-    onSelectedModality: (modality: string) => void;
-  };
-  handlers: {
-    handleDescription: (event: BaseSyntheticEvent) => void;
-    handleDescriptionError: () => string | undefined;
-    handleCategory: () => void;
-    handleAmount: (event: BaseSyntheticEvent) => void;
-    handleAmountError: () => string | undefined;
-    handleType: () => void;
-    handleDate: (event: BaseSyntheticEvent) => void;
-    handleDateError: () => string | undefined;
-  };
-  isLoading: boolean;
-}
-
 type TypeProps = 'Fixo' | 'Variável';
 
 type Category = 'Receitas' | 'Despesas';
@@ -33,10 +10,11 @@ export function ModalCreateViewModel() {
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState(0);
   const [date, setDate] = useState('');
-  const [category, setCategory] = useState<Category>('Despesas');
+  const [category, setCategory] = useState<Category>('' as Category);
   const [type, setType] = useState<TypeProps>('Fixo');
   const [selectedModality, setSelectedModality] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const selectCategories = ['Despesas', 'Receitas'];
 
   const { errors, getErrorMessageByFieldName, removeError, setError } =
     useErrors();
@@ -144,6 +122,7 @@ export function ModalCreateViewModel() {
       handleDate: handleChangeDate,
       handleDateError,
     },
+    constants: { selectCategories },
     isLoading,
     setIsLoading,
     selectedModality,

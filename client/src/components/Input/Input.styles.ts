@@ -22,10 +22,36 @@ export const InputStyled = styled.div<InputStyledProps>`
     display: flex;
     align-items: center;
 
-    border: solid 1px;
+    border: solid 1px transparent;
     border-radius: 4px;
     padding: 0.65rem;
     background: ${({ theme }) => theme.colors.white[200]};
+
+    transition: border-color 0.2s ease-in;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.04);
+
+    input {
+      border: none;
+      background: transparent;
+      font-size: 1rem;
+
+      width: 100%;
+      height: 100%;
+
+      svg {
+        color: ${({ customTheme }) => customTheme.initial.color};
+      }
+
+      &:disabled {
+        svg {
+          color: red;
+        }
+      }
+    }
+
+    input[disabled] {
+      color: blue;
+    }
 
     ${({ isFocus, error, customTheme }) => {
       if (error) {
@@ -64,33 +90,18 @@ export const InputStyled = styled.div<InputStyledProps>`
       }
 
       return css`
-        border-color: ${customTheme.initial.color};
-
-        svg {
-          color: ${customTheme.initial.color};
-        }
-
         input {
           color: ${customTheme.initial.color};
 
           &::placeholder {
             color: ${customTheme.initial.color};
           }
+
+          &[disabled] {
+            color: blue;
+          }
         }
       `;
     }}
-
-    input {
-      border: none;
-      background: transparent;
-      font-size: 1rem;
-
-      width: 100%;
-      height: 100%;
-
-      &:disabled {
-        color: ${({ customTheme }) => customTheme.disabled.color};
-      }
-    }
   }
 `;

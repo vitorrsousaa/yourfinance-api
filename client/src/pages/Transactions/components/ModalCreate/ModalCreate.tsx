@@ -24,6 +24,7 @@ export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
     selectedModality,
     handlers,
     isLoading,
+    constants,
     setIsLoading,
     handleClearState,
   } = ModalCreateViewModel();
@@ -62,6 +63,7 @@ export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
   return (
     <ModalCreateView
       {...props}
+      selectCategories={constants.selectCategories}
       onClose={newOnClose}
       form={form}
       handlers={handlers}

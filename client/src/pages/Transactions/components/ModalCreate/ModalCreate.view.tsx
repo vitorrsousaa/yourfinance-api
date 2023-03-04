@@ -1,18 +1,42 @@
 import { Modality } from '../../../../types/Modality';
-import { ModalCreateViewModelProps } from './ModalCreate.view-model';
 
 import Button from '../../../../components/Button';
 import Input from '../../../../components/Input';
 import Modal from '../../../../components/Modal';
 
 import { StyledModalContainer, ContainerModality } from './ModalCreate.styles';
-import { ModalCreateProps } from './ModalCreate';
 
-type ModalCreateViewProps = ModalCreateViewModelProps &
-  ModalCreateProps &
-  ModalCreateView;
+import Select from '../../../../components/Select';
+import { BaseSyntheticEvent } from 'react';
 
-interface ModalCreateView {
+type TypeProps = 'Fixo' | 'Variável';
+
+type Category = 'Receitas' | 'Despesas';
+
+export interface ModalCreateViewProps {
+  form: {
+    description: string;
+    amount: number;
+    date: string;
+    category: Category;
+    type: TypeProps;
+    isValid: boolean;
+    onSelectedModality: (modality: string) => void;
+  };
+  handlers: {
+    handleDescription: (event: BaseSyntheticEvent) => void;
+    handleDescriptionError: () => string | undefined;
+    handleCategory: () => void;
+    handleAmount: (event: BaseSyntheticEvent) => void;
+    handleAmountError: () => string | undefined;
+    handleType: () => void;
+    handleDate: (event: BaseSyntheticEvent) => void;
+    handleDateError: () => string | undefined;
+  };
+  selectCategories: string[];
+  isLoading: boolean;
+  isOpen: boolean;
+  onClose: () => void;
   modality: {
     selectedModality: string;
     modalities: Modality[];
@@ -22,9 +46,19 @@ interface ModalCreateView {
 }
 
 export function ModalCreateView(props: ModalCreateViewProps) {
-  const { isOpen, modality, form, handlers, isLoading, handleSubmit, onClose } =
-    props;
+  const {
+    isOpen,
+    modality,
+    form,
+    handlers,
+    isLoading,
+    selectCategories,
+    handleSubmit,
+    onClose,
+  } = props;
+
   const { modalities, selectedModality } = modality;
+
   const {
     amount,
     category,
@@ -46,6 +80,8 @@ export function ModalCreateView(props: ModalCreateViewProps) {
     handleDateError,
   } = handlers;
 
+  const teste = ['option1', 'options2'];
+
   return (
     <Modal
       isOpen={isOpen}
@@ -56,7 +92,7 @@ export function ModalCreateView(props: ModalCreateViewProps) {
     >
       <StyledModalContainer onSubmit={handleSubmit}>
         <Input
-          placeholder="Descrição"
+          placeholder="Descrição da transação"
           category="description"
           value={description}
           onChange={handleDescription}
@@ -64,25 +100,19 @@ export function ModalCreateView(props: ModalCreateViewProps) {
           maxLength={31}
         />
         <div className="containerDualOption">
-          <Button
-            variant="secondary"
-            disabled={!(category === 'Receitas')}
-            onClick={handleCategory}
-          >
-            Receitas
-          </Button>
-          <Button
-            variant="secondary"
-            disabled={!(category === 'Despesas')}
-            onClick={handleCategory}
-          >
-            Despesas
-          </Button>
+          <Select
+            placeholder="Categoria"
+            options={selectCategories}
+
+            // value={category}
+            // onChange={handleCategory}
+          />
+          <Select placeholder="Tipo de transação" options={teste} />
         </div>
         <div className="containerDualOption">
           <Input
             category="value"
-            placeholder="Valor"
+            placeholder="Valor da transação"
             type="number"
             value={amount}
             onChange={handleAmount}
@@ -90,9 +120,9 @@ export function ModalCreateView(props: ModalCreateViewProps) {
           />
           <Input
             category="date"
-            placeholder="Data"
+            placeholder="Data da transação"
             min="2023-01-01"
-            type="datetime"
+            type="date"
             maxLength={10}
             value={date}
             onChange={handleDate}
@@ -132,6 +162,7 @@ export function ModalCreateView(props: ModalCreateViewProps) {
             );
           })}
         </div>
+        <Select options={teste} placeholder="Modalidade" />
 
         <Button
           variant="primary"
