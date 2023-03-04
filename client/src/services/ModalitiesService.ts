@@ -1,8 +1,14 @@
 import HttpClient from './HttpClient';
 
 class ModalitiesService {
+  private httpClient;
+
+  constructor() {
+    this.httpClient = new HttpClient('http://localhost:3001');
+  }
+
   async list() {
-    return HttpClient.get('modality');
+    return this.httpClient.get('/modality');
   }
 }
 

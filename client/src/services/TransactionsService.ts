@@ -2,7 +2,7 @@ import { TransactionCreateProps } from '../types/Transaction';
 import HttpClient from './HttpClient';
 
 class TransactionsService {
-  httpClient;
+  private httpClient;
 
   constructor() {
     this.httpClient = new HttpClient('http://localhost:3001');

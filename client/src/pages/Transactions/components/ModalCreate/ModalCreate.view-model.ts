@@ -13,7 +13,7 @@ export function ModalCreateViewModel() {
   const [category, setCategory] = useState<Category>('' as Category);
   const [type, setType] = useState<TypeProps>('Fixo');
   const [selectedModality, setSelectedModality] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const selectCategories = ['Despesas', 'Receitas'];
   const selectTypes = ['Fixo', 'Variável'];
 
@@ -42,6 +42,22 @@ export function ModalCreateViewModel() {
 
   function handleDescriptionError() {
     const error = getErrorMessageByFieldName('description');
+
+    return error;
+  }
+
+  function handleSelectedModality(event: BaseSyntheticEvent) {
+    setSelectedModality(event.target.value);
+
+    if (!event.target.value) {
+      setError({ field: 'modality', message: 'Modalidade é obrigatória' });
+    } else {
+      removeError('modality');
+    }
+  }
+
+  function handleModalityError() {
+    const error = getErrorMessageByFieldName('modality');
 
     return error;
   }
@@ -123,6 +139,8 @@ export function ModalCreateViewModel() {
     setAmount(0);
     setDate('');
     setSelectedModality('');
+    setCategory('' as Category);
+    setType('' as TypeProps);
   }
 
   return {
@@ -133,9 +151,10 @@ export function ModalCreateViewModel() {
       category,
       type,
       isValid: isFormValid,
-      onSelectedModality: setSelectedModality,
     },
     handlers: {
+      handleSelectedModality,
+      handleModalityError,
       handleDescription: handleChangeDescription,
       handleDescriptionError,
       handleCategory: handleChangeCategory,
@@ -148,8 +167,8 @@ export function ModalCreateViewModel() {
       handleDateError,
     },
     constants: { selectCategories, selectTypes },
-    isLoading,
-    setIsLoading,
+    isSubmitting,
+    setIsSubmitting,
     selectedModality,
     handleClearState,
   };

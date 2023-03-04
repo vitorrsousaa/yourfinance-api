@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Modality } from '../../../../types/Modality';
 
 import { toast } from 'react-toastify';
@@ -19,24 +19,38 @@ export interface ModalCreateProps {
 
 export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
   const [modalities, setModalities] = useState<Modality[]>([]);
+  const [isModalitiesLoading, setIsModalitiesLoading] = useState(true);
   const {
     form,
     selectedModality,
     handlers,
-    isLoading,
+    isSubmitting,
     constants,
-    setIsLoading,
+    setIsSubmitting,
     handleClearState,
   } = ModalCreateViewModel();
 
+  const loadModalities = useCallback(async () => {
+    try {
+      setIsModalitiesLoading(true);
+      const dataModalities = await ModalitiesService.list();
+
+      setModalities(dataModalities);
+    } catch (error) {
+      toast.error(
+        'Não conseguimos carregar as modalidades, tente reiniciar a página.'
+      );
+    } finally {
+      setIsModalitiesLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
-    ModalitiesService.list().then((response) => {
-      setModalities(response);
-    });
+    loadModalities();
   }, []);
 
   async function handleSubmit(event: React.SyntheticEvent) {
-    setIsLoading(true);
+    setIsSubmitting(true);
     event.preventDefault();
     const transaction = {
       description: form.description,
@@ -52,7 +66,7 @@ export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
     onClose();
     handleClearState();
     toast.success('Transação adicionada');
-    setIsLoading(false);
+    setIsSubmitting(false);
   }
 
   function newOnClose() {
@@ -62,15 +76,19 @@ export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
 
   return (
     <ModalCreateView
-      {...props}
       selectCategories={constants.selectCategories}
       selectTypes={constants.selectTypes}
       onClose={newOnClose}
       form={form}
       handlers={handlers}
-      modality={{ selectedModality, modalities }}
-      isLoading={isLoading}
+      modality={{
+        selectedModality,
+        modalities: modalities.map((modality) => modality.name),
+      }}
+      isSubmitting={isSubmitting}
       handleSubmit={handleSubmit}
+      isModalitiesLoading={isModalitiesLoading}
+      {...props}
     />
   );
 }

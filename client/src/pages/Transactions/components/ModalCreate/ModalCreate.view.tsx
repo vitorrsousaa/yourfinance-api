@@ -21,9 +21,10 @@ export interface ModalCreateViewProps {
     category: Category;
     type: TypeProps;
     isValid: boolean;
-    onSelectedModality: (modality: string) => void;
   };
   handlers: {
+    handleSelectedModality: (event: BaseSyntheticEvent) => void;
+    handleModalityError: () => string | undefined;
     handleDescription: (event: BaseSyntheticEvent) => void;
     handleDescriptionError: () => string | undefined;
     handleCategory: (event: BaseSyntheticEvent) => void;
@@ -37,12 +38,13 @@ export interface ModalCreateViewProps {
   };
   selectCategories: string[];
   selectTypes: string[];
-  isLoading: boolean;
+  isSubmitting: boolean;
   isOpen: boolean;
+  isModalitiesLoading: boolean;
   onClose: () => void;
   modality: {
     selectedModality: string;
-    modalities: Modality[];
+    modalities: string[];
   };
 
   handleSubmit: (event: React.SyntheticEvent) => void;
@@ -54,7 +56,8 @@ export function ModalCreateView(props: ModalCreateViewProps) {
     modality,
     form,
     handlers,
-    isLoading,
+    isSubmitting,
+    isModalitiesLoading,
     selectCategories,
     selectTypes,
     handleSubmit,
@@ -63,15 +66,9 @@ export function ModalCreateView(props: ModalCreateViewProps) {
 
   const { modalities, selectedModality } = modality;
 
-  const {
-    amount,
-    category,
-    date,
-    description,
-    isValid,
-    type,
-    onSelectedModality,
-  } = form;
+  const { amount, category, date, description, isValid, type } = form;
+
+  console.log(selectedModality);
 
   const {
     handleDescription,
@@ -84,9 +81,9 @@ export function ModalCreateView(props: ModalCreateViewProps) {
     handleTypeError,
     handleDate,
     handleDateError,
+    handleSelectedModality,
+    handleModalityError,
   } = handlers;
-
-  const teste = ['option1', 'options2'];
 
   return (
     <Modal
@@ -142,7 +139,7 @@ export function ModalCreateView(props: ModalCreateViewProps) {
           />
         </div>
 
-        <div className="containerSectionModality">
+        {/* <div className="containerSectionModality">
           {modalities.map((modality) => {
             const isSelected = selectedModality === modality._id;
 
@@ -158,15 +155,21 @@ export function ModalCreateView(props: ModalCreateViewProps) {
               </ContainerModality>
             );
           })}
-        </div>
-        <Select options={teste} placeholder="Modalidade" />
+        </div> */}
+        <Select
+          options={modalities}
+          placeholder="Modalidade"
+          value={selectedModality}
+          onChange={handleSelectedModality}
+          error={handleModalityError()}
+        />
 
         <Button
           variant="primary"
           type="submit"
-          disabled={!isValid || isLoading}
+          disabled={!isValid || isSubmitting}
         >
-          {isLoading ? 'Enviando dados...' : 'Criar nova transação'}
+          {isSubmitting ? 'Enviando dados...' : 'Criar nova transação'}
         </Button>
       </StyledModalContainer>
     </Modal>
