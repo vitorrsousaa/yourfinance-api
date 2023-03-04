@@ -7,6 +7,7 @@ import Card from './components/Card';
 
 import { OverviewStyled } from './Overview.styles';
 import LastTransactions from '../../components/LastTransactions';
+import NoData from '../../components/NoData';
 
 interface dataCards {
   currentMonth: number;
@@ -18,6 +19,7 @@ interface dataCards {
 interface OverviewViewProps {
   hasError: boolean;
   handleError: () => void;
+  handleDataContent: () => void;
   isLoading: boolean;
   incomeData: dataCards;
   outcomeData: dataCards;
@@ -32,6 +34,7 @@ export function OverviewView(props: OverviewViewProps) {
     outcomeData,
     transactions,
     handleError,
+    handleDataContent,
   } = props;
 
   return (
@@ -45,7 +48,7 @@ export function OverviewView(props: OverviewViewProps) {
       </header>
       {hasError ? (
         <Error onError={handleError} />
-      ) : (
+      ) : transactions.length > 0 ? (
         <>
           <section className="container-cards-chart">
             <div className="container-cards">
@@ -70,6 +73,8 @@ export function OverviewView(props: OverviewViewProps) {
             <LastTransactions transactions={transactions.slice(0, 4)} />
           </div>
         </>
+      ) : (
+        <NoData onDataContent={handleDataContent} />
       )}
     </OverviewStyled>
   );

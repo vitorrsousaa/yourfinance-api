@@ -6,6 +6,7 @@ import { OverviewView } from './Overview.view';
 import { OverviewViewModel } from './Overview.view-model';
 
 import TransactionsService from '../../services/TransactionsService';
+import { useNavigate } from 'react-router-dom';
 
 export function Overview() {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,6 +15,7 @@ export function Overview() {
     Transaction[]
   >([]);
   const [hasError, setHasError] = useState(false);
+  const navigate = useNavigate();
 
   const { getSummaryByCategory, getIncomeByMonths } = OverviewViewModel(
     transactionFromPeriod,
@@ -28,8 +30,8 @@ export function Overview() {
         TransactionsService.listByPeriod(2),
       ]);
 
-      setTransactions(dataTransaction.transactions);
-      setTransactionsFromPeriod(dataTransactionsPeriod.transactions);
+      setTransactions(dataTransaction);
+      setTransactionsFromPeriod(dataTransactionsPeriod);
     } catch (error) {
       setHasError(true);
     } finally {
@@ -51,6 +53,10 @@ export function Overview() {
     };
   }
 
+  function handleDataContent() {
+    navigate('/transactions');
+  }
+
   const incomeData = useMemo(
     () => getCardsData('Receitas'),
     [transactionFromPeriod]
@@ -67,6 +73,7 @@ export function Overview() {
     <OverviewView
       hasError={hasError}
       handleError={loadTransactions}
+      handleDataContent={handleDataContent}
       isLoading={isLoading}
       incomeData={incomeData}
       outcomeData={outcomeData}
