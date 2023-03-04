@@ -6,10 +6,11 @@ import { StyledTransacions } from './Transactions.styles';
 
 interface TransactionsViewProps {
   transactions: Transaction[];
+  handleCreateModalOpen: () => void;
 }
 
 export function TransactionsView(props: TransactionsViewProps) {
-  const { transactions } = props;
+  const { transactions, handleCreateModalOpen } = props;
   return (
     <StyledTransacions>
       <Header
@@ -20,7 +21,7 @@ export function TransactionsView(props: TransactionsViewProps) {
       <LastTransactions
         transactions={transactions}
         subtitle={true}
-        hasButton={true}
+        onSelectedButton={handleCreateModalOpen}
       />
     </StyledTransacions>
   );

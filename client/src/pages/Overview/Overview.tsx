@@ -81,7 +81,8 @@ export function Overview() {
         <OverviewView
           incomeData={incomeData}
           outcomeData={outcomeData}
-          transactions={dataTransactions}
+          transactions={transactions.slice(0, 4)}
+          incomeTransactions={dataTransactions}
         />
       ) : (
         <NoData onDataContent={handleDataContent} />

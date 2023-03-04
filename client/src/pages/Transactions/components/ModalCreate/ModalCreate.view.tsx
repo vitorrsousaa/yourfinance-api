@@ -5,7 +5,7 @@ import Button from '../../../../components/Button';
 import Input from '../../../../components/Input';
 import Modal from '../../../../components/Modal';
 
-import { BaseModalContainer, ContainerModality } from './ModalCreate.styles';
+import { StyledModalContainer, ContainerModality } from './ModalCreate.styles';
 import { ModalCreateProps } from './ModalCreate';
 
 type ModalCreateViewProps = ModalCreateViewModelProps &
@@ -21,15 +21,9 @@ interface ModalCreateView {
   handleSubmit: (event: React.SyntheticEvent) => void;
 }
 
-export function ModalCreateView({
-  isOpen,
-  modality,
-  form,
-  handlers,
-  isLoading,
-  handleSubmit,
-  onClose,
-}: ModalCreateViewProps) {
+export function ModalCreateView(props: ModalCreateViewProps) {
+  const { isOpen, modality, form, handlers, isLoading, handleSubmit, onClose } =
+    props;
   const { modalities, selectedModality } = modality;
   const {
     amount,
@@ -58,8 +52,9 @@ export function ModalCreateView({
       onClose={onClose}
       header={true}
       title="Cadastrar nova transação"
+      subtitle="Preencha os dados da transação"
     >
-      <BaseModalContainer onSubmit={handleSubmit}>
+      <StyledModalContainer onSubmit={handleSubmit}>
         <Input
           placeholder="Descrição"
           category="description"
@@ -145,7 +140,7 @@ export function ModalCreateView({
         >
           {isLoading ? 'Enviando dados...' : 'Criar nova transação'}
         </Button>
-      </BaseModalContainer>
+      </StyledModalContainer>
     </Modal>
   );
 }

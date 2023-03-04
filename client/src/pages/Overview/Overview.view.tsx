@@ -18,10 +18,11 @@ interface OverviewViewProps {
   incomeData: dataCards;
   outcomeData: dataCards;
   transactions: Transaction[];
+  incomeTransactions: Transaction[];
 }
 
 export function OverviewView(props: OverviewViewProps) {
-  const { incomeData, outcomeData, transactions } = props;
+  const { incomeData, outcomeData, transactions, incomeTransactions } = props;
 
   return (
     <OverviewStyled>
@@ -44,10 +45,10 @@ export function OverviewView(props: OverviewViewProps) {
             percent={outcomeData.percent}
           />
         </div>
-        <BarChart transactions={transactions} />
+        <BarChart transactions={incomeTransactions} />
       </section>
       <div className="container-transactions">
-        <LastTransactions transactions={transactions.slice(0, 4)} />
+        <LastTransactions transactions={transactions} />
       </div>
     </OverviewStyled>
   );
