@@ -5,7 +5,7 @@ import { itemsPerPage } from '../../constants/pagination';
 class TransactionController {
   async index(req: Request, res: Response) {
     // Listar todos os registros
-    const { page } = req.query;
+    const { page, period } = req.query;
 
     const id = req.user.id;
 
@@ -14,24 +14,34 @@ class TransactionController {
 
       const total = transactions.length;
 
-      if (!page) {
+      if (page) {
+        const pageStart = (Number(page) - 1) * itemsPerPage;
+
+        const pageEnd = pageStart + itemsPerPage;
+
+        const selectedTransactions = transactions.slice(pageStart, pageEnd);
+
         return res.send({
           itemsPerPage,
           totalItems: total,
-          transactions,
+          transactions: selectedTransactions,
         });
       }
 
-      const pageStart = (Number(page) - 1) * itemsPerPage;
-
-      const pageEnd = pageStart + itemsPerPage;
-
-      const selectedTransactions = transactions.slice(pageStart, pageEnd);
+      if (period) {
+        const transactionsFromPeriod =
+          await TransactionsRepository.findByPeriod(id, period.toString());
+        return res.send({
+          itemsPerPage,
+          totalItems: total,
+          transactions: transactionsFromPeriod,
+        });
+      }
 
       return res.send({
         itemsPerPage,
         totalItems: total,
-        transactions: selectedTransactions,
+        transactions,
       });
     } catch (error) {
       console.log(error);

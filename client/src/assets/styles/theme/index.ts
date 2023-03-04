@@ -4,7 +4,6 @@ const theme: DefaultTheme = {
   colors: {
     black: {
       900: '#101010',
-
       700: '#404040',
       600: '#595959',
       300: '#A6A6A6',
@@ -38,6 +37,16 @@ const theme: DefaultTheme = {
       400: '#D1495B',
       300: '#DC707F',
     },
+  },
+  fonts: {
+    4: '0.25rem',
+    8: '0.5rem',
+    10: '0.625rem',
+    12: '0.625rem',
+    14: '0.75rem',
+    16: '1rem',
+    24: '1.5rem',
+    32: '2rem',
   },
 };
 

@@ -13,18 +13,15 @@ export const StyledSidebar = styled.aside`
 
   color: #fff;
 
-  width: 15rem;
+  width: 18rem;
   height: 100vh;
-
-  @media (max-width: 400px) {
-    width: 4.5rem;
-  }
 
   header {
     padding: 0 1rem 1rem;
     width: 100%;
     text-align: center;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.black[700]};
+    border-bottom: 1px solid;
+    border-color: ${({ theme }) => theme.colors.black[700]};
   }
 
   .content {
@@ -39,5 +36,10 @@ export const StyledSidebar = styled.aside`
     display: block;
     font-size: 1rem;
     font-weight: 700;
+  }
+
+  @media (max-width: 640px) {
+    width: 4.5rem;
+    padding: 0.75rem 0;
   }
 `;

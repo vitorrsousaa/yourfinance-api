@@ -24,9 +24,18 @@ function PrivateRoute({ children }: PrivateRouteProps) {
   return children;
 }
 
-export function PrivateRoutes() {
+export function PrivateRoutesProvider() {
   return (
     <RoutesProvider>
+      <Route
+        path="/overview"
+        element={
+          <PrivateRoute>
+            <Overview />
+          </PrivateRoute>
+        }
+      />
+
       <Route
         path="/home"
         element={
@@ -35,20 +44,11 @@ export function PrivateRoutes() {
           </PrivateRoute>
         }
       />
-
       <Route
         path="/transactions"
         element={
           <PrivateRoute>
             <Transactions />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/overview"
-        element={
-          <PrivateRoute>
-            <Overview />
           </PrivateRoute>
         }
       />

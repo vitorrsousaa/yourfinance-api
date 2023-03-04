@@ -142,156 +142,148 @@ const Transactions = () => {
         onDelete={handleDeleteTransaction}
       />
 
-      <Container>
-        <Sidebar />
-        <Content>
-          <Header />
+      <Content>
+        <Header />
 
-          <main>
-            <div>
-              <div className="containerName">
-                <h1>Transações</h1>
-              </div>
-              <small>Visualize todas as transações anteriores</small>
+        <main>
+          <div>
+            <div className="containerName">
+              <h1>Transações</h1>
             </div>
-            <Button variant="primary" onClick={handleOpenTransactionModal}>
-              Cadastrar nova transação +{' '}
-            </Button>
-          </main>
+            <small>Visualize todas as transações anteriores</small>
+          </div>
+          <Button variant="primary" onClick={handleOpenTransactionModal}>
+            Cadastrar nova transação +{' '}
+          </Button>
+        </main>
 
-          <section>
-            <div className="sectionHeader">
-              <h2>Últimas transações</h2>
-            </div>
+        <section>
+          <div className="sectionHeader">
+            <h2>Últimas transações</h2>
+          </div>
 
-            {transactions.length === 0 ? (
-              <>
-                <h3>Você ainda não possui transações</h3>
-                <small>
-                  Cadastre sua primeira transação, e registre seus gastos
-                  pessoais
-                </small>
-              </>
-            ) : (
-              <>
-                <TableTransactions>
-                  <thead>
-                    <tr>
-                      <th>Categoria</th>
-                      <th>Data</th>
-                      <th>Descrição</th>
-                      <th>Tipo</th>
-                      <th>Modalidade</th>
-                      <th>Valor</th>
-                      <th>Ações</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {transactions.map((transaction) => (
-                      <tr key={transaction._id}>
-                        <td>{transaction.category}</td>
-                        <td>{formatDate(transaction.createdAt)}</td>
-                        <td>{transaction.description}</td>
-                        <td>{transaction.type}</td>
-                        <td>{transaction.modality.name}</td>
-                        <td>{formatAmount(transaction.amount)}</td>
-                        <td style={{ display: 'flex', gap: '0.5rem' }}>
-                          <IconTable
-                            onClick={() =>
-                              handleEditTransaction(transaction._id)
-                            }
-                          >
-                            🖊️
-                          </IconTable>
-                          <IconTable
-                            onClick={() =>
-                              handleOpenDeleteModal(transaction._id)
-                            }
-                          >
-                            🗑️
-                          </IconTable>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </TableTransactions>
-
-                <Pagination>
-                  <div>
-                    <strong>{page * itemsPerPage - itemsPerPage + 1}</strong> -{' '}
-                    <strong>
-                      {page === lastPage
-                        ? transactions.length
-                        : page * itemsPerPage}
-                    </strong>{' '}
-                    de <strong>{totalItems}</strong>
-                  </div>
-                  <div>
-                    {page >= 1 + siblingsCounts && (
-                      <>
-                        <PaginationItem
-                          isNotSelected={true}
-                          onClick={() => handlePageChange(1)}
+          {transactions.length === 0 ? (
+            <>
+              <h3>Você ainda não possui transações</h3>
+              <small>
+                Cadastre sua primeira transação, e registre seus gastos pessoais
+              </small>
+            </>
+          ) : (
+            <>
+              <TableTransactions>
+                <thead>
+                  <tr>
+                    <th>Categoria</th>
+                    <th>Data</th>
+                    <th>Descrição</th>
+                    <th>Tipo</th>
+                    <th>Modalidade</th>
+                    <th>Valor</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {transactions.map((transaction) => (
+                    <tr key={transaction._id}>
+                      <td>{transaction.category}</td>
+                      <td>{formatDate(transaction.createdAt)}</td>
+                      <td>{transaction.description}</td>
+                      <td>{transaction.type}</td>
+                      <td>{transaction.modality.name}</td>
+                      <td>{formatAmount(transaction.amount)}</td>
+                      <td style={{ display: 'flex', gap: '0.5rem' }}>
+                        <IconTable
+                          onClick={() => handleEditTransaction(transaction._id)}
                         >
-                          1
+                          🖊️
+                        </IconTable>
+                        <IconTable
+                          onClick={() => handleOpenDeleteModal(transaction._id)}
+                        >
+                          🗑️
+                        </IconTable>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </TableTransactions>
+
+              <Pagination>
+                <div>
+                  <strong>{page * itemsPerPage - itemsPerPage + 1}</strong> -{' '}
+                  <strong>
+                    {page === lastPage
+                      ? transactions.length
+                      : page * itemsPerPage}
+                  </strong>{' '}
+                  de <strong>{totalItems}</strong>
+                </div>
+                <div>
+                  {page >= 1 + siblingsCounts && (
+                    <>
+                      <PaginationItem
+                        isNotSelected={true}
+                        onClick={() => handlePageChange(1)}
+                      >
+                        1
+                      </PaginationItem>
+                      {page > 2 + siblingsCounts && <strong>...</strong>}
+                    </>
+                  )}
+
+                  {previousPages.length > 0 &&
+                    previousPages.map((page) => {
+                      return (
+                        <PaginationItem
+                          key={page}
+                          onClick={() => handlePageChange(page)}
+                          isNotSelected
+                        >
+                          {page}
                         </PaginationItem>
-                        {page > 2 + siblingsCounts && <strong>...</strong>}
-                      </>
-                    )}
+                      );
+                    })}
 
-                    {previousPages.length > 0 &&
-                      previousPages.map((page) => {
-                        return (
-                          <PaginationItem
-                            key={page}
-                            onClick={() => handlePageChange(page)}
-                            isNotSelected
-                          >
-                            {page}
-                          </PaginationItem>
-                        );
-                      })}
+                  <PaginationItem
+                    isNotSelected={false}
+                    onClick={() => handlePageChange(page)}
+                  >
+                    {page}
+                  </PaginationItem>
 
-                    <PaginationItem
-                      isNotSelected={false}
-                      onClick={() => handlePageChange(page)}
-                    >
-                      {page}
-                    </PaginationItem>
-
-                    {nextPages.length > 0 &&
-                      nextPages.map((page) => {
-                        return (
-                          <PaginationItem
-                            isNotSelected
-                            key={page}
-                            onClick={() => handlePageChange(page)}
-                          >
-                            {page}
-                          </PaginationItem>
-                        );
-                      })}
-
-                    {page + siblingsCounts < lastPage && (
-                      <>
-                        {page + 1 + siblingsCounts < lastPage && (
-                          <strong>...</strong>
-                        )}
+                  {nextPages.length > 0 &&
+                    nextPages.map((page) => {
+                      return (
                         <PaginationItem
                           isNotSelected
-                          onClick={() => handlePageChange(lastPage)}
+                          key={page}
+                          onClick={() => handlePageChange(page)}
                         >
-                          {lastPage}
+                          {page}
                         </PaginationItem>
-                      </>
-                    )}
-                  </div>
-                </Pagination>
-              </>
-            )}
-          </section>
-        </Content>
-      </Container>
+                      );
+                    })}
+
+                  {page + siblingsCounts < lastPage && (
+                    <>
+                      {page + 1 + siblingsCounts < lastPage && (
+                        <strong>...</strong>
+                      )}
+                      <PaginationItem
+                        isNotSelected
+                        onClick={() => handlePageChange(lastPage)}
+                      >
+                        {lastPage}
+                      </PaginationItem>
+                    </>
+                  )}
+                </div>
+              </Pagination>
+            </>
+          )}
+        </section>
+      </Content>
     </>
   );
 };

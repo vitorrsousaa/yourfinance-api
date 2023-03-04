@@ -1,4 +1,4 @@
-import { SidebarView } from './SideBar.view';
+import { SidebarView } from './Sidebar.view';
 
 export function Sidebar() {
   return <SidebarView />;

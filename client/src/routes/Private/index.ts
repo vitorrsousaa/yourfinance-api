@@ -1,3 +1,3 @@
-import { PrivateRoutesView as PrivateRoutes } from './Private.view';
+import { PrivateRoutes } from './PrivateRoutes';
 
 export default PrivateRoutes;

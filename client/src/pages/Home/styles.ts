@@ -9,7 +9,6 @@ export const Content = styled.section`
   flex-direction: column;
 
   gap: 2rem;
-  background: blue;
   main {
     display: flex;
     align-items: center;

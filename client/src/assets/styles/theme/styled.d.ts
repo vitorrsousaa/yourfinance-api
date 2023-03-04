@@ -40,5 +40,15 @@ declare module 'styled-components' {
         300: string;
       };
     };
+    fonts: {
+      4: string;
+      8: string;
+      10: string;
+      12: string;
+      14: string;
+      16: string;
+      24: string;
+      32: string;
+    };
   }
 }

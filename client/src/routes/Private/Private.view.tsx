@@ -1,5 +1,5 @@
 import Sidebar from '../../components/Sidebar';
-import { PrivateRoutes } from './Private.routes';
+import { PrivateRoutesProvider } from './Private.routes';
 import { PrivateStyled } from './Private.styles';
 
 export function PrivateRoutesView() {
@@ -7,7 +7,7 @@ export function PrivateRoutesView() {
     <PrivateStyled>
       <Sidebar />
       <main className="content-private">
-        <PrivateRoutes />
+        <PrivateRoutesProvider />
       </main>
     </PrivateStyled>
   );

@@ -1,4 +1,5 @@
 import { Spinner, SpinnerProps } from '../Spinner';
+
 import { BaseLoader, Overlay } from './Loader.styles';
 
 export interface LoaderViewProps extends SpinnerProps {}
