@@ -15,6 +15,7 @@ export function ModalCreateViewModel() {
   const [selectedModality, setSelectedModality] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const selectCategories = ['Despesas', 'Receitas'];
+  const selectTypes = ['Fixo', 'Variável'];
 
   const { errors, getErrorMessageByFieldName, removeError, setError } =
     useErrors();
@@ -45,10 +46,20 @@ export function ModalCreateViewModel() {
     return error;
   }
 
-  function handleChangeCategory() {
-    setCategory((prevState) =>
-      prevState === 'Receitas' ? 'Despesas' : 'Receitas'
-    );
+  function handleChangeCategory(event: BaseSyntheticEvent) {
+    setCategory(event.target.value);
+
+    if (event.target.value === '') {
+      setError({ field: 'category', message: 'Categoria é obrigatória' });
+    } else {
+      removeError('category');
+    }
+  }
+
+  function handleCategoryError() {
+    const error = getErrorMessageByFieldName('category');
+
+    return error;
   }
 
   function handleChangeAmount(event: BaseSyntheticEvent) {
@@ -70,8 +81,20 @@ export function ModalCreateViewModel() {
     return error;
   }
 
-  function handleChangeType() {
-    setType((prevState) => (prevState === 'Fixo' ? 'Variável' : 'Fixo'));
+  function handleChangeType(event: BaseSyntheticEvent) {
+    setType(event.target.value);
+
+    if (event.target.value === '') {
+      setError({ field: 'type', message: 'Tipo é obrigatório' });
+    } else {
+      removeError('type');
+    }
+  }
+
+  function handleTypeError() {
+    const error = getErrorMessageByFieldName('type');
+
+    return error;
   }
 
   function handleChangeDate(event: BaseSyntheticEvent) {
@@ -116,13 +139,15 @@ export function ModalCreateViewModel() {
       handleDescription: handleChangeDescription,
       handleDescriptionError,
       handleCategory: handleChangeCategory,
+      handleCategoryError,
       handleAmount: handleChangeAmount,
       handleAmountError,
       handleType: handleChangeType,
+      handleTypeError,
       handleDate: handleChangeDate,
       handleDateError,
     },
-    constants: { selectCategories },
+    constants: { selectCategories, selectTypes },
     isLoading,
     setIsLoading,
     selectedModality,

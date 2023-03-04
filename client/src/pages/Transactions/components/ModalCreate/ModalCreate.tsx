@@ -64,6 +64,7 @@ export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
     <ModalCreateView
       {...props}
       selectCategories={constants.selectCategories}
+      selectTypes={constants.selectTypes}
       onClose={newOnClose}
       form={form}
       handlers={handlers}

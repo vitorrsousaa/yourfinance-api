@@ -30,10 +30,7 @@ declare module 'styled-components' {
         700: string;
         200: string;
       };
-      error: {
-        900: string;
-        700: string;
-      };
+
       red: {
         600: string;
         400: string;

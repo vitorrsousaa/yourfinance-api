@@ -26,14 +26,17 @@ export interface ModalCreateViewProps {
   handlers: {
     handleDescription: (event: BaseSyntheticEvent) => void;
     handleDescriptionError: () => string | undefined;
-    handleCategory: () => void;
+    handleCategory: (event: BaseSyntheticEvent) => void;
+    handleCategoryError: () => string | undefined;
     handleAmount: (event: BaseSyntheticEvent) => void;
     handleAmountError: () => string | undefined;
-    handleType: () => void;
+    handleType: (event: BaseSyntheticEvent) => void;
+    handleTypeError: () => string | undefined;
     handleDate: (event: BaseSyntheticEvent) => void;
     handleDateError: () => string | undefined;
   };
   selectCategories: string[];
+  selectTypes: string[];
   isLoading: boolean;
   isOpen: boolean;
   onClose: () => void;
@@ -53,6 +56,7 @@ export function ModalCreateView(props: ModalCreateViewProps) {
     handlers,
     isLoading,
     selectCategories,
+    selectTypes,
     handleSubmit,
     onClose,
   } = props;
@@ -73,9 +77,11 @@ export function ModalCreateView(props: ModalCreateViewProps) {
     handleDescription,
     handleDescriptionError,
     handleCategory,
+    handleCategoryError,
     handleAmount,
     handleAmountError,
     handleType,
+    handleTypeError,
     handleDate,
     handleDateError,
   } = handlers;
@@ -97,17 +103,23 @@ export function ModalCreateView(props: ModalCreateViewProps) {
           value={description}
           onChange={handleDescription}
           error={handleDescriptionError()}
-          maxLength={31}
+          maxLength={35}
         />
         <div className="containerDualOption">
           <Select
-            placeholder="Categoria"
+            placeholder="Categoria da transação"
             options={selectCategories}
-
-            // value={category}
-            // onChange={handleCategory}
+            value={category}
+            onChange={handleCategory}
+            error={handleCategoryError()}
           />
-          <Select placeholder="Tipo de transação" options={teste} />
+          <Select
+            placeholder="Tipo de transação"
+            options={selectTypes}
+            value={type}
+            onChange={handleType}
+            error={handleTypeError()}
+          />
         </div>
         <div className="containerDualOption">
           <Input
@@ -129,22 +141,7 @@ export function ModalCreateView(props: ModalCreateViewProps) {
             error={handleDateError()}
           />
         </div>
-        <div className="containerDualOption">
-          <Button
-            variant="secondary"
-            disabled={!(type === 'Fixo')}
-            onClick={handleType}
-          >
-            Fixo
-          </Button>
-          <Button
-            variant="secondary"
-            disabled={!(type === 'Variável')}
-            onClick={handleType}
-          >
-            Variável
-          </Button>
-        </div>
+
         <div className="containerSectionModality">
           {modalities.map((modality) => {
             const isSelected = selectedModality === modality._id;
