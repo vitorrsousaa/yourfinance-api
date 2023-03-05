@@ -10,9 +10,14 @@ export const StyledTable = styled.div`
     color: ${({ theme }) => theme.colors.green[500]};
     font-weight: 500;
   }
+
   .despesas {
     color: ${({ theme }) => theme.colors.red[400]};
     font-weight: 500;
+  }
+
+  .container-transaction {
+    cursor: pointer;
   }
 
   div {

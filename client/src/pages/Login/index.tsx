@@ -1,5 +1,6 @@
 import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Logo from '../../components/Logo';
@@ -59,7 +60,7 @@ const Login = () => {
 
     if (err) {
       setPassword('');
-      setError({ field: 'password', message: 'Email ou senha inválido' });
+      toast.error('E-mail ou senha inválido');
     }
 
     setIsSubmitting(false);

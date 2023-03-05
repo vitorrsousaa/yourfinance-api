@@ -65,7 +65,7 @@ export type ButtonThemeProps = {
       border: string;
     };
   };
-  delete: {
+  danger: {
     initial: {
       background: string;
       color: string;

@@ -70,11 +70,11 @@ const customTheme: ButtonThemeProps = {
       border: 'none',
     },
   },
-  delete: {
+  danger: {
     initial: {
       background: 'transparent',
-      color: theme.colors.red[600],
-      border: `${border} ${theme.colors.red[600]}`,
+      color: theme.colors.red[400],
+      border: `${border} ${theme.colors.red[400]}`,
     },
     hover: {
       background: theme.colors.red[300],
