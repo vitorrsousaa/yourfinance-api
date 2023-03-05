@@ -17,8 +17,13 @@ export function ModalCreateViewModel() {
   const selectCategories = ['Despesas', 'Receitas'];
   const selectTypes = ['Fixo', 'Variável'];
 
-  const { errors, getErrorMessageByFieldName, removeError, setError } =
-    useErrors();
+  const {
+    errors,
+    getErrorMessageByFieldName,
+    removeError,
+    setError,
+    handleRemoveAllErrors,
+  } = useErrors();
 
   const isFormValid = Boolean(
     description &&
@@ -135,6 +140,7 @@ export function ModalCreateViewModel() {
   }
 
   function handleClearState() {
+    handleRemoveAllErrors();
     setDescription('');
     setAmount(0);
     setDate('');

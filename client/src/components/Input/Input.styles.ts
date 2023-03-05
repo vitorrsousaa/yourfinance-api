@@ -43,14 +43,11 @@ export const InputStyled = styled.div<InputStyledProps>`
       }
 
       &:disabled {
+        color: ${({ customTheme }) => customTheme.disabled.color};
         svg {
-          color: red;
+          color: ${({ customTheme }) => customTheme.disabled.color};
         }
       }
-    }
-
-    input[disabled] {
-      color: blue;
     }
 
     ${({ isFocus, error, customTheme }) => {
@@ -98,7 +95,6 @@ export const InputStyled = styled.div<InputStyledProps>`
           }
 
           &[disabled] {
-            color: blue;
           }
         }
       `;

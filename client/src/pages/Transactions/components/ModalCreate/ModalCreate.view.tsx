@@ -40,7 +40,6 @@ export interface ModalCreateViewProps {
   selectTypes: string[];
   isSubmitting: boolean;
   isOpen: boolean;
-  isModalitiesLoading: boolean;
   onClose: () => void;
   modality: {
     selectedModality: string;
@@ -57,7 +56,6 @@ export function ModalCreateView(props: ModalCreateViewProps) {
     form,
     handlers,
     isSubmitting,
-    isModalitiesLoading,
     selectCategories,
     selectTypes,
     handleSubmit,
@@ -67,8 +65,6 @@ export function ModalCreateView(props: ModalCreateViewProps) {
   const { modalities, selectedModality } = modality;
 
   const { amount, category, date, description, isValid, type } = form;
-
-  console.log(selectedModality);
 
   const {
     handleDescription,

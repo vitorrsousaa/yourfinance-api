@@ -19,7 +19,6 @@ export interface ModalCreateProps {
 
 export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
   const [modalities, setModalities] = useState<Modality[]>([]);
-  const [isModalitiesLoading, setIsModalitiesLoading] = useState(true);
   const {
     form,
     selectedModality,
@@ -32,7 +31,6 @@ export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
 
   const loadModalities = useCallback(async () => {
     try {
-      setIsModalitiesLoading(true);
       const dataModalities = await ModalitiesService.list();
 
       setModalities(dataModalities);
@@ -40,8 +38,6 @@ export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
       toast.error(
         'Não conseguimos carregar as modalidades, tente reiniciar a página.'
       );
-    } finally {
-      setIsModalitiesLoading(false);
     }
   }, []);
 
@@ -87,7 +83,6 @@ export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
       }}
       isSubmitting={isSubmitting}
       handleSubmit={handleSubmit}
-      isModalitiesLoading={isModalitiesLoading}
       {...props}
     />
   );
