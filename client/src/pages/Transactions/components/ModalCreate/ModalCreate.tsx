@@ -1,9 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Modality } from '../../../../types/Modality';
+import { useCallback, useEffect } from 'react';
 
 import { toast } from 'react-toastify';
-
 import ModalitiesService from '../../../../services/ModalitiesService';
+
 import TransactionsService from '../../../../services/TransactionsService';
 
 import { ModalCreateView } from './ModalCreate.view';
@@ -16,14 +15,16 @@ export interface ModalCreateProps {
 }
 
 export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
-  const [modalities, setModalities] = useState<Modality[]>([]);
   const {
     form,
     selectedModality,
     handlers,
     isSubmitting,
-    constants,
+    typesOptions,
+    modalitiesOptions,
+    categoriesOptions,
     setIsSubmitting,
+    setModalities,
     handleClearState,
   } = ModalCreateViewModel();
 
@@ -71,30 +72,6 @@ export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
     onClose();
     handleClearState();
   }
-
-  const typesOptions = useMemo(
-    () =>
-      constants.selectTypes.map((types) => {
-        return { id: types, label: types };
-      }),
-    [constants]
-  );
-
-  const categoriesOptions = useMemo(
-    () =>
-      constants.selectCategories.map((category) => {
-        return { id: category, label: category };
-      }),
-    [constants]
-  );
-
-  const modalitiesOptions = useMemo(
-    () =>
-      modalities.map((modality) => {
-        return { id: modality._id, label: modality.name };
-      }),
-    [modalities]
-  );
 
   return (
     <ModalCreateView

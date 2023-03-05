@@ -5,11 +5,11 @@ import { StyledTable } from './Table.styles';
 
 export interface TableViewProps {
   transactions: Transaction[];
-  onRowClick: (id: string) => void;
+  onClickRow: (id: string) => void;
 }
 
 export function TableView(props: TableViewProps) {
-  const { transactions, onRowClick } = props;
+  const { transactions, onClickRow } = props;
   return (
     <StyledTable>
       <div className="header-table">
@@ -33,7 +33,7 @@ export function TableView(props: TableViewProps) {
         return (
           <div
             key={_id}
-            onClick={() => onRowClick(_id)}
+            onClick={() => onClickRow(_id)}
             className="container-transaction"
           >
             <small>{modality.name}</small>

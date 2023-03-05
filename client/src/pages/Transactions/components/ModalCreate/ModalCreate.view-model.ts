@@ -1,6 +1,8 @@
-import { BaseSyntheticEvent, useState } from 'react';
+import { BaseSyntheticEvent, useMemo, useState } from 'react';
 
 import useErrors from '../../../../hooks/useErrors';
+
+import { Modality } from '../../../../types/Modality';
 
 type TypeProps = 'Fixo' | 'Variável';
 
@@ -16,6 +18,7 @@ export function ModalCreateViewModel() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const selectCategories = ['Despesas', 'Receitas'];
   const selectTypes = ['Fixo', 'Variável'];
+  const [modalities, setModalities] = useState<Modality[]>([]);
 
   const {
     errors,
@@ -149,6 +152,30 @@ export function ModalCreateViewModel() {
     setType('' as TypeProps);
   }
 
+  const modalitiesOptions = useMemo(
+    () =>
+      modalities.map((modality) => {
+        return { id: modality._id, label: modality.name };
+      }),
+    [modalities]
+  );
+
+  const categoriesOptions = useMemo(
+    () =>
+      selectCategories.map((category) => {
+        return { id: category, label: category };
+      }),
+    []
+  );
+
+  const typesOptions = useMemo(
+    () =>
+      selectTypes.map((types) => {
+        return { id: types, label: types };
+      }),
+    []
+  );
+
   return {
     form: {
       description,
@@ -172,7 +199,10 @@ export function ModalCreateViewModel() {
       handleDate: handleChangeDate,
       handleDateError,
     },
-    constants: { selectCategories, selectTypes },
+    modalitiesOptions,
+    categoriesOptions,
+    typesOptions,
+    setModalities,
     isSubmitting,
     setIsSubmitting,
     selectedModality,

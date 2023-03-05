@@ -18,6 +18,12 @@ export const StyledTable = styled.div`
 
   .container-transaction {
     cursor: pointer;
+
+    transition: all ease-in-out 0.2s;
+
+    &:hover {
+      opacity: 0.5;
+    }
   }
 
   div {

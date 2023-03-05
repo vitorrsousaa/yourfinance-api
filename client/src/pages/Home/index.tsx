@@ -26,7 +26,7 @@ import {
 } from 'recharts';
 import { Modality } from '../../types/Modality';
 import ModalitiesService from '../../services/ModalitiesService';
-import Ballon from '../../components/Ballon';
+
 import LastTransactions from '../../components/LastTransactions';
 import transactionsMock from '../../mocks/transactions';
 import { convertDateList, formatShortDate } from '../../utils/formatDate';
@@ -254,7 +254,7 @@ const Home2 = () => {
       <Loader isLoading={isLoading} variant="large" />
 
       <Content>
-        <Header />
+        {/* <Header /> */}
 
         <main>
           <div>
@@ -338,12 +338,12 @@ const Home2 = () => {
                 <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
                   <stop
                     offset="5%"
-                    stopColor={colors.error[900]}
+                    stopColor={colors.red[400]}
                     stopOpacity={0.6}
                   />
                   <stop
                     offset="95%"
-                    stopColor={colors.error[700]}
+                    stopColor={colors.red[400]}
                     stopOpacity={0}
                   />
                 </linearGradient>
@@ -369,7 +369,7 @@ const Home2 = () => {
               <Area
                 type="monotone"
                 dataKey="despesa"
-                stroke={colors.error[900]}
+                stroke={colors.red[400]}
                 fillOpacity={1}
                 fill="url(#colorPv)"
               />
@@ -382,22 +382,6 @@ const Home2 = () => {
         </section>
 
         <div className="containerSections">
-          <section>
-            <header>
-              <h1>Últimas transações</h1>
-            </header>
-            {transactions.slice(0, 4).map((transaction) => (
-              <LastTransactions
-                key={transaction._id}
-                category={transaction.category}
-                icon={transaction.modality.icon}
-                description={transaction.description}
-                createdAt={transaction.createdAt}
-                amount={transaction.amount}
-              />
-            ))}
-          </section>
-
           <section>
             <header>
               <h1>Despesas por categorias</h1>
@@ -462,7 +446,6 @@ const Home2 = () => {
                       <BiggestModalityContainer
                         key={`modality-${modalityExist?._id}`}
                       >
-                        <Ballon>{modalityExist?.icon}</Ballon>
                         <h6>{modalityExist?.name}</h6>
                       </BiggestModalityContainer>
                     );

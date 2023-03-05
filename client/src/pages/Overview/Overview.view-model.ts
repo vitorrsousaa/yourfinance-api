@@ -1,14 +1,19 @@
+import { useMemo, useState } from 'react';
 import { Transaction } from '../../types/Transaction';
 import { addTimeZone } from '../../utils/formatDate';
 
 export interface OverviewViewModelProps {}
 
-export function OverviewViewModel(
-  fromPeriod: Transaction[],
-  transactions: Transaction[]
-) {
+export function OverviewViewModel() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [transactionFromPeriod, setTransactionsFromPeriod] = useState<
+    Transaction[]
+  >([]);
+
   function getSummaryByCategory(categoryParam: 'Receitas' | 'Despesas') {
-    const filteredTransactions = fromPeriod.filter(
+    const filteredTransactions = transactionFromPeriod.filter(
       (transaction) => transaction.category === categoryParam
     );
     return filteredTransactions.reduce(
@@ -49,8 +54,38 @@ export function OverviewViewModel(
     return incomeTransactions;
   }
 
+  function getCardsData(category: 'Receitas' | 'Despesas') {
+    const data = getSummaryByCategory(category);
+
+    return {
+      ...data,
+      difference: data.currentMonth - data.lastMonth,
+      percent: (data.currentMonth / data.lastMonth - 1) * 100,
+    };
+  }
+
+  const incomeData = useMemo(
+    () => getCardsData('Receitas'),
+    [transactionFromPeriod]
+  );
+
+  const outcomeData = useMemo(
+    () => getCardsData('Despesas'),
+    [transactionFromPeriod]
+  );
+
+  const dataTransactions = useMemo(() => getIncomeByMonths(), [transactions]);
+
   return {
-    getSummaryByCategory,
-    getIncomeByMonths,
+    isLoading,
+    setIsLoading,
+    hasError,
+    setHasError,
+    transactions,
+    setTransactions,
+    setTransactionsFromPeriod,
+    incomeData,
+    outcomeData,
+    dataTransactions,
   };
 }

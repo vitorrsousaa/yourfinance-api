@@ -7,7 +7,7 @@ export interface LastTransactionsViewProps {
   transactions: Transaction[];
   subtitle?: boolean;
   onSelectedButton?: () => void;
-  onDeleteTransaction: (id: string) => void;
+  onDeleteTransaction?: (id: string) => void;
 }
 
 export function LastTransactionsView(props: LastTransactionsViewProps) {

@@ -1,41 +1,29 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Error from '../../components/Error';
 import Loader from '../../components/Loader';
 import ModalDanger from '../../components/ModalDanger';
 import NoData from '../../components/NoData';
-import TransactionsService from '../../services/TransactionsService';
 import ModalCreate from './components/ModalCreate';
 import { TransactionsView } from './Transactions.view';
+import { TransactionsViewModel } from './Transactions.view-model';
 
 export function Transactions() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
-  const [transactions, setTransactions] = useState([]);
-  const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
-  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
-  const [transactionIdToDelete, setTransactionIdToDelete] = useState('');
-
-  const loadTransactions = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const [dataTransaction] = await Promise.all([TransactionsService.list()]);
-
-      setTransactions(dataTransaction.transactions);
-    } catch (error) {
-      setHasError(true);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  const {
+    isLoading,
+    hasError,
+    transactions,
+    isModalCreateOpen,
+    setIsModalCreateOpen,
+    isModalDeleteOpen,
+    setIsModalDeleteOpen,
+    transactionIdToDelete,
+    handleDeleteTransaction,
+    loadTransactions,
+  } = TransactionsViewModel();
 
   useEffect(() => {
     loadTransactions();
   }, []);
-
-  function handleDeleteTransaction(id: string) {
-    setTransactionIdToDelete(id);
-    setIsModalDeleteOpen(true);
-  }
 
   return (
     <>
