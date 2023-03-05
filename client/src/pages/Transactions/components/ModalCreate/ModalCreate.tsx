@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Modality } from '../../../../types/Modality';
 
 import { toast } from 'react-toastify';
@@ -14,8 +14,6 @@ export interface ModalCreateProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
-// Verificar se não vai ser necessário zerar os states após executar a onClose()
 
 export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
   const [modalities, setModalities] = useState<Modality[]>([]);
@@ -74,16 +72,40 @@ export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
     handleClearState();
   }
 
+  const typesOptions = useMemo(
+    () =>
+      constants.selectTypes.map((types) => {
+        return { id: types, label: types };
+      }),
+    [constants]
+  );
+
+  const categoriesOptions = useMemo(
+    () =>
+      constants.selectCategories.map((category) => {
+        return { id: category, label: category };
+      }),
+    [constants]
+  );
+
+  const modalitiesOptions = useMemo(
+    () =>
+      modalities.map((modality) => {
+        return { id: modality._id, label: modality.name };
+      }),
+    [modalities]
+  );
+
   return (
     <ModalCreateView
-      selectCategories={constants.selectCategories}
-      selectTypes={constants.selectTypes}
+      selectCategories={categoriesOptions}
+      selectTypes={typesOptions}
       onClose={newOnClose}
       form={form}
       handlers={handlers}
       modality={{
         selectedModality,
-        modalities: modalities.map((modality) => modality.name),
+        modalities: modalitiesOptions,
       }}
       isSubmitting={isSubmitting}
       handleSubmit={handleSubmit}

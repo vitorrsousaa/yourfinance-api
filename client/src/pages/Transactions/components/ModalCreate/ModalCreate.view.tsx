@@ -1,13 +1,12 @@
-import { Modality } from '../../../../types/Modality';
+import { BaseSyntheticEvent } from 'react';
 
 import Button from '../../../../components/Button';
 import Input from '../../../../components/Input';
 import Modal from '../../../../components/Modal';
 
-import { StyledModalContainer, ContainerModality } from './ModalCreate.styles';
+import { StyledModalContainer } from './ModalCreate.styles';
 
 import Select from '../../../../components/Select';
-import { BaseSyntheticEvent } from 'react';
 
 type TypeProps = 'Fixo' | 'Variável';
 
@@ -36,14 +35,14 @@ export interface ModalCreateViewProps {
     handleDate: (event: BaseSyntheticEvent) => void;
     handleDateError: () => string | undefined;
   };
-  selectCategories: string[];
-  selectTypes: string[];
+  selectCategories: { id: string; label: string }[];
+  selectTypes: { id: string; label: string }[];
   isSubmitting: boolean;
   isOpen: boolean;
   onClose: () => void;
   modality: {
     selectedModality: string;
-    modalities: string[];
+    modalities: { id: string; label: string }[];
   };
 
   handleSubmit: (event: React.SyntheticEvent) => void;

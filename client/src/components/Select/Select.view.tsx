@@ -3,7 +3,7 @@ import { StyledSelected } from './Select.styles';
 
 export interface SelectViewProps
   extends SelectHTMLAttributes<HTMLSelectElement> {
-  options: string[];
+  options: { id: string; label: string }[];
   error?: string;
 }
 
@@ -15,8 +15,8 @@ export function SelectView(props: SelectViewProps) {
       <select {...rest}>
         <option value="">{placeholder}</option>
         {options.map((option) => (
-          <option key={`key_${option}`} value={option}>
-            {option}
+          <option key={`key_${option.id}`} value={option.id}>
+            {option.label}
           </option>
         ))}
       </select>
