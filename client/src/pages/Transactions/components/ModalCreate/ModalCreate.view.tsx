@@ -97,6 +97,7 @@ export function ModalCreateView(props: ModalCreateViewProps) {
           onChange={handleDescription}
           error={handleDescriptionError()}
           maxLength={35}
+          disabled={isSubmitting}
         />
         <div className="containerDualOption">
           <Select
@@ -105,6 +106,7 @@ export function ModalCreateView(props: ModalCreateViewProps) {
             value={category}
             onChange={handleCategory}
             error={handleCategoryError()}
+            disabled={isSubmitting}
           />
           <Select
             placeholder="Tipo de transação"
@@ -112,6 +114,7 @@ export function ModalCreateView(props: ModalCreateViewProps) {
             value={type}
             onChange={handleType}
             error={handleTypeError()}
+            disabled={isSubmitting}
           />
         </div>
         <div className="containerDualOption">
@@ -122,6 +125,7 @@ export function ModalCreateView(props: ModalCreateViewProps) {
             value={amount}
             onChange={handleAmount}
             error={handleAmountError()}
+            disabled={isSubmitting}
           />
           <Input
             category="date"
@@ -132,40 +136,25 @@ export function ModalCreateView(props: ModalCreateViewProps) {
             value={date}
             onChange={handleDate}
             error={handleDateError()}
+            disabled={isSubmitting}
           />
         </div>
-
-        {/* <div className="containerSectionModality">
-          {modalities.map((modality) => {
-            const isSelected = selectedModality === modality._id;
-
-            return (
-              <ContainerModality
-                key={modality._id}
-                onClick={() => onSelectedModality(modality._id)}
-                isSelected={isSelected}
-                type="button"
-              >
-                <div>{modality.icon}</div>
-                <small>{modality.name}</small>
-              </ContainerModality>
-            );
-          })}
-        </div> */}
         <Select
           options={modalities}
           placeholder="Modalidade"
           value={selectedModality}
           onChange={handleSelectedModality}
           error={handleModalityError()}
+          disabled={isSubmitting}
         />
 
         <Button
           variant="primary"
           type="submit"
-          disabled={!isValid || isSubmitting}
+          disabled={!isValid}
+          isLoading={isSubmitting}
         >
-          {isSubmitting ? 'Enviando dados...' : 'Criar nova transação'}
+          Criar nova transação
         </Button>
       </StyledModalContainer>
     </Modal>

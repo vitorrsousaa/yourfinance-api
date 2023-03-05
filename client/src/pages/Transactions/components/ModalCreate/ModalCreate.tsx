@@ -57,12 +57,16 @@ export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
       modality: selectedModality,
     };
 
-    await TransactionsService.create(transaction);
-
-    onClose();
-    handleClearState();
-    toast.success('Transação adicionada');
-    setIsSubmitting(false);
+    try {
+      await TransactionsService.create(transaction);
+      toast.success('Transação adicionada');
+    } catch (error) {
+      toast.error('Não conseguimos adicionar sua transação, tente novamente');
+    } finally {
+      handleClearState();
+      onClose();
+      setIsSubmitting(false);
+    }
   }
 
   function newOnClose() {
