@@ -31,157 +31,114 @@
 export type { ${toPascalCase(inputs.name)}Props } from './${toKebabCase(
               inputs.name
             )}';
-export * from './${toKebabCase(inputs.name)}.routes';
 
-export default ${toPascalCase(inputs.name)};
-`,
+export default ${toPascalCase(inputs.name)};`,
           },
           {
             type: 'file',
             name: (inputs) => `${toKebabCase(inputs.name)}.tsx`,
-            content: (inputs) => `import { memo } from 'react';
+            content: (inputs) => `import { memo, ReactNode } from 'react';
 
-import ${toPascalCase(inputs.name)}View from './${toKebabCase(
+import{ ${toPascalCase(inputs.name)}View } from './${toKebabCase(
               inputs.name
             )}.view';
-import ${toPascalCase(inputs.name)}ViewModel from './${toKebabCase(
+import { ${toPascalCase(inputs.name)}ViewModel, ${toPascalCase(
               inputs.name
-            )}.view-model';
+            )}ViewModelProps } from './${toKebabCase(inputs.name)}.view-model';
 
 export interface ${toPascalCase(inputs.name)}Props {
+  /**
+   * Defines the children
+   */
   children?: ReactNode;
-
+  /**
+   * Defines custom className
+   */
   className?: string;
-
-  style?: React.CSSProperties;
-
 }
 
-type ${toPascalCase(inputs.name)}Types = ViewModelTypeTemplate<${toPascalCase(
+export interface ${toPascalCase(
               inputs.name
-            )}Props, never, never>;
-export type ${toPascalCase(inputs.name)}ViewProps = ${toPascalCase(
-              inputs.name
-            )}Types['ViewProps'];
-export type ${toPascalCase(inputs.name)}ObservableProps = ${toPascalCase(
-              inputs.name
-            )}Types['ObservableProps'];
+            )}ViewProps extends Omit<${toPascalCase(inputs.name)}Props, ''>
 
 function ${toPascalCase(inputs.name)}(props: ${toPascalCase(
               inputs.name
             )}Props) {
-  // Split observable props to be used in the view model and leave the rest for the view.
   const { ...viewProps } = props;
-  const observableProps: ${toPascalCase(inputs.name)}ObservableProps = {};
-  const viewModel = useViewModel<${toPascalCase(
-    inputs.name
-  )}ViewModel, ${toPascalCase(inputs.name)}ObservableProps>(
-    () => new ${toPascalCase(inputs.name)}ViewModel(observableProps),
-    observableProps,
-  );
 
-
+  const viewModel = useViewModel<${toPascalCase(inputs.name)}ViewModelProps>()
 
   return (
-
       <${toPascalCase(
         inputs.name
       )}View viewModel={viewModel} props={viewProps} />
-
   );
 }
 
-export default memo(${toPascalCase(
-              inputs.name
-            )}) as unknown as typeof ${toPascalCase(inputs.name)};
+export function useViewModel(){
+  const viewModel = ${toPascalCase(inputs.name)}ViewModel()
+
+  return viewModel;
+}
+
+export default memo(${toPascalCase(inputs.name)});
 `,
           },
           {
             type: 'file',
-            name: (inputs) => `${toKebabCase(inputs.name)}.view-model.ts`,
-            content: (inputs) => `
-import { ${toPascalCase(inputs.name)}ObservableProps } from './${toKebabCase(
-              inputs.name
-            )}';
+            name: (inputs) => `${toKebabCase(inputs.name)}.view-model.tsx`,
+            content: (inputs) => `import { useState } from 'react';
 
-
-export class ${toPascalCase(inputs.name)}ViewModel {
-  // include state variables here...
-
-  constructor(public props: ${toPascalCase(inputs.name)}ObservableProps) {
-    makeObservable(this, {
-      props: observable,
-    });
-  }
+export interface ${toPascalCase(inputs.name)}ViewModelProps {
+  state: string;
 }
 
-export default ${toPascalCase(inputs.name)}ViewModel;
+export function ${toPascalCase(inputs.name)}ViewModel() {
+  const [state, setState] = useState('')
+
+  return {
+    state
+  }
+}
 `,
           },
           {
             type: 'file',
             name: (inputs) => `${toKebabCase(inputs.name)}.view.tsx`,
-            content: (inputs) => `;
+            content: (inputs) => `
+import { ${toPascalCase(inputs.name)}ViewModelProps } from './${toKebabCase(
+              inputs.name
+            )}.view-model';
 import { ${toPascalCase(inputs.name)}ViewProps } from './${toKebabCase(
               inputs.name
             )}';
 import * as styled from './${toKebabCase(inputs.name)}.styles';
-import ${toPascalCase(inputs.name)}ViewModel from './${toKebabCase(
-              inputs.name
-            )}.view-model';
+
+
 
 interface Props {
-  viewModel: ${toPascalCase(inputs.name)}ViewModel;
+  viewModel: ${toPascalCase(inputs.name)}ViewModelProps;
   props: ${toPascalCase(inputs.name)}ViewProps;
 }
 
-function ${toPascalCase(inputs.name)}View({ viewModel, props }: Props) {
-  const { children, ...${toCamelCase(inputs.name)}Props } = props;
+export function ${toPascalCase(inputs.name)}View({ viewModel, props }: Props) {
+  const { children, className, ...${toCamelCase(inputs.name)}Props } = props;
 
   return (
     <styled.${toPascalCase(inputs.name)} className={\`${toKebabCase(
               inputs.name
-            )} \${props.className ?? ''}\`.trim()} style={props.style}>
+            )} \${className ?? ''}\`.trim()}>
       <h1>${toPascalCase(inputs.name)}</h1>
       {children}
     </styled.${toPascalCase(inputs.name)}>
   );
 }
-
-export default ${toPascalCase(inputs.name)}View;
-`,
-          },
-          {
-            type: 'file',
-            name: (inputs) => `${toKebabCase(inputs.name)}.routes.tsx`,
-            content: (inputs) => `
-/*
-To import child routes, insert the following code:
-import { routes as <child-folder>Routes } from './components/<folder>';
-*/
-
-const ${toPascalCase(inputs.name)} = React.lazy(() => import('.'));
-export const routes = [
-  new Route({
-    path: '${toKebabCase(inputs.name)}',
-    element: ${toPascalCase(inputs.name)},
-    children: [],
-  })
-];
 `,
           },
           {
             type: 'file',
             name: (inputs) => `${toKebabCase(inputs.name)}.styles.ts`,
             content: (inputs) => `import styled from 'styled-components';
-
-// import { ${toPascalCase(inputs.name)}Theme } from './themes/types';
-
-/* Uncomment the above import of ${toPascalCase(
-              inputs.name
-            )}Theme and access theme variables using:
-  \${({ theme }: { theme: ${toPascalCase(inputs.name)}Theme }) => theme. ... };
-*/
 
 export const ${toPascalCase(inputs.name)} = styled.div\`\`;
 `,
