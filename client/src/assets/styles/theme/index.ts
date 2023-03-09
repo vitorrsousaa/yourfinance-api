@@ -35,7 +35,7 @@ const theme: DefaultTheme = {
       300: '#DC707F',
     },
   },
-  fonts: {
+  sizes: {
     4: '0.25rem',
     8: '0.5rem',
     10: '0.625rem',

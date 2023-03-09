@@ -37,7 +37,7 @@ declare module 'styled-components' {
         300: string;
       };
     };
-    fonts: {
+    sizes: {
       4: string;
       8: string;
       10: string;

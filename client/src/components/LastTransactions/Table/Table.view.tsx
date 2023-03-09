@@ -1,6 +1,5 @@
 import { Transaction } from '../../../types/Transaction';
-import formatAmount from '../../../utils/formatAmount';
-import { formatDate } from '../../../utils/formatDate';
+import TableContent from '../TableContent';
 import { StyledTable } from './Table.styles';
 
 export interface TableViewProps {
@@ -19,35 +18,12 @@ export function TableView(props: TableViewProps) {
         <strong>Data</strong>
         <strong>Tipo</strong>
       </div>
-      {transactions.map((transaction) => {
-        const {
-          _id,
-          modality,
-          description,
-          amount,
-          createdAt,
-          type,
-          category,
-        } = transaction;
-
-        return (
-          <div
-            key={_id}
-            onClick={() => onClickRow(_id)}
-            className="container-transaction"
-          >
-            <small>{modality.name}</small>
-            <small>{description}</small>
-            <small className={category.toLocaleLowerCase()}>
-              {`
-                ${category === 'Despesas' ? '-' : ''} ${formatAmount(amount)}
-              `}
-            </small>
-            <small>{formatDate(createdAt)}</small>
-            <small>{type}</small>
-          </div>
-        );
-      })}
+      {transactions.map((transaction) => (
+        <TableContent
+          transaction={transaction}
+          key={`${transaction._id}_${transaction.description}`}
+        />
+      ))}
     </StyledTable>
   );
 }

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const BaseHeader = styled.header`
+export const StyledHeader = styled.header`
   width: 100%;
   h1 {
     font-weight: 500;

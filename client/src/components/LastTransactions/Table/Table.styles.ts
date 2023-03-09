@@ -6,71 +6,26 @@ export const StyledTable = styled.div`
   justify-content: space-between;
   width: 100%;
 
-  .receitas {
-    color: ${({ theme }) => theme.colors.green[500]};
-    font-weight: 500;
-  }
-
-  .despesas {
-    color: ${({ theme }) => theme.colors.red[400]};
-    font-weight: 500;
-  }
-
-  .container-transaction {
-    cursor: pointer;
-
-    transition: all ease-in-out 0.2s;
-
-    &:hover {
-      opacity: 0.5;
-    }
-  }
-
-  div {
+  .header-table {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    padding: 0 1rem;
+    padding: 0 4rem 0 1rem;
+
     border-bottom: 1px solid ${({ theme }) => theme.colors.black[200]};
-  }
-
-  div + div {
-    height: 4rem;
-  }
-
-  strong {
-    color: ${({ theme }) => theme.colors.black[700]};
-  }
-
-  small {
-    color: ${({ theme }) => theme.colors.black[600]};
-  }
-
-  .header-table {
     height: 3rem;
 
     strong {
       font-weight: 700;
       font-size: 0.875rem;
+      color: ${({ theme }) => theme.colors.black[700]};
+      min-width: 150px;
     }
-  }
 
-  .header-table {
     strong:nth-child(2) {
       width: 100%;
     }
-  }
-
-  div {
-    small:nth-child(2) {
-      width: 100%;
-    }
-  }
-
-  small,
-  strong {
-    min-width: 150px;
   }
 
   @media screen and (max-width: 1250px) {

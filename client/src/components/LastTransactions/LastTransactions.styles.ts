@@ -16,6 +16,10 @@ export const StyledLastTransactions = styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
+
+    h1 {
+      font-weight: 500;
+    }
   }
 
   button {
