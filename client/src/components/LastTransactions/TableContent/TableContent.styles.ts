@@ -5,7 +5,7 @@ export const StylesTableContent = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  padding: 0 1rem;
+  padding: 0 0 0 1rem;
   height: 4rem;
   transition: all ease-in-out 0.2s;
 
@@ -46,5 +46,11 @@ export const StylesTableContent = styled.div`
   .despesas {
     color: ${({ theme }) => theme.colors.red[400]};
     font-weight: 500;
+  }
+
+  @media screen and (max-width: 380px) {
+    .menu-button-transaction {
+      display: none;
+    }
   }
 `;

@@ -11,7 +11,7 @@ export const StyledTable = styled.div`
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    padding: 0 4rem 0 1rem;
+    padding: 0 3rem 0 1rem;
 
     border-bottom: 1px solid ${({ theme }) => theme.colors.black[200]};
     height: 3rem;
@@ -29,8 +29,13 @@ export const StyledTable = styled.div`
   }
 
   @media screen and (max-width: 1250px) {
-    small,
-    strong {
+    .header-table {
+      strong {
+        min-width: 120px;
+      }
+    }
+
+    small {
       min-width: 120px;
     }
   }
@@ -59,9 +64,17 @@ export const StyledTable = styled.div`
       padding: 0 0.5rem;
     }
 
-    small,
-    strong {
+    small {
       min-width: 90px;
+    }
+
+    .header-table {
+      gap: 0.5rem;
+      padding: 0 2.5rem 0 0.5rem;
+
+      strong {
+        min-width: 90px;
+      }
     }
 
     div {
@@ -104,7 +117,7 @@ export const StyledTable = styled.div`
     }
   }
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 450px) {
     small,
     strong {
       width: 100%;
@@ -120,6 +133,12 @@ export const StyledTable = styled.div`
       strong:nth-child(2) {
         display: none;
       }
+    }
+  }
+
+  @media screen and (max-width: 380px) {
+    .header-table {
+      padding: 0 0.5rem;
     }
   }
 `;
