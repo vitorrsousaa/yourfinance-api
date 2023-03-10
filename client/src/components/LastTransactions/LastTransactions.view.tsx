@@ -7,12 +7,16 @@ export interface LastTransactionsViewProps {
   transactions: Transaction[];
   subtitle?: boolean;
   onSelectedButton?: () => void;
-  onDeleteTransaction?: (id: string) => void;
+  onSelectedDeleteTransaction?: (id: string) => void;
 }
 
 export function LastTransactionsView(props: LastTransactionsViewProps) {
-  const { transactions, subtitle, onSelectedButton, onDeleteTransaction } =
-    props;
+  const {
+    transactions,
+    subtitle,
+    onSelectedButton,
+    onSelectedDeleteTransaction,
+  } = props;
   return (
     <StyledLastTransactions>
       <header>
@@ -26,7 +30,10 @@ export function LastTransactionsView(props: LastTransactionsViewProps) {
           </Button>
         )}
       </header>
-      <Table transactions={transactions} onRowClick={onDeleteTransaction} />
+      <Table
+        transactions={transactions}
+        onSelectedDeleteTransaction={onSelectedDeleteTransaction}
+      />
     </StyledLastTransactions>
   );
 }

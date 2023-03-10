@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="./.github/banner-logo.png" alt="EasyFinance" />
+  <img src="./.github/banner-logo.png" alt="Aion-Corps" />
 </p>
 
 ## Tópicos
 
 <div>
- • <a href="#-sobre-o-EasyFinance">Sobre o EASYFinance</a> </br>
+ • <a href="#-sobre-o-aion">Sobre o Aion</a> </br>
  • <a href="#-tecnologias">Tecnologias</a> </br>
  • <a href="#-layout">Layout</a> </br>
  • <a href="#-funcionalidades">Funcionalidades</a> </br>
@@ -17,13 +17,15 @@
  • <a href="#user-content--licença">Licença</a></br>
 </div>
 
-## 💰 Sobre o EasyFinance
+## 💰 Sobre o Aion
 
-O **EASY**Finance é um software para gerenciamento e controle de finanças pessoais!
+O **Aion** é um software para gerenciamento e controle de finanças pessoais!
 
-O projeto foi desenvolvido inteiramente em TypeScript, com o objetivo de reforçar os conceitos aprendidos sobre NodeJs e ReactJS, e além disso, desenvolver habilidades utilizando React Native e ainda melhorar a integração entre o front/back.
+O projeto foi desenvolvido com o intuito de eliminar a utilização de planilhas para gerenciamento de controle financeiro. Através do armazenamento das informações através de transações, que podem ser definidas através de categorias, modalidades e tipo. A partir das definições do usuário, o projeto apresenta algumas informações em tela, e realiza determinadas análises da usabilidade do usuário.
 
-O Objetivo é construir o MVP do projeto e deixar rodando para realizar testes com usuários reais. O MVP vai ter algumas funcionalidades que serão core da aplicação.
+Temos um modelo freemium, onde o usuário vai ter acesso a todas as funcionalidades padrão da aplicação, e apenas a parte de analise será para os usuários premium que irão assinar o plano.
+
+Para auxiliar no desenvolvimento, todas as features foram implementadas em um board no modelo Kanban que esta armazenada no Notion, sabendo que as features MVP possuem maior prioridade.
 
 ## 🚀 Tecnologias
 
@@ -35,6 +37,7 @@ Tecnologias e ferramentas utilizadas no desenvolvimento do projeto:
 - [Axios](https://github.com/axios/axios)
 - [StyledComponents](https://styled-components.com/)
 - [React Toastify](https://www.npmjs.com/package/react-toastify)
+- [React Recharts](https://recharts.org/en-US/)
 
 #### **Mobile** ( [React Native](https://reactnative.dev/) + [TypeScript](https://www.typescriptlang.org/) )
 
@@ -54,7 +57,7 @@ Tecnologias e ferramentas utilizadas no desenvolvimento do projeto:
 
 - Protótipo: **[Figma](https://www.figma.com/)** → **[Protótipo (EasyFinance)](https://www.figma.com/file/OhR4sfXRpR2eO20o4T7mr9/EasyFinance)**
 - Editor: **[Visual Studio Code](https://code.visualstudio.com/)** → Extensions: **[Prettier](https://prettier.io/)** + **[EditorConfig](https://editorconfig.org/)**
-- Fontes: **[Manrope](https://fonts.google.com/specimen/Manrope)**
+- Fontes: **Gotham**
 - Versionamento: **[Git](https://git-scm.com)**
 - Padronização de código: **[ESLint](https://eslint.org/)**
 
@@ -68,43 +71,19 @@ O layout da aplicação está disponível no Figma:
 
 ## ⚙️ Funcionalidades
 
-Para auxiliar o desenvolvimento, as features que serão adicionadas serão agrupadas através de um sistema de Kanban. E todos os itens que são necessários para o MVP do projeto terão prioridade.
+O projeto terá como a principal funcionalidade o armazenamento das transações implementadas pelo o usuário, pois só conseguiremos implementar as demais features após a implementação das transações.
 
-### Features MVP
+### Page Overview
 
-**Erros**
+Essa página ser responsável por apresentar uma visão geral de como esta a vida financeira do usuário, apresentando alguns dados de receitas e despesas, e suas últimas transações realizadas
 
-- [ ] Retirar a table e substituir por div
-- [ ] A funçtion handleLogout não ta excluindo o token d usuário
+### Page Transactions
 
-**Backlog**
+Essa página vai exibir para o usuário todas as transações armazenadas, e através de um modal, o usuário vai conseguir cadastrar novas transações, e também atualizar ou deletar uma transação existente.
 
-- [ ] Implementar conexão com Stripe - FrontEnd (MVP)
-- [ ] Alterar o armazenamento do token JWT do localStorage para os cookies - FrontEnd (MVP)
-- [ ] Criar fluxo de alteração de senha - Backend (MVP)
-- [ ] Adicinoar updateAt no model User - Backend (MVP)
-- [ ] Realizar integração com API externa para verificação do usuário - FrontEnd
-- [ ] Adicionar paginação na página de transactions - FrontEnd
-- [ ] Implementar ErrorHandler - BackEnd
-- [ ] Alterar a lógica do gráfico de fluxo financeiro - FrontEnd
-      -> O elemento converte a data para o dia primeiro do mês, quando na verdade deveria verificar se os meses são iguais
-- [ ] Usar a lib ReactSpring para alinhar a animação dos gráficos e dos dados
+### Page Analytics
 
-**Em andamento**
-
-- [ ] Refatorar os componentes para estrutura MVVM - FrontEnd
-
-**Em teste**
-
-- [x] Adicionar a funcionalidade no button de Maiores Despesas - Front e Back (MVP)
-- [x] Adicionar a funcionalidade no button de Fluxo Financeiro - Front e Back (MVP)
-- [x] Adicionar modalidade de trabalho - FrontEnd (MVP)
-- [ ] Entender o que ta acontecendo na autenticação - FrontEnd (MVP)
-
-**Concluído**
-
-- [x] Verificar porque a data de criação esta diminuindo - FrontEnd
-- [x] Adicionar o modalDanger para deletar a transaction - FrontEnd (MVP)
+Essa página vai ser responsável por apresentar para o usuário determinadas análises baseado na utilização e nas suas transações.
 
 ## 🛠 Estrutura de pastas e componentes
 
@@ -122,6 +101,7 @@ Afim de facilitar a organização e manutenção do código, foi definido um pad
 → hooks: Custom hooks; <br />
 → pages: Armazena todas as páginas da aplicação; <br />
 
+<<<<<<< HEAD
 Todos os componentes criados vão seguir a estrutura MVVM, com os seguintes arquivos:
 → index.tsx: Responsável por exportar o componente; <br />
 → component.styles.ts: Responsável por toda estilização do componente; <br />
@@ -131,6 +111,8 @@ Todos os componentes criados vão seguir a estrutura MVVM, com os seguintes arqu
 
 Como cada página não deixa de ser um componente, todas as páginas são seguir a mesma estrutura de componentes, e os componentes que são utilizados apenas naquela página vão ser armazenados na pasta components dentro de pages.
 
+=======
+>>>>>>> 735bc619898cbf02c95133cb73e7fe04c83f2324
 **Front-end Mobile**
 
 → \_assets: Contém a estilização global, icones, fontes, tema da aplicação, itens de estilo que são reutilizáveis e imagens; <br />
@@ -156,6 +138,19 @@ Todos os componentes criados vão seguir uma mesma estrutura de organização:
 → models: Armazena todos os models utilizados para adicionar ao banco de dados; <br />
 → utils: Funcionalidades que são utilizadas em diversos locais da aplicação; <br />
 
+**Componentes**
+
+Todos os componentes criados vão seguir a estrutura MVVM, com os seguintes arquivos:
+→ index.tsx: Responsável por exportar o componente como default; <br />
+→ component.styles.ts: Responsável por toda estilização do componente; <br />
+→ component.view.tsx: Responsável por armazenar a View do componente, que é toda a estilização do componente e toda a regra associada a interação com o usuário; <br />
+→ component.view-model.ts: Responsável por armazenar toda a regra de negócio exigida para o funcionamento do componente, cria e exporta os estados do componente; <br />
+→ component.tsx: Responsável por unir a interação com o usuário com a regra de negócio da aplicação, e armazenar todo o acesso aos dados; <br />
+
+Como cada página não deixa de ser um componente, todas as páginas são seguir a mesma estrutura de componentes, e os componentes que são utilizados apenas naquela página vão ser armazenados na pasta components dentro de pages.
+
+Para criar um novo componente, vamos utilizar o padrão do scaffolding
+
 **Importações**
 
 → As importações no projeto vão seguir uma mesma padronização
@@ -163,7 +158,7 @@ Todos os componentes criados vão seguir uma mesma estrutura de organização:
 1. React e libs
 2. Tipagens
 3. Componentes
-4. Funções e utilitários
+4. Funções, utilitários e libs externas
 5. Estilização
 
 ## 🚀 Como executar o projeto

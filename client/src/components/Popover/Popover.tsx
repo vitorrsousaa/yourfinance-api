@@ -1,7 +1,28 @@
-import { PopoverView, PopoverViewProps } from './Popover.view';
+import { PopoverView } from './Popover.view';
 
-export interface PopoverProps extends PopoverViewProps {}
+export interface PopoverProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSelectedDelete: () => void;
+}
 
 export function Popover(props: PopoverProps) {
-  return <PopoverView {...props} />;
+  const { onSelectedDelete, onClose } = props;
+
+  function handleDeleteTransaction() {
+    onSelectedDelete();
+    onClose();
+  }
+
+  function handleEditTransaction() {
+    onClose();
+  }
+
+  return (
+    <PopoverView
+      handleDeleteTransaction={handleDeleteTransaction}
+      handleEditTransaction={handleEditTransaction}
+      {...props}
+    />
+  );
 }

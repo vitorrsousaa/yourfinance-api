@@ -8,12 +8,16 @@ export function TransactionsViewModel() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
-  const [transactionIdToDelete, setTransactionIdToDelete] = useState('');
+  const [selectedTransactionToDelete, setSelectedTransactionToDelete] =
+    useState('');
 
-  function handleDeleteTransaction(id: string) {
-    setTransactionIdToDelete(id);
+  function handleDeleteTransactionConfirmation(id: string) {
+    console.log(id, 'id');
+    console.log(selectedTransactionToDelete, 'selected');
+    setSelectedTransactionToDelete(id);
     setIsModalDeleteOpen(true);
   }
+  console.log(selectedTransactionToDelete, 'selected2');
 
   const loadTransactions = useCallback(async () => {
     try {
@@ -28,6 +32,10 @@ export function TransactionsViewModel() {
     }
   }, []);
 
+  const handleDeleteTransaction = useCallback(() => {
+    console.log(selectedTransactionToDelete, 'transactions.tsx');
+  }, [selectedTransactionToDelete]);
+
   return {
     isLoading,
     hasError,
@@ -36,7 +44,8 @@ export function TransactionsViewModel() {
     setIsModalCreateOpen,
     isModalDeleteOpen,
     setIsModalDeleteOpen,
-    transactionIdToDelete,
+    selectedTransactionToDelete,
+    handleDeleteTransactionConfirmation,
     handleDeleteTransaction,
     loadTransactions,
   };

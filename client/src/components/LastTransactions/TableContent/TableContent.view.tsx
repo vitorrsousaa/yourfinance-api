@@ -8,11 +8,12 @@ import { useState } from 'react';
 
 export interface TableContentViewProps {
   transaction: Transaction;
+  onSelectedDelete: (id: string) => void;
 }
 
 export function TableContentView(props: TableContentViewProps) {
-  const { transaction } = props;
-  const { modality, description, category, amount, createdAt, type } =
+  const { transaction, onSelectedDelete } = props;
+  const { modality, description, category, amount, createdAt, type, _id } =
     transaction;
 
   const [popoverIsOpen, setPopoverIsOpen] = useState(false);
@@ -30,6 +31,7 @@ export function TableContentView(props: TableContentViewProps) {
         <Popover
           isOpen={popoverIsOpen}
           onClose={() => setPopoverIsOpen(false)}
+          onSelectedDelete={() => onSelectedDelete(_id)}
         />
 
         <button

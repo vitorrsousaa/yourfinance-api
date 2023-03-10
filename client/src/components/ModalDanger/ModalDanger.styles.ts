@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const StyledModalDanger = styled.div`
   small {
     font-size: 1rem;
+    font-weight: 500;
   }
 
   .containerButton {

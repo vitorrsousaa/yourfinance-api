@@ -6,10 +6,13 @@ import * as PopoverUi from '@radix-ui/react-popover';
 export interface PopoverViewProps {
   isOpen: boolean;
   onClose: () => void;
+  handleDeleteTransaction: () => void;
+  handleEditTransaction: () => void;
 }
 
 export function PopoverView(props: PopoverViewProps) {
-  const { isOpen, onClose } = props;
+  const { isOpen, onClose, handleDeleteTransaction, handleEditTransaction } =
+    props;
 
   return (
     <PopoverUi.Root open={isOpen}>
@@ -23,12 +26,12 @@ export function PopoverView(props: PopoverViewProps) {
           onInteractOutside={onClose}
         >
           <StyledPopover>
-            <div>
+            <div onClick={handleEditTransaction} role="button">
               <img src={edit} alt="edit-icon" />
               <small>Editar</small>
             </div>
             <hr className="divider" />
-            <div>
+            <div onClick={handleDeleteTransaction} role="button">
               <img src={trash} alt="edit-icon" />
               <small>Excluir</small>
             </div>

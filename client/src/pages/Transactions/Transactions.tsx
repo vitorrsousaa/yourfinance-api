@@ -16,7 +16,7 @@ export function Transactions() {
     setIsModalCreateOpen,
     isModalDeleteOpen,
     setIsModalDeleteOpen,
-    transactionIdToDelete,
+    handleDeleteTransactionConfirmation,
     handleDeleteTransaction,
     loadTransactions,
   } = TransactionsViewModel();
@@ -37,10 +37,10 @@ export function Transactions() {
       <ModalDanger
         isOpen={isModalDeleteOpen}
         onClose={() => setIsModalDeleteOpen(false)}
-        id={transactionIdToDelete}
         title="Deletar Transação"
         subtitle="Essa ação não pode ser desfeita!"
         description="Você tem certeza que deseja excluir a transação?"
+        onDelete={handleDeleteTransaction}
       />
 
       {hasError ? (
@@ -49,7 +49,7 @@ export function Transactions() {
         <TransactionsView
           transactions={transactions}
           handleCreateModalOpen={() => setIsModalCreateOpen(true)}
-          onDeleteTransaction={handleDeleteTransaction}
+          onSelectedDeleteTransaction={handleDeleteTransactionConfirmation}
         />
       ) : (
         <NoData onDataContent={() => setIsModalCreateOpen(true)} />

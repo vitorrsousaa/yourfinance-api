@@ -19,7 +19,7 @@ export const BaseButton = styled.button<BaseButtonProps>`
   border-radius: 10px;
   font-weight: 700;
   font-size: 1rem;
-  transition: all 0.5s;
+  transition: background 0.5s ease-in-out;
 
   background: ${({ customTheme, variant }) =>
     customTheme[variant].initial.background};

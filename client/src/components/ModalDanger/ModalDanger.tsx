@@ -1,19 +1,7 @@
 import { ModalDangerView, ModalDangerViewProps } from './ModalDanger.view';
 
-interface Props extends Omit<ModalDangerViewProps, 'onDeletedTransaction'> {
-  id: string;
-}
+interface Props extends Omit<ModalDangerViewProps, ''> {}
 
-export function ModalDanger({ id, onClose, ...props }: Props) {
-  function handleDeletedTransaction() {
-    onClose();
-  }
-
-  return (
-    <ModalDangerView
-      onDeletedTransaction={handleDeletedTransaction}
-      onClose={onClose}
-      {...props}
-    />
-  );
+export function ModalDanger({ ...props }: Props) {
+  return <ModalDangerView {...props} />;
 }

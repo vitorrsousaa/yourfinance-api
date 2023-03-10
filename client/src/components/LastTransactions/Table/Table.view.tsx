@@ -4,11 +4,11 @@ import { StyledTable } from './Table.styles';
 
 export interface TableViewProps {
   transactions: Transaction[];
-  onClickRow: (id: string) => void;
+  onSelectedDeleteTransaction: (id: string) => void;
 }
 
 export function TableView(props: TableViewProps) {
-  const { transactions, onClickRow } = props;
+  const { transactions, onSelectedDeleteTransaction } = props;
   return (
     <StyledTable>
       <div className="header-table">
@@ -17,11 +17,13 @@ export function TableView(props: TableViewProps) {
         <strong>Valor</strong>
         <strong>Data</strong>
         <strong>Tipo</strong>
+        <div></div>
       </div>
       {transactions.map((transaction) => (
         <TableContent
           transaction={transaction}
           key={`${transaction._id}_${transaction.description}`}
+          onSelectedDelete={onSelectedDeleteTransaction}
         />
       ))}
     </StyledTable>

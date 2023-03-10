@@ -7,11 +7,13 @@ import { StyledTransacions } from './Transactions.styles';
 interface TransactionsViewProps {
   transactions: Transaction[];
   handleCreateModalOpen: () => void;
-  onDeleteTransaction: (id: string) => void;
+  onSelectedDeleteTransaction: (id: string) => void;
 }
 
 export function TransactionsView(props: TransactionsViewProps) {
-  const { transactions, handleCreateModalOpen, onDeleteTransaction } = props;
+  const { transactions, handleCreateModalOpen, onSelectedDeleteTransaction } =
+    props;
+
   return (
     <StyledTransacions>
       <Header
@@ -23,7 +25,7 @@ export function TransactionsView(props: TransactionsViewProps) {
         transactions={transactions}
         subtitle={true}
         onSelectedButton={handleCreateModalOpen}
-        onDeleteTransaction={onDeleteTransaction}
+        onSelectedDeleteTransaction={onSelectedDeleteTransaction}
       />
     </StyledTransacions>
   );

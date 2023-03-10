@@ -3,14 +3,19 @@ import { TableView } from './Table.view';
 
 interface TableProps {
   transactions: Transaction[];
-  onRowClick?: (id: string) => void;
+  onSelectedDeleteTransaction?: (id: string) => void;
 }
 
-export function Table({ onRowClick, ...props }: TableProps) {
-  function handleRowClick(id: string) {
-    if (typeof onRowClick === 'function') {
-      onRowClick(id);
+export function Table({ onSelectedDeleteTransaction, ...props }: TableProps) {
+  function handleSelectedDeleteTransaction(id: string) {
+    if (typeof onSelectedDeleteTransaction === 'function') {
+      onSelectedDeleteTransaction(id);
     }
   }
-  return <TableView onClickRow={handleRowClick} {...props} />;
+  return (
+    <TableView
+      onSelectedDeleteTransaction={handleSelectedDeleteTransaction}
+      {...props}
+    />
+  );
 }
