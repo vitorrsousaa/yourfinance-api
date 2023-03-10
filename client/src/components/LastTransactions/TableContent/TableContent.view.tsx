@@ -3,7 +3,7 @@ import formatAmount from '../../../utils/formatAmount';
 import { formatDate } from '../../../utils/formatDate';
 import { StylesTableContent } from './TableContent.styles';
 import menu from '../../../assets/icons/menu.svg';
-import Popover from '../Popover';
+import Popover from '../../Popover';
 import { useState } from 'react';
 
 export interface TableContentViewProps {
@@ -27,15 +27,16 @@ export function TableContentView(props: TableContentViewProps) {
         </small>
         <small>{formatDate(createdAt)}</small>
         <small>{type}</small>
+        <Popover
+          isOpen={popoverIsOpen}
+          onClose={() => setPopoverIsOpen(false)}
+        />
+
         <button
           className="menu-button-transaction"
           onClick={() => setPopoverIsOpen(!popoverIsOpen)}
         >
           <img src={menu} alt="menu-item" />
-          <Popover
-            isOpen={popoverIsOpen}
-            onClose={() => setPopoverIsOpen(false)}
-          />
         </button>
       </StylesTableContent>
     </>
