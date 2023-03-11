@@ -7,11 +7,18 @@ export const StyledTable = styled.div`
   width: 100%;
 
   .header-table {
+    &.show-popover {
+      padding-right: 3rem;
+    }
+
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    padding: 0 3rem 0 1rem;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 1rem;
 
     border-bottom: 1px solid ${({ theme }) => theme.colors.black[200]};
     height: 3rem;
