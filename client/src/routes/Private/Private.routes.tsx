@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 import { Routes as RoutesProvider, Route, Navigate } from 'react-router-dom';
 import Loader from '../../components/Loader';
 import { useAuthContext } from '../../context/AuthContext';
+import Analytics from '../../pages/Analytics';
 import Home from '../../pages/Home';
 import Overview from '../../pages/Overview';
 import Transactions from '../../pages/Transactions';
@@ -44,11 +45,21 @@ export function PrivateRoutesProvider() {
           </PrivateRoute>
         }
       />
+
       <Route
         path="/transactions"
         element={
           <PrivateRoute>
             <Transactions />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/analytics"
+        element={
+          <PrivateRoute>
+            <Analytics />
           </PrivateRoute>
         }
       />
