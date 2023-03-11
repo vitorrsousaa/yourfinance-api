@@ -5,6 +5,7 @@ import Loader from '../../components/Loader';
 import ModalDanger from '../../components/ModalDanger';
 import NoData from '../../components/NoData';
 import TransactionsService from '../../services/TransactionsService';
+import { Transaction, TransactionCreateProps } from '../../types/Transaction';
 import ModalCreate from './components/ModalCreate';
 import { TransactionsView } from './Transactions.view';
 import { TransactionsViewModel } from './Transactions.view-model';
@@ -51,6 +52,24 @@ export function Transactions() {
     }
   }, [selectedTransactionToDelete]);
 
+  async function handleSubmit(transactionData: TransactionCreateProps) {
+    try {
+      const response: Transaction = await TransactionsService.create(
+        transactionData
+      );
+
+      console.log(response);
+
+      setTransactions((prevState) => [response, ...prevState]);
+
+      toast.success('Transação adicionada com sucesso');
+    } catch {
+      toast.error(
+        'Não conseguimos criar sua transação. Tente novamente mais tarde'
+      );
+    }
+  }
+
   return (
     <>
       <Loader isLoading={isLoading} size="large" />
@@ -58,6 +77,7 @@ export function Transactions() {
       <ModalCreate
         isOpen={isModalCreateOpen}
         onClose={() => setIsModalCreateOpen(false)}
+        onSubmit={handleSubmit}
       />
 
       <ModalDanger

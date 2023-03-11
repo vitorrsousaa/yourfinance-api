@@ -87,7 +87,11 @@ class TransactionController {
         createdAt
       );
 
-      return res.send(newTransaction);
+      const transactionCreated = await TransactionsRepository.findById(
+        newTransaction._id.toString()
+      );
+
+      return res.send(transactionCreated);
     } catch (error) {
       console.log(error);
       res.status(400).send({ error: 'Registration failed' });

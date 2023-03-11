@@ -3,7 +3,7 @@ import { useCallback, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import ModalitiesService from '../../../../services/ModalitiesService';
 
-import TransactionsService from '../../../../services/TransactionsService';
+import { TransactionCreateProps } from '../../../../types/Transaction';
 
 import { ModalCreateView } from './ModalCreate.view';
 
@@ -12,9 +12,10 @@ import { ModalCreateViewModel } from './ModalCreate.view-model';
 export interface ModalCreateProps {
   isOpen: boolean;
   onClose: () => void;
+  onSubmit: (transaction: TransactionCreateProps) => Promise<void>;
 }
 
-export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
+export function ModalCreate({ onClose, onSubmit, ...props }: ModalCreateProps) {
   const {
     form,
     selectedModality,
@@ -56,16 +57,11 @@ export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
       modality: selectedModality,
     };
 
-    try {
-      await TransactionsService.create(transaction);
-      toast.success('Transação adicionada');
-    } catch (error) {
-      toast.error('Não conseguimos adicionar sua transação, tente novamente');
-    } finally {
-      handleClearState();
-      onClose();
-      setIsSubmitting(false);
-    }
+    await onSubmit(transaction);
+
+    handleClearState();
+    onClose();
+    setIsSubmitting(false);
   }
 
   function newOnClose() {

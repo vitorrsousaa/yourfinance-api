@@ -16,7 +16,7 @@ class TransactionsService {
     return this.httpClient.get('/transactions');
   }
 
-  async create(transaction: TransactionCreateProps) {
+  create(transaction: TransactionCreateProps) {
     return this.httpClient.post('/transactions', transaction);
   }
 
