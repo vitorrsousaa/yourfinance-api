@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components';
 
 export interface SpinnerProps {
-  variant?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large';
+  variant?: string | 'danger';
 }
 
 const spinnerVariants = {
@@ -20,16 +21,23 @@ const spinnerVariants = {
 };
 
 export const Spinner = styled.div<SpinnerProps>`
-  ${({ variant }) =>
-    variant ? spinnerVariants[variant] : spinnerVariants.medium}
+  ${({ size }) => (size ? spinnerVariants[size] : spinnerVariants.medium)}
   border-radius: 50%;
   background: radial-gradient(
         farthest-side,
-        ${({ theme }) => theme.colors.green[500]} 94%,
+        ${({ theme, variant }) =>
+            variant == 'danger'
+              ? theme.colors.red[400]
+              : theme.colors.green[500]}
+          94%,
         #0000
       )
       top/8px 8px no-repeat,
-    conic-gradient(#0000 30%, ${({ theme }) => theme.colors.green[500]});
+    conic-gradient(
+      #0000 30%,
+      ${({ theme, variant }) =>
+        variant == 'danger' ? theme.colors.red[400] : theme.colors.green[500]}
+    );
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
   animation: s3 1s infinite linear;
 

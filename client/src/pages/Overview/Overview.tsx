@@ -52,7 +52,7 @@ export function Overview() {
 
   return (
     <>
-      <Loader isLoading={isLoading} variant="large" />
+      <Loader isLoading={isLoading} size="large" />
       {hasError ? (
         <Error onError={loadTransactions} />
       ) : transactions.length > 0 ? (

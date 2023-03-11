@@ -48,7 +48,7 @@ export function Transactions() {
 
   return (
     <>
-      <Loader isLoading={isLoading} variant="large" />
+      <Loader isLoading={isLoading} size="large" />
 
       <ModalCreate
         isOpen={isModalCreateOpen}
