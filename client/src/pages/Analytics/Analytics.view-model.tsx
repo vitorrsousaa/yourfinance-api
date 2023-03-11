@@ -1,14 +1,29 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { Transaction } from '../../types/Transaction';
 
 export interface AnalyticsViewModelProps {
-  hasError: string;
+  hasError: boolean;
 }
 
 export function AnalyticsViewModel() {
-  const [hasError, setHasError] = useState('');
+  const [hasError, setHasError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+  const navigate = useNavigate();
+
+  function handleWithoutData() {
+    navigate('/transactions');
+  }
 
   return {
     hasError,
     setHasError,
+    isLoading,
+    setIsLoading,
+    transactions,
+    setTransactions,
+    handleWithoutData,
   };
 }

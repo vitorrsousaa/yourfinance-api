@@ -1,4 +1,4 @@
-import { AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import APIError from '../errors/APIError';
 import { TransactionCreateProps } from '../types/Transaction';
 import { User } from '../types/User';
@@ -19,8 +19,8 @@ class HttpClient {
     this.baseURL = baseURL;
   }
 
-  get(path: string) {
-    return this.makeRequest({
+  get<T>(path: string) {
+    return this.makeRequest<T>({
       method: 'get',
       url: `${this.baseURL}${path}`,
     });
@@ -33,18 +33,18 @@ class HttpClient {
     });
   }
 
-  post(path: string, data: dataRequestProps) {
-    return this.makeRequest({
+  post<T>(path: string, data: dataRequestProps) {
+    return this.makeRequest<T>({
       method: 'post',
       url: `${this.baseURL}${path}`,
       data,
     });
   }
 
-  async makeRequest(options: AxiosRequestConfig) {
+  async makeRequest<T>(options: AxiosRequestConfig): Promise<T> {
     await delay(1000);
 
-    const response = await api({
+    const response: AxiosResponse = await api({
       ...options,
       validateStatus: function (status) {
         return status >= 200 && status < 500;
@@ -52,7 +52,7 @@ class HttpClient {
     });
 
     if (response.status >= 200 && response.status < 400) {
-      return response.data;
+      return response.data as T;
     }
 
     throw new APIError(response);

@@ -5,7 +5,7 @@ import Loader from '../../components/Loader';
 import ModalDanger from '../../components/ModalDanger';
 import NoData from '../../components/NoData';
 import TransactionsService from '../../services/TransactionsService';
-import { Transaction, TransactionCreateProps } from '../../types/Transaction';
+import { TransactionCreateProps } from '../../types/Transaction';
 import ModalCreate from './components/ModalCreate';
 import { TransactionsView } from './Transactions.view';
 import { TransactionsViewModel } from './Transactions.view-model';
@@ -54,9 +54,7 @@ export function Transactions() {
 
   async function handleSubmit(transactionData: TransactionCreateProps) {
     try {
-      const response: Transaction = await TransactionsService.create(
-        transactionData
-      );
+      const response = await TransactionsService.create(transactionData);
 
       setTransactions((prevState) => [response, ...prevState]);
 
