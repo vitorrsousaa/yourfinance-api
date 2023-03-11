@@ -58,8 +58,6 @@ export function Transactions() {
         transactionData
       );
 
-      console.log(response);
-
       setTransactions((prevState) => [response, ...prevState]);
 
       toast.success('Transação adicionada com sucesso');
