@@ -4,6 +4,7 @@ import { TableView } from './Table.view';
 interface TableProps {
   transactions: Transaction[];
   onSelectedDeleteTransaction?: (id: string) => void;
+  showPopover: boolean;
 }
 
 export function Table({ onSelectedDeleteTransaction, ...props }: TableProps) {

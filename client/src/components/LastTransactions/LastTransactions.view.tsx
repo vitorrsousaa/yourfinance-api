@@ -32,6 +32,7 @@ export function LastTransactionsView(props: LastTransactionsViewProps) {
       </header>
       <Table
         transactions={transactions}
+        showPopover={Boolean(onSelectedButton)}
         onSelectedDeleteTransaction={onSelectedDeleteTransaction}
       />
     </StyledLastTransactions>

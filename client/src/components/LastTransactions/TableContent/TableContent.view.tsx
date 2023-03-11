@@ -9,10 +9,11 @@ import { useState } from 'react';
 export interface TableContentViewProps {
   transaction: Transaction;
   onSelectedDelete: (id: string) => void;
+  showPopover: boolean;
 }
 
 export function TableContentView(props: TableContentViewProps) {
-  const { transaction, onSelectedDelete } = props;
+  const { transaction, onSelectedDelete, showPopover } = props;
   const { modality, description, category, amount, createdAt, type, _id } =
     transaction;
 
@@ -28,18 +29,22 @@ export function TableContentView(props: TableContentViewProps) {
         </small>
         <small>{formatDate(createdAt)}</small>
         <small>{type}</small>
-        <Popover
-          isOpen={popoverIsOpen}
-          onClose={() => setPopoverIsOpen(false)}
-          onSelectedDelete={() => onSelectedDelete(_id)}
-        />
+        {showPopover && (
+          <>
+            <Popover
+              isOpen={popoverIsOpen}
+              onClose={() => setPopoverIsOpen(false)}
+              onSelectedDelete={() => onSelectedDelete(_id)}
+            />
 
-        <button
-          className="menu-button-transaction"
-          onClick={() => setPopoverIsOpen(!popoverIsOpen)}
-        >
-          <img src={menu} alt="menu-item" />
-        </button>
+            <button
+              className="menu-button-transaction"
+              onClick={() => setPopoverIsOpen(!popoverIsOpen)}
+            >
+              <img src={menu} alt="menu-item" />
+            </button>
+          </>
+        )}
       </StylesTableContent>
     </>
   );
