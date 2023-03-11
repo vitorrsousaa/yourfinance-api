@@ -1,55 +1,82 @@
-import { Modality } from '../../../../types/Modality';
-import { ModalCreateViewModelProps } from './ModalCreate.view-model';
-
+import { BaseSyntheticEvent } from 'react';
 import Button from '../../../../components/Button';
 import Input from '../../../../components/Input';
 import Modal from '../../../../components/Modal';
 
-import { BaseModalContainer, ContainerModality } from './ModalCreate.styles';
-import { ModalCreateProps } from './ModalCreate';
+import { StyledModalContainer } from './ModalCreate.styles';
 
-type ModalCreateViewProps = ModalCreateViewModelProps &
-  ModalCreateProps &
-  ModalCreateView;
+import Select from '../../../../components/Select';
 
-interface ModalCreateView {
+type TypeProps = 'Fixo' | 'Variável';
+
+type Category = 'Receitas' | 'Despesas';
+
+export interface ModalCreateViewProps {
+  form: {
+    description: string;
+    amount: number;
+    date: string;
+    category: Category;
+    type: TypeProps;
+    isValid: boolean;
+  };
+  handlers: {
+    handleSelectedModality: (event: BaseSyntheticEvent) => void;
+    handleModalityError: () => string | undefined;
+    handleDescription: (event: BaseSyntheticEvent) => void;
+    handleDescriptionError: () => string | undefined;
+    handleCategory: (event: BaseSyntheticEvent) => void;
+    handleCategoryError: () => string | undefined;
+    handleAmount: (event: BaseSyntheticEvent) => void;
+    handleAmountError: () => string | undefined;
+    handleType: (event: BaseSyntheticEvent) => void;
+    handleTypeError: () => string | undefined;
+    handleDate: (event: BaseSyntheticEvent) => void;
+    handleDateError: () => string | undefined;
+  };
+  selectCategories: { id: string; label: string }[];
+  selectTypes: { id: string; label: string }[];
+  isSubmitting: boolean;
+  isOpen: boolean;
+  onClose: () => void;
   modality: {
     selectedModality: string;
-    modalities: Modality[];
+    modalities: { id: string; label: string }[];
   };
 
   handleSubmit: (event: React.SyntheticEvent) => void;
 }
 
-export function ModalCreateView({
-  isOpen,
-  modality,
-  form,
-  handlers,
-  isLoading,
-  handleSubmit,
-  onClose,
-}: ModalCreateViewProps) {
-  const { modalities, selectedModality } = modality;
+export function ModalCreateView(props: ModalCreateViewProps) {
   const {
-    amount,
-    category,
-    date,
-    description,
-    isValid,
-    type,
-    onSelectedModality,
-  } = form;
+    isOpen,
+    modality,
+    form,
+    handlers,
+    isSubmitting,
+    selectCategories,
+    selectTypes,
+    handleSubmit,
+    onClose,
+  } = props;
+
+  const { modalities, selectedModality } = modality;
+
+  const { amount, category, date, description, isValid, type } = form;
 
   const {
     handleDescription,
     handleDescriptionError,
     handleCategory,
+    handleCategoryError,
     handleAmount,
     handleAmountError,
     handleType,
+    handleTypeError,
     handleDate,
     handleDateError,
+    handleSelectedModality,
+    handleModalityError,
   } = handlers;
 
   return (
@@ -58,94 +85,76 @@ export function ModalCreateView({
       onClose={onClose}
       header={true}
       title="Cadastrar nova transação"
+      subtitle="Preencha os dados da transação"
     >
-      <BaseModalContainer onSubmit={handleSubmit}>
+      <StyledModalContainer onSubmit={handleSubmit}>
         <Input
-          placeholder="Descrição"
+          placeholder="Descrição da transação"
           category="description"
           value={description}
           onChange={handleDescription}
           error={handleDescriptionError()}
-          maxLength={31}
+          maxLength={35}
+          disabled={isSubmitting}
         />
         <div className="containerDualOption">
-          <Button
-            variant="secondary"
-            disabled={!(category === 'Receitas')}
-            onClick={handleCategory}
-          >
-            Receitas
-          </Button>
-          <Button
-            variant="secondary"
-            disabled={!(category === 'Despesas')}
-            onClick={handleCategory}
-          >
-            Despesas
-          </Button>
+          <Select
+            placeholder="Categoria da transação"
+            options={selectCategories}
+            value={category}
+            onChange={handleCategory}
+            error={handleCategoryError()}
+            disabled={isSubmitting}
+          />
+          <Select
+            placeholder="Tipo de transação"
+            options={selectTypes}
+            value={type}
+            onChange={handleType}
+            error={handleTypeError()}
+            disabled={isSubmitting}
+          />
         </div>
         <div className="containerDualOption">
           <Input
             category="value"
-            placeholder="Valor"
+            placeholder="Valor da transação"
             type="number"
             value={amount}
             onChange={handleAmount}
             error={handleAmountError()}
+            disabled={isSubmitting}
           />
           <Input
             category="date"
-            placeholder="Data"
+            placeholder="Data da transação"
             min="2023-01-01"
-            type="datetime"
+            type="date"
             maxLength={10}
             value={date}
             onChange={handleDate}
             error={handleDateError()}
+            disabled={isSubmitting}
           />
         </div>
-        <div className="containerDualOption">
-          <Button
-            variant="secondary"
-            disabled={!(type === 'Fixo')}
-            onClick={handleType}
-          >
-            Fixo
-          </Button>
-          <Button
-            variant="secondary"
-            disabled={!(type === 'Variável')}
-            onClick={handleType}
-          >
-            Variável
-          </Button>
-        </div>
-        <div className="containerSectionModality">
-          {modalities.map((modality) => {
-            const isSelected = selectedModality === modality._id;
-
-            return (
-              <ContainerModality
-                key={modality._id}
-                onClick={() => onSelectedModality(modality._id)}
-                isSelected={isSelected}
-                type="button"
-              >
-                <div>{modality.icon}</div>
-                <small>{modality.name}</small>
-              </ContainerModality>
-            );
-          })}
-        </div>
+        <Select
+          options={modalities}
+          placeholder="Modalidade"
+          value={selectedModality}
+          onChange={handleSelectedModality}
+          error={handleModalityError()}
+          disabled={isSubmitting}
+        />
 
         <Button
           variant="primary"
           type="submit"
-          disabled={!isValid || isLoading}
+          disabled={!isValid}
+          isLoading={isSubmitting}
         >
-          {isLoading ? 'Enviando dados...' : 'Criar nova transação'}
+          Criar nova transação
         </Button>
-      </BaseModalContainer>
+      </StyledModalContainer>
     </Modal>
   );
 }

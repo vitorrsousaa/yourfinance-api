@@ -5,7 +5,7 @@ declare module 'styled-components' {
     colors: {
       black: {
         900: string;
-
+        800: string;
         700: string;
         600: string;
         300: string;
@@ -30,17 +30,16 @@ declare module 'styled-components' {
         700: string;
         200: string;
       };
-      error: {
-        900: string;
-        700: string;
-      };
+
       red: {
         600: string;
         400: string;
         300: string;
       };
     };
-    fonts: {
+    sizes: {
+      1: string;
+      2: string;
       4: string;
       8: string;
       10: string;

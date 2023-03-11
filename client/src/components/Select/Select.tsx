@@ -1,5 +1,7 @@
-import { SelectView } from './Select.view';
+import { SelectView, SelectViewProps } from './Select.view';
 
-export function Select() {
-  return <SelectView />;
+interface SelectProps extends SelectViewProps {}
+
+export function Select(props: SelectProps) {
+  return <SelectView {...props} />;
 }

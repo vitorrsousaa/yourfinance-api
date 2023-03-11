@@ -2,6 +2,7 @@ import formatAmount from '../../../../utils/formatAmount';
 
 import { IconTrendDown } from '../../../../assets/icons/trendDown';
 import { IconTrendUp } from '../../../../assets/icons/trendUp';
+
 import { StyledCard } from './Card.styles';
 
 export interface CardViewProps {
@@ -12,13 +13,9 @@ export interface CardViewProps {
   percent: number;
 }
 
-export function CardView({
-  type,
-  title,
-  amount,
-  percent,
-  difference,
-}: CardViewProps) {
+export function CardView(props: CardViewProps) {
+  const { type, title, amount, percent, difference } = props;
+
   return (
     <StyledCard>
       <div className="header-card-title">

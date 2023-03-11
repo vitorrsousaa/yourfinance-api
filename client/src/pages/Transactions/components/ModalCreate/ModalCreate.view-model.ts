@@ -1,29 +1,8 @@
-import { BaseSyntheticEvent, useState } from 'react';
+import { BaseSyntheticEvent, useMemo, useState } from 'react';
 
 import useErrors from '../../../../hooks/useErrors';
 
-export interface ModalCreateViewModelProps {
-  form: {
-    description: string;
-    amount: number;
-    date: string;
-    category: Category;
-    type: TypeProps;
-    isValid: boolean;
-    onSelectedModality: (modality: string) => void;
-  };
-  handlers: {
-    handleDescription: (event: BaseSyntheticEvent) => void;
-    handleDescriptionError: () => string | undefined;
-    handleCategory: () => void;
-    handleAmount: (event: BaseSyntheticEvent) => void;
-    handleAmountError: () => string | undefined;
-    handleType: () => void;
-    handleDate: (event: BaseSyntheticEvent) => void;
-    handleDateError: () => string | undefined;
-  };
-  isLoading: boolean;
-}
+import { Modality } from '../../../../types/Modality';
 
 type TypeProps = 'Fixo' | 'Variável';
 
@@ -33,13 +12,21 @@ export function ModalCreateViewModel() {
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState(0);
   const [date, setDate] = useState('');
-  const [category, setCategory] = useState<Category>('Despesas');
+  const [category, setCategory] = useState<Category>('' as Category);
   const [type, setType] = useState<TypeProps>('Fixo');
   const [selectedModality, setSelectedModality] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const selectCategories = ['Despesas', 'Receitas'];
+  const selectTypes = ['Fixo', 'Variável'];
+  const [modalities, setModalities] = useState<Modality[]>([]);
 
-  const { errors, getErrorMessageByFieldName, removeError, setError } =
-    useErrors();
+  const {
+    errors,
+    getErrorMessageByFieldName,
+    removeError,
+    setError,
+    handleRemoveAllErrors,
+  } = useErrors();
 
   const isFormValid = Boolean(
     description &&
@@ -67,10 +54,36 @@ export function ModalCreateViewModel() {
     return error;
   }
 
-  function handleChangeCategory() {
-    setCategory((prevState) =>
-      prevState === 'Receitas' ? 'Despesas' : 'Receitas'
-    );
+  function handleSelectedModality(event: BaseSyntheticEvent) {
+    setSelectedModality(event.target.value);
+
+    if (!event.target.value) {
+      setError({ field: 'modality', message: 'Modalidade é obrigatória' });
+    } else {
+      removeError('modality');
+    }
+  }
+
+  function handleModalityError() {
+    const error = getErrorMessageByFieldName('modality');
+
+    return error;
+  }
+
+  function handleChangeCategory(event: BaseSyntheticEvent) {
+    setCategory(event.target.value);
+
+    if (event.target.value === '') {
+      setError({ field: 'category', message: 'Categoria é obrigatória' });
+    } else {
+      removeError('category');
+    }
+  }
+
+  function handleCategoryError() {
+    const error = getErrorMessageByFieldName('category');
+
+    return error;
   }
 
   function handleChangeAmount(event: BaseSyntheticEvent) {
@@ -92,8 +105,20 @@ export function ModalCreateViewModel() {
     return error;
   }
 
-  function handleChangeType() {
-    setType((prevState) => (prevState === 'Fixo' ? 'Variável' : 'Fixo'));
+  function handleChangeType(event: BaseSyntheticEvent) {
+    setType(event.target.value);
+
+    if (event.target.value === '') {
+      setError({ field: 'type', message: 'Tipo é obrigatório' });
+    } else {
+      removeError('type');
+    }
+  }
+
+  function handleTypeError() {
+    const error = getErrorMessageByFieldName('type');
+
+    return error;
   }
 
   function handleChangeDate(event: BaseSyntheticEvent) {
@@ -118,11 +143,38 @@ export function ModalCreateViewModel() {
   }
 
   function handleClearState() {
+    handleRemoveAllErrors();
     setDescription('');
     setAmount(0);
     setDate('');
     setSelectedModality('');
+    setCategory('' as Category);
+    setType('' as TypeProps);
   }
+
+  const modalitiesOptions = useMemo(
+    () =>
+      modalities.map((modality) => {
+        return { id: modality._id, label: modality.name };
+      }),
+    [modalities]
+  );
+
+  const categoriesOptions = useMemo(
+    () =>
+      selectCategories.map((category) => {
+        return { id: category, label: category };
+      }),
+    []
+  );
+
+  const typesOptions = useMemo(
+    () =>
+      selectTypes.map((types) => {
+        return { id: types, label: types };
+      }),
+    []
+  );
 
   return {
     form: {
@@ -132,20 +184,27 @@ export function ModalCreateViewModel() {
       category,
       type,
       isValid: isFormValid,
-      onSelectedModality: setSelectedModality,
     },
     handlers: {
+      handleSelectedModality,
+      handleModalityError,
       handleDescription: handleChangeDescription,
       handleDescriptionError,
       handleCategory: handleChangeCategory,
+      handleCategoryError,
       handleAmount: handleChangeAmount,
       handleAmountError,
       handleType: handleChangeType,
+      handleTypeError,
       handleDate: handleChangeDate,
       handleDateError,
     },
-    isLoading,
-    setIsLoading,
+    modalitiesOptions,
+    categoriesOptions,
+    typesOptions,
+    setModalities,
+    isSubmitting,
+    setIsSubmitting,
     selectedModality,
     handleClearState,
   };

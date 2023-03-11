@@ -1,36 +1,33 @@
 import { Transaction } from '../../../types/Transaction';
-import formatAmount from '../../../utils/formatAmount';
-import { formatDate } from '../../../utils/formatDate';
+import TableContent from '../TableContent';
 import { StyledTable } from './Table.styles';
 
 export interface TableViewProps {
   transactions: Transaction[];
+  onSelectedDeleteTransaction: (id: string) => void;
+  showPopover: boolean;
 }
 
-export function TableView({ transactions }: TableViewProps) {
+export function TableView(props: TableViewProps) {
+  const { transactions, onSelectedDeleteTransaction, showPopover } = props;
   return (
     <StyledTable>
-      <div className="header-table">
+      <div className={`header-table ${showPopover && 'show-popover'}`}>
         <strong>Modalidade</strong>
         <strong>Descrição</strong>
         <strong>Valor</strong>
         <strong>Data</strong>
         <strong>Tipo</strong>
+        {showPopover && <div></div>}
       </div>
-      {transactions.map((transaction) => {
-        const { _id, modality, description, amount, createdAt, type } =
-          transaction;
-
-        return (
-          <div key={_id}>
-            <small>{modality.name}</small>
-            <small>{description}</small>
-            <small>{formatAmount(amount)}</small>
-            <small>{formatDate(createdAt)}</small>
-            <small>{type}</small>
-          </div>
-        );
-      })}
+      {transactions.map((transaction) => (
+        <TableContent
+          transaction={transaction}
+          key={`${transaction._id}_${transaction.description}`}
+          onSelectedDelete={onSelectedDeleteTransaction}
+          showPopover={showPopover}
+        />
+      ))}
     </StyledTable>
   );
 }

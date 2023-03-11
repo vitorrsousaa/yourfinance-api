@@ -6,15 +6,13 @@ export interface NavLinkViewProps {
   children: string;
   isActive: boolean;
   icon: ReactNode;
+  onClick?: () => void;
 }
 
-export default function NavLinkView({
-  icon,
-  children,
-  isActive,
-}: NavLinkViewProps) {
+export default function NavLinkView(props: NavLinkViewProps) {
+  const { icon, children, isActive, onClick } = props;
   return (
-    <StyledNavLink isActive={isActive}>
+    <StyledNavLink isActive={isActive} role="button" onClick={onClick}>
       <>
         {icon}
         <small>{children}</small>

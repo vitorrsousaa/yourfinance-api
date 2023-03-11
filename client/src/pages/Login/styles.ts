@@ -9,11 +9,6 @@ export const Container = styled.div`
 
   height: 100vh;
 
-  .login-error {
-    color: ${({ theme }) => theme.colors.error[900]};
-    font-size: 1rem;
-  }
-
   form {
     display: flex;
     flex-direction: column;

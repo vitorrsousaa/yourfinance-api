@@ -47,12 +47,7 @@ export function InputView({ error, category, ...props }: InputViewProps) {
   return (
     <InputStyled isFocus={isFocus} error={error} customTheme={customTheme}>
       <label>
-        <input
-          type="text"
-          onFocus={handleFocusInput}
-          onBlur={handleBlurInput}
-          {...props}
-        />
+        <input onFocus={handleFocusInput} onBlur={handleBlurInput} {...props} />
         {CategorySVG && <CategorySVG />}
       </label>
       {!!error && <small>{error}</small>}

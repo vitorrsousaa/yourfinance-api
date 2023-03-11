@@ -15,16 +15,18 @@ export const ButtonView = ({
   children,
   isLoading,
   disabled,
+  variant,
   ...props
 }: ButtonViewProps) => {
   return (
     <BaseButton
       customTheme={customTheme}
       disabled={disabled || isLoading}
+      variant={variant}
       {...props}
     >
       {!isLoading && children}
-      {isLoading && <Spinner variant="small" />}
+      {isLoading && <Spinner size="small" variant={variant} />}
     </BaseButton>
   );
 };

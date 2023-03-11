@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const BaseModalContainer = styled.form`
+export const StyledModalContainer = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -45,7 +45,7 @@ export const ContainerModality = styled.button<ContainerModalityProps>`
 
     /* White */
 
-    background: var(--white-200);
+    background: ${({ theme }) => theme.colors.white[100]};
     /* shadow light */
 
     box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.3);

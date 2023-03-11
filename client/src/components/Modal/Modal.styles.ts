@@ -24,8 +24,14 @@ export const BaseModal = styled.div`
   gap: 0.75rem;
   width: 35rem;
 
-  background: var(--white-100);
-  border-radius: 8px;
+  background: ${({ theme }) => theme.colors.white[100]};
+  border-radius: 0.5rem;
+
+  small {
+    font-weight: 400;
+    font-size: 1rem;
+    color: ${({ theme }) => theme.colors.black[600]};
+  }
 
   header {
     display: flex;
@@ -40,7 +46,6 @@ export const BaseModal = styled.div`
 
     h1 {
       font-weight: 700;
-      color: var(--black-900);
       font-size: 1.5rem;
     }
   }

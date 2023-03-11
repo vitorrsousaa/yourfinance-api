@@ -7,20 +7,20 @@ export interface ModalViewProps {
   header?: boolean;
   onClose: () => void;
   children: ReactElement;
+  subtitle?: string;
 }
 
-export function ModalView({
-  title,
-  onClose,
-  header = true,
-  children,
-}: ModalViewProps) {
+export function ModalView(props: ModalViewProps) {
+  const { title, onClose, header = true, children, subtitle } = props;
   return (
     <Overlay>
       <BaseModal>
         {header && (
           <header>
-            <h1>{title}</h1>
+            <div>
+              <h1>{title}</h1>
+              {subtitle && <small>{subtitle}</small>}
+            </div>
             <button onClick={onClose}>
               <h1>X</h1>
             </button>

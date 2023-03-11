@@ -8,12 +8,13 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-
 import { useTheme } from 'styled-components';
+
 import Option from '../../../../components/Option';
 
 import formatAmount from '../../../../utils/formatAmount';
 import { formatShortDate } from '../../../../utils/formatDate';
+
 import { StylesBarChart } from './BarChart.styles';
 
 export interface IncomeByMonth {

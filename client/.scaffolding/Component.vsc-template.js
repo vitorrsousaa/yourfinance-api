@@ -39,7 +39,7 @@ export default ${toPascalCase(inputs.name)};`,
             name: (inputs) => `${toKebabCase(inputs.name)}.tsx`,
             content: (inputs) => `import { memo, ReactNode } from 'react';
 
-import{ ${toPascalCase(inputs.name)}View } from './${toKebabCase(
+import { ${toPascalCase(inputs.name)}View } from './${toKebabCase(
               inputs.name
             )}.view';
 import { ${toPascalCase(inputs.name)}ViewModel, ${toPascalCase(
@@ -57,16 +57,18 @@ export interface ${toPascalCase(inputs.name)}Props {
   className?: string;
 }
 
-export interface ${toPascalCase(
-              inputs.name
-            )}ViewProps extends Omit<${toPascalCase(inputs.name)}Props, ''>
+// Quando a prop é usada somente aqui, devemos omitir para não ir pra View
+export interface ${toPascalCase(inputs.name)}ViewProps
+    extends Omit<${toPascalCase(inputs.name)}Props, ''> {
+// Quando alguma prop vai ser utilizada somente na View, devemos acrescentar aqui
+}
 
 function ${toPascalCase(inputs.name)}(props: ${toPascalCase(
               inputs.name
             )}Props) {
   const { ...viewProps } = props;
 
-  const viewModel = useViewModel<${toPascalCase(inputs.name)}ViewModelProps>()
+  const viewModel = useViewModel();
 
   return (
       <${toPascalCase(

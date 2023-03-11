@@ -1,22 +1,21 @@
-import Arrow from '../../assets/icons/arrow.svg';
-
-import { BaseHeader } from './Header.styles';
+import { StyledHeader } from './Header.styles';
 
 export interface HeaderViewProps {
   name: string | undefined;
+  page: string;
+  subtitle?: string;
 }
 
-export function HeaderView({ name }: HeaderViewProps) {
+export function HeaderView(props: HeaderViewProps) {
+  const { name, page, subtitle } = props;
   return (
-    <BaseHeader>
-      <h1>
-        Bem vindo(a) de volta, <span>{name}</span>
-      </h1>
-      <div className="containerAvatar">
-        <img src="https://picsum.photos/200/300" alt="ImageAvatar" />
-        <h4>{name}</h4>
-        <img src={Arrow} alt="Arrow" />
-      </div>
-    </BaseHeader>
+    <StyledHeader>
+      <header className="header-overview">
+        <h1>{page}</h1>
+        <small>
+          Olá, <strong>{name}.</strong> {subtitle}
+        </small>
+      </header>
+    </StyledHeader>
   );
 }

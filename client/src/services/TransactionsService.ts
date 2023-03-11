@@ -2,13 +2,13 @@ import { TransactionCreateProps } from '../types/Transaction';
 import HttpClient from './HttpClient';
 
 class TransactionsService {
-  httpClient;
+  private httpClient;
 
   constructor() {
     this.httpClient = new HttpClient('http://localhost:3001');
   }
 
-  async list(page?: number) {
+  list(page?: number) {
     if (page) {
       return this.httpClient.get(`/transactions/?page=${page}`);
     }
@@ -16,11 +16,11 @@ class TransactionsService {
     return this.httpClient.get('/transactions');
   }
 
-  async create(transaction: TransactionCreateProps) {
+  create(transaction: TransactionCreateProps) {
     return this.httpClient.post('/transactions', transaction);
   }
 
-  async delete(transactionId: string) {
+  delete(transactionId: string) {
     return this.httpClient.delete(`/transactions/${transactionId}`);
   }
 

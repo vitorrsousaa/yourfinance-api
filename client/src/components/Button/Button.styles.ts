@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { ButtonThemeProps } from './theme/types';
 
-export type variants = 'primary' | 'secondary' | 'empty' | 'delete';
+export type variants = 'primary' | 'secondary' | 'empty' | 'danger';
 
 export interface BaseButtonProps {
   variant: variants;
@@ -19,7 +19,7 @@ export const BaseButton = styled.button<BaseButtonProps>`
   border-radius: 10px;
   font-weight: 700;
   font-size: 1rem;
-  transition: all 0.5s;
+  transition: background 0.5s ease-in-out;
 
   background: ${({ customTheme, variant }) =>
     customTheme[variant].initial.background};

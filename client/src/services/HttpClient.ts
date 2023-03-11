@@ -1,3 +1,4 @@
+import { AxiosRequestConfig } from 'axios';
 import APIError from '../errors/APIError';
 import { TransactionCreateProps } from '../types/Transaction';
 import { User } from '../types/User';
@@ -12,7 +13,7 @@ interface optionsProps {
 }
 
 class HttpClient {
-  baseURL;
+  private baseURL;
 
   constructor(baseURL: string) {
     this.baseURL = baseURL;
@@ -25,23 +26,22 @@ class HttpClient {
     });
   }
 
-  async delete(path: string) {
-    const response = await api.delete(path);
-
-    await delay();
-
-    return response;
+  delete(path: string) {
+    return this.makeRequest({
+      method: 'delete',
+      url: `${this.baseURL}${path}`,
+    });
   }
 
-  async post(path: string, data: dataRequestProps) {
-    const response = await api.post(path, data);
-
-    await delay(2000);
-
-    return response.data;
+  post(path: string, data: dataRequestProps) {
+    return this.makeRequest({
+      method: 'post',
+      url: `${this.baseURL}${path}`,
+      data,
+    });
   }
 
-  async makeRequest(options: optionsProps) {
+  async makeRequest(options: AxiosRequestConfig) {
     await delay(1000);
 
     const response = await api({
@@ -51,7 +51,7 @@ class HttpClient {
       },
     });
 
-    if (response.statusText === 'OK') {
+    if (response.status >= 200 && response.status < 400) {
       return response.data;
     }
 

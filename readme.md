@@ -101,6 +101,18 @@ Afim de facilitar a organização e manutenção do código, foi definido um pad
 → hooks: Custom hooks; <br />
 → pages: Armazena todas as páginas da aplicação; <br />
 
+<<<<<<< HEAD
+Todos os componentes criados vão seguir a estrutura MVVM, com os seguintes arquivos:
+→ index.tsx: Responsável por exportar o componente; <br />
+→ component.styles.ts: Responsável por toda estilização do componente; <br />
+→ component.view.tsx: Responsável por armazenar a View do componente, e toda a regra associada a interação com o usuário, tudo que é exibido na interface; <br />
+→ component.view-model.ts: Responsável por armazenar a Model do componente, toda a regra de negócio exigida para o funcionamento do componente; <br />
+→ component.tsx: Responsável por unir a interação com o usuário com a regra de negócio da aplicação, camada de dados do componente; <br />
+
+Como cada página não deixa de ser um componente, todas as páginas são seguir a mesma estrutura de componentes, e os componentes que são utilizados apenas naquela página vão ser armazenados na pasta components dentro de pages.
+
+=======
+>>>>>>> 735bc619898cbf02c95133cb73e7fe04c83f2324
 **Front-end Mobile**
 
 → \_assets: Contém a estilização global, icones, fontes, tema da aplicação, itens de estilo que são reutilizáveis e imagens; <br />
@@ -143,7 +155,7 @@ Para criar um novo componente, vamos utilizar o padrão do scaffolding
 
 → As importações no projeto vão seguir uma mesma padronização
 
-1. React
+1. React e libs
 2. Tipagens
 3. Componentes
 4. Funções, utilitários e libs externas

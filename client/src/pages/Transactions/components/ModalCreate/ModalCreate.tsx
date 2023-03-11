@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
-import { Modality } from '../../../../types/Modality';
+import { useCallback, useEffect } from 'react';
 
 import { toast } from 'react-toastify';
-
 import ModalitiesService from '../../../../services/ModalitiesService';
-import TransactionsService from '../../../../services/TransactionsService';
+
+import { TransactionCreateProps } from '../../../../types/Transaction';
 
 import { ModalCreateView } from './ModalCreate.view';
 
@@ -13,29 +12,41 @@ import { ModalCreateViewModel } from './ModalCreate.view-model';
 export interface ModalCreateProps {
   isOpen: boolean;
   onClose: () => void;
+  onSubmit: (transaction: TransactionCreateProps) => Promise<void>;
 }
 
-// Verificar se não vai ser necessário zerar os states após executar a onClose()
-
-export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
-  const [modalities, setModalities] = useState<Modality[]>([]);
+export function ModalCreate({ onClose, onSubmit, ...props }: ModalCreateProps) {
   const {
     form,
     selectedModality,
     handlers,
-    isLoading,
-    setIsLoading,
+    isSubmitting,
+    typesOptions,
+    modalitiesOptions,
+    categoriesOptions,
+    setIsSubmitting,
+    setModalities,
     handleClearState,
   } = ModalCreateViewModel();
 
+  const loadModalities = useCallback(async () => {
+    try {
+      const dataModalities = await ModalitiesService.list();
+
+      setModalities(dataModalities);
+    } catch (error) {
+      toast.error(
+        'Não conseguimos carregar as modalidades, tente reiniciar a página.'
+      );
+    }
+  }, []);
+
   useEffect(() => {
-    ModalitiesService.list().then((response) => {
-      setModalities(response);
-    });
+    loadModalities();
   }, []);
 
   async function handleSubmit(event: React.SyntheticEvent) {
-    setIsLoading(true);
+    setIsSubmitting(true);
     event.preventDefault();
     const transaction = {
       description: form.description,
@@ -46,12 +57,11 @@ export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
       modality: selectedModality,
     };
 
-    await TransactionsService.create(transaction);
+    await onSubmit(transaction);
 
-    onClose();
     handleClearState();
-    toast.success('Transação adicionada');
-    setIsLoading(false);
+    onClose();
+    setIsSubmitting(false);
   }
 
   function newOnClose() {
@@ -61,13 +71,18 @@ export function ModalCreate({ onClose, ...props }: ModalCreateProps) {
 
   return (
     <ModalCreateView
-      {...props}
+      selectCategories={categoriesOptions}
+      selectTypes={typesOptions}
       onClose={newOnClose}
       form={form}
       handlers={handlers}
-      modality={{ selectedModality, modalities }}
-      isLoading={isLoading}
+      modality={{
+        selectedModality,
+        modalities: modalitiesOptions,
+      }}
+      isSubmitting={isSubmitting}
       handleSubmit={handleSubmit}
+      {...props}
     />
   );
 }

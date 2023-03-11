@@ -1,52 +1,17 @@
 import styled from 'styled-components';
 
-export const BaseHeader = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-
+export const StyledHeader = styled.header`
+  width: 100%;
   h1 {
-    font-size: 1.5rem;
-    font-weight: 700;
-
-    color: var(--black-800);
-    span {
-      font-weight: 400;
-    }
+    font-weight: 500;
   }
 
-  .containerAvatar {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  small {
+    color: ${({ theme }) => theme.colors.black[600]};
+    margin-top: 0.625rem;
 
-    h4 {
-      font-size: 1rem;
-    }
-
-    img:first-child {
-      width: 56px;
-      height: 56px;
-      border-radius: 100%;
-    }
-  }
-
-  @media (max-width: 500px) {
-    h1 {
-      font-size: 0.75rem;
-    }
-
-    .containerAvatar {
-      gap: 0.2rem;
-      h4 {
-        font-size: 0.75rem;
-      }
-
-      img:last-child {
-        width: 16px;
-        height: 16px;
-      }
+    strong {
+      font-weight: 500;
     }
   }
 `;
