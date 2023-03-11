@@ -23,7 +23,7 @@ interface OverviewViewProps {
 
 export function OverviewView(props: OverviewViewProps) {
   const { incomeData, outcomeData, transactions, incomeTransactions } = props;
-
+  console.log(incomeData);
   return (
     <OverviewStyled>
       <Header page="Overview" subtitle="Comece a controlar suas finanças." />

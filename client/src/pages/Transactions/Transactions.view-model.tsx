@@ -41,6 +41,7 @@ export function TransactionsViewModel() {
     isModalDeleteOpen,
     setIsModalDeleteOpen,
     selectedTransactionToDelete,
+    setTransactions,
     handleDeleteTransactionConfirmation,
     loadTransactions,
   };

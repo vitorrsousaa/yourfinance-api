@@ -23,6 +23,7 @@ export function Transactions() {
     handleDeleteTransactionConfirmation,
     selectedTransactionToDelete,
     loadTransactions,
+    setTransactions,
   } = TransactionsViewModel();
 
   useEffect(() => {
@@ -34,9 +35,13 @@ export function Transactions() {
     try {
       await TransactionsService.delete(selectedTransactionToDelete);
 
+      setTransactions((prevState) =>
+        prevState.filter(
+          (transaction) => transaction._id !== selectedTransactionToDelete
+        )
+      );
       toast.success('Transação deletada com sucesso');
     } catch (error) {
-      console.log(error);
       toast.error(
         'Não conseguimos deletar sua transação. Por favor tente novamente!'
       );

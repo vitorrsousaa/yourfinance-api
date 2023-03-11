@@ -13,13 +13,9 @@ export interface CardViewProps {
   percent: number;
 }
 
-export function CardView({
-  type,
-  title,
-  amount,
-  percent,
-  difference,
-}: CardViewProps) {
+export function CardView(props: CardViewProps) {
+  const { type, title, amount, percent, difference } = props;
+
   return (
     <StyledCard>
       <div className="header-card-title">
