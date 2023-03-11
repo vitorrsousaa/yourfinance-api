@@ -18,6 +18,7 @@ export const StyledNavLink = styled.div<{ isActive: boolean }>`
 
   &:hover {
     background: ${({ theme }) => theme.colors.black[800]};
+    cursor: pointer;
   }
 
   @media screen and (max-width: 600px) {

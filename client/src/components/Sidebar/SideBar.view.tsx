@@ -6,8 +6,10 @@ import Transaction from '../../assets/icons/Transaction';
 import IconAnalytics from '../../assets/icons/IconAnalytics';
 import Settings from '../../assets/icons/Settings';
 import Logout from '../../assets/icons/Logout';
+import { useAuthContext } from '../../context/AuthContext';
 
 export function SidebarView() {
+  const { handleLogout } = useAuthContext();
   return (
     <StyledSidebar>
       <header className="header">logo</header>
@@ -29,8 +31,8 @@ export function SidebarView() {
           <NavLink href="/configuracoes" icon={<Settings />}>
             configuracoes
           </NavLink>
-          <NavLink href="/logout" icon={<Logout />}>
-            sair da conta
+          <NavLink icon={<Logout />} onClick={handleLogout}>
+            Sair da conta
           </NavLink>
         </footer>
       </div>
