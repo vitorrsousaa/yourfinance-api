@@ -1,6 +1,7 @@
 import { AnalyticsViewModelProps } from './Analytics.view-model';
 import { AnalyticsViewProps } from './Analytics';
 import * as styled from './Analytics.styles';
+import Header from '../../components/Header';
 
 interface Props {
   viewModel: AnalyticsViewModelProps;
@@ -12,7 +13,10 @@ export function AnalyticsView({ viewModel, props }: Props) {
 
   return (
     <styled.Analytics>
-      <h1>Analytics</h1>
+      <Header
+        page="Analytics"
+        subtitle="Tenha acesso a análise da sua vida financeira."
+      />
     </styled.Analytics>
   );
 }

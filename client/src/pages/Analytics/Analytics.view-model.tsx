@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
 export interface AnalyticsViewModelProps {
-  state: string;
+  hasError: string;
 }
 
 export function AnalyticsViewModel() {
-  const [state, setState] = useState('');
+  const [hasError, setHasError] = useState('');
 
   return {
-    state,
-    setState,
+    hasError,
+    setHasError,
   };
 }
