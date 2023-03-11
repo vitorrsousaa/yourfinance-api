@@ -3,7 +3,7 @@ import { useAuthContext } from '../../../context/AuthContext';
 import NavLinkView, { NavLinkViewProps } from './NavLink.view';
 
 interface NavLinkProps extends Omit<NavLinkViewProps, 'isActive'> {
-  href: string;
+  href?: string;
 }
 
 export function NavLink({ href, ...props }: NavLinkProps) {
@@ -23,8 +23,14 @@ export function NavLink({ href, ...props }: NavLinkProps) {
   }
 
   return (
-    <Link to={href}>
-      <NavLinkView isActive={isActive} {...props} />
-    </Link>
+    <>
+      {href ? (
+        <Link to={href}>
+          <NavLinkView isActive={isActive} {...props} />
+        </Link>
+      ) : (
+        <NavLinkView isActive={isActive} {...props} />
+      )}
+    </>
   );
 }

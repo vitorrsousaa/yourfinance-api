@@ -17,7 +17,7 @@ export const StyledNavLink = styled.div<{ isActive: boolean }>`
     isActive ? theme.colors.white[100] : theme.colors.black[300]};
 
   &:hover {
-    background: ${({ theme }) => theme.colors.black[700]};
+    background: ${({ theme }) => theme.colors.black[800]};
   }
 
   @media screen and (max-width: 600px) {
