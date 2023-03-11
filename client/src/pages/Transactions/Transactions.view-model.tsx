@@ -4,6 +4,7 @@ import { Transaction } from '../../types/Transaction';
 
 export function TransactionsViewModel() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
@@ -12,16 +13,13 @@ export function TransactionsViewModel() {
     useState('');
 
   function handleDeleteTransactionConfirmation(id: string) {
-    console.log(id, 'id');
-    console.log(selectedTransactionToDelete, 'selected');
     setSelectedTransactionToDelete(id);
     setIsModalDeleteOpen(true);
   }
-  console.log(selectedTransactionToDelete, 'selected2');
 
   const loadTransactions = useCallback(async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       const [dataTransaction] = await Promise.all([TransactionsService.list()]);
 
       setTransactions(dataTransaction.transactions);
@@ -32,12 +30,10 @@ export function TransactionsViewModel() {
     }
   }, []);
 
-  const handleDeleteTransaction = useCallback(() => {
-    console.log(selectedTransactionToDelete, 'transactions.tsx');
-  }, [selectedTransactionToDelete]);
-
   return {
     isLoading,
+    isLoadingDelete,
+    setIsLoadingDelete,
     hasError,
     transactions,
     isModalCreateOpen,
@@ -46,7 +42,6 @@ export function TransactionsViewModel() {
     setIsModalDeleteOpen,
     selectedTransactionToDelete,
     handleDeleteTransactionConfirmation,
-    handleDeleteTransaction,
     loadTransactions,
   };
 }

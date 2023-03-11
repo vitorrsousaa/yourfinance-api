@@ -7,7 +7,7 @@ export const StyledSelected = styled.label<{ error?: string }>`
   width: 100%;
 
   small {
-    font-size: ${({ theme }) => theme.fonts[14]};
+    font-size: ${({ theme }) => theme.sizes[14]};
     color: ${({ theme }) => theme.colors.red[400]};
   }
 

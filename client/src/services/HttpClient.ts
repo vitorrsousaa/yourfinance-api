@@ -26,12 +26,11 @@ class HttpClient {
     });
   }
 
-  async delete(path: string) {
-    const response = await api.delete(path);
-
-    await delay();
-
-    return response;
+  delete(path: string) {
+    return this.makeRequest({
+      method: 'delete',
+      url: `${this.baseURL}${path}`,
+    });
   }
 
   post(path: string, data: dataRequestProps) {
@@ -52,7 +51,7 @@ class HttpClient {
       },
     });
 
-    if (response.statusText === 'OK') {
+    if (response.status >= 200 && response.status < 400) {
       return response.data;
     }
 

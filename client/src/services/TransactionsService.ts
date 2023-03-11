@@ -8,7 +8,7 @@ class TransactionsService {
     this.httpClient = new HttpClient('http://localhost:3001');
   }
 
-  async list(page?: number) {
+  list(page?: number) {
     if (page) {
       return this.httpClient.get(`/transactions/?page=${page}`);
     }
@@ -20,7 +20,7 @@ class TransactionsService {
     return this.httpClient.post('/transactions', transaction);
   }
 
-  async delete(transactionId: string) {
+  delete(transactionId: string) {
     return this.httpClient.delete(`/transactions/${transactionId}`);
   }
 
