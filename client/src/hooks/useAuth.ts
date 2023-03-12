@@ -33,7 +33,6 @@ export default function useAuth() {
 
         setAuthenticated(true);
       } catch (error) {
-        console.log(error);
         toast.error(
           'Desculpa, tivemos um problema. Tente novamente mais tarde.'
         );
