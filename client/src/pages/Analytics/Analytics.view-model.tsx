@@ -4,6 +4,7 @@ import { Transaction } from '../../types/Transaction';
 
 export interface AnalyticsViewModelProps {
   hasError: boolean;
+  transactions: Transaction[];
 }
 
 export function AnalyticsViewModel() {

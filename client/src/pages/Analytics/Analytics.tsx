@@ -35,7 +35,6 @@ function Analytics(props: AnalyticsProps) {
       try {
         const transactionsData = await TransactionsService.list();
 
-        console.log(transactionsData);
         setTransactions(transactionsData.transactions);
       } catch {
         setHasError(true);
