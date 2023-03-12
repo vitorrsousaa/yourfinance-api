@@ -5,6 +5,7 @@ import Header from '../../components/Header';
 import AreaChart from './components/AreaChart';
 import Error from '../../components/Error';
 import NoData from '../../components/NoData';
+import UnderConstruction from '../../components/UnderConstruction';
 
 interface Props {
   viewModel: AnalyticsViewModelProps;
@@ -16,20 +17,20 @@ export function AnalyticsView({ viewModel, props }: Props) {
   const { transactions, hasError, hasData, handleWithoutData } = viewModel;
 
   return (
-    <>
-      <styled.Analytics>
-        <Header
-          page="Analytics"
-          subtitle="Tenha acesso a análise da sua vida financeira."
-        />
-        {hasError ? (
+    <styled.Analytics>
+      <Header
+        page="Analytics"
+        subtitle="Tenha acesso a análise da sua vida financeira."
+      />
+      {/* {hasError ? (
           <Error onError={() => console.log('tem um erro aqui')} />
         ) : hasData ? (
           <AreaChart title="Fluxo financeiro" transactions={transactions} />
         ) : (
           <NoData onDataContent={handleWithoutData} />
-        )}
-      </styled.Analytics>
-    </>
+        )} */}
+
+      <UnderConstruction />
+    </styled.Analytics>
   );
 }

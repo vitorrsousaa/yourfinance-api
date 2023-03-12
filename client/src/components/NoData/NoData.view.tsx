@@ -1,6 +1,6 @@
 import Button from '../Button';
 
-import noData from '../../assets/icons/images/no-data.svg';
+import noData from '../../assets/illustrations/no-data.svg';
 import { StyledNoData } from './NoData.styles';
 
 export interface NoDataViewProps {

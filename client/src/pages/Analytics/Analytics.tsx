@@ -26,9 +26,8 @@ function Analytics(props: AnalyticsProps) {
         const transactionsData = await TransactionsService.list();
 
         setTransactions(transactionsData.transactions);
-        setHasError(true);
       } catch {
-        setIsLoading(false);
+        setHasError(true);
       } finally {
         setIsLoading(false);
       }

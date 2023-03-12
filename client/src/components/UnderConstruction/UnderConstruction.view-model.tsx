@@ -1,14 +1,17 @@
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export interface UnderConstructionViewModelProps {
-  state: string;
+  handleUnderConstruction: () => void;
 }
 
 export function UnderConstructionViewModel() {
-  const [state, setState] = useState('');
+  const navigate = useNavigate();
+
+  function handleUnderConstruction() {
+    navigate('/');
+  }
 
   return {
-    state,
-    setState,
+    handleUnderConstruction,
   };
 }
