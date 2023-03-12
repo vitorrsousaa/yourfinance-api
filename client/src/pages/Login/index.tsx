@@ -14,7 +14,6 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const { errors, getErrorMessageByFieldName, removeError, setError } =
     useErrors();
-  const [loginError, setLoginError] = useState('');
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -35,7 +34,6 @@ const Login = () => {
       return setError({ field: 'email', message: 'E-mail inválido' });
     } else {
       removeError('email');
-      setLoginError('');
     }
   }
 
@@ -46,7 +44,6 @@ const Login = () => {
       setError({ field: 'password', message: 'Senha é obrigatória' });
     } else {
       removeError('password');
-      setLoginError('');
     }
   }
 
@@ -56,14 +53,14 @@ const Login = () => {
 
     const user = { email, password };
 
-    const err: any = await handleLogin({ email, password });
-
-    if (err) {
+    try {
+      await handleLogin(user);
+    } catch (err) {
       setPassword('');
-      toast.error('E-mail ou senha inválido');
+      toast.error('E-mail ou senha inválido.');
+    } finally {
+      setIsSubmitting(false);
     }
-
-    setIsSubmitting(false);
   }
 
   return (

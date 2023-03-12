@@ -2,6 +2,7 @@ import { AxiosResponse } from 'axios';
 
 export default class APIError extends Error {
   response;
+  status;
 
   constructor(response: AxiosResponse) {
     super();
@@ -10,5 +11,6 @@ export default class APIError extends Error {
 
     this.name = 'APIError';
     this.response = response;
+    this.status = response.status;
   }
 }

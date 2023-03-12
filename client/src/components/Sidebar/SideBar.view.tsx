@@ -23,14 +23,14 @@ export function SidebarView() {
             Transações
           </NavLink>
 
-          <NavLink href="/home" icon={<IconAnalytics />}>
+          <NavLink href="/analytics" icon={<IconAnalytics />}>
             Analytics
           </NavLink>
         </nav>
         <footer>
-          <NavLink href="/configuracoes" icon={<Settings />}>
+          {/* <NavLink href="/configuracoes" icon={<Settings />}>
             configuracoes
-          </NavLink>
+          </NavLink> */}
           <NavLink icon={<Logout />} onClick={handleLogout}>
             Sair da conta
           </NavLink>

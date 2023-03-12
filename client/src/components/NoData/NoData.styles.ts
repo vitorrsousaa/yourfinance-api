@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledNoData = styled.div`
   display: flex;
   align-items: center;
-  justify-items: center;
+  margin: 0 auto;
   flex-direction: column;
   gap: 2rem;
   text-align: center;

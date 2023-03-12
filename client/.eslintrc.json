@@ -24,6 +24,7 @@
     "semi": ["warn", "always"],
     "react/react-in-jsx-scope": "off",
     "react/no-unknown-property": "off",
-    "@typescript-eslint/no-empty-interface": "off"
+    "@typescript-eslint/no-empty-interface": "off",
+    "react/prop-types": "off"
   }
 }

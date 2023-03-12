@@ -1,6 +1,6 @@
 import Button from '../Button';
 
-import errorImage from '../../assets/icons/images/error.svg';
+import errorImage from '../../assets/illustrations/error.svg';
 import { StyledError } from './Error.styles';
 
 export interface ErrorViewProps {

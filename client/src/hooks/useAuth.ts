@@ -1,9 +1,9 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { api } from '../services/api';
+import AuthService from '../services/AuthService';
 import { User } from '../types/User';
-import delay from '../utils/delay';
 
 export default function useAuth() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -21,18 +21,23 @@ export default function useAuth() {
     async function loadUser() {
       const token = localStorage.getItem('@Aion-token');
 
-      if (token) {
-        api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
+      if (!token) {
+        setAuthenticated(false);
+        return;
       }
 
-      try {
-        const response = await api.get('http://localhost:3001/auth');
+      setLoading(true);
 
-        if (response.status === 200) {
-          setAuthenticated(true);
-        }
-      } catch {
-        setAuthenticated(false);
+      api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
+      try {
+        await AuthService.auth();
+
+        setAuthenticated(true);
+      } catch (error) {
+        toast.error(
+          'Desculpa, tivemos um problema. Tente novamente mais tarde.'
+        );
+
         handleLogout();
       } finally {
         setLoading(false);
@@ -46,10 +51,9 @@ export default function useAuth() {
     const route = user.name
       ? 'http://localhost:3001/auth/register'
       : 'http://localhost:3001/auth/authenticate';
-    await delay(2000);
 
     try {
-      const { data } = await api.post(route, user);
+      const data = await AuthService.login(user);
 
       localStorage.setItem('@Aion-token', JSON.stringify(data.token));
       localStorage.setItem('@Aion-user', JSON.stringify(data.user.name));
@@ -58,9 +62,32 @@ export default function useAuth() {
       setUser({ name: data.user.name });
       setAuthenticated(true);
     } catch (error: any) {
-      if (error) {
-        return { error: 'Failed' };
+      if (error.response.status === 401) {
+        throw new Error('Not Authorized');
       }
+
+      toast.error('Não conseguimos fazer login. Tente novamente mais tarde.');
+    }
+  }
+
+  async function handleRegister(user: User) {
+    try {
+      const data = await AuthService.register(user);
+
+      localStorage.setItem('@Aion-token', JSON.stringify(data.token));
+      localStorage.setItem('@Aion-user', JSON.stringify(data.user.name));
+      api.defaults.headers.Authorization = `Bearer ${data.token}`;
+
+      setUser({ name: data.user.name });
+      setAuthenticated(true);
+    } catch (error: any) {
+      if (error.response.status === 401) {
+        throw new Error('Not Authorized');
+      }
+
+      toast.error(
+        'Não conseguimos cadastrar sua conta. Tente novamente mais tarde.'
+      );
     }
   }
 
@@ -71,5 +98,12 @@ export default function useAuth() {
     api.defaults.headers.Authorization = null;
   }
 
-  return { handleLogin, handleLogout, loading, authenticated, user };
+  return {
+    handleLogin,
+    handleLogout,
+    handleRegister,
+    loading,
+    authenticated,
+    user,
+  };
 }

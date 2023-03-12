@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledError = styled.div`
+export const UnderConstruction = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;

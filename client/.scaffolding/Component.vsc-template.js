@@ -3,8 +3,10 @@
     str
       .replace(/(?:^\w|[A-Z]|\b\w)/g, (fl) => fl.toUpperCase())
       .replace(/\W+/g, '');
+
   const toCamelCase = (str) =>
     toPascalCase(str).replace(/^./, (firstLetter) => firstLetter.toLowerCase());
+
   const toKebabCase = (str) =>
     toCamelCase(str).replace(/([A-Z])/g, (word) => '-' + word.toLowerCase());
 
@@ -19,16 +21,16 @@
     template: [
       {
         type: 'folder',
-        name: (inputs) => `${toKebabCase(inputs.name)}`,
+        name: (inputs) => `${toPascalCase(inputs.name)}`,
         children: [
           {
             type: 'file',
             name: (inputs) => `index.ts`,
             content: (inputs) => `import ${toPascalCase(
               inputs.name
-            )} from './${toKebabCase(inputs.name)}';
+            )} from './${toPascalCase(inputs.name)}';
 
-export type { ${toPascalCase(inputs.name)}Props } from './${toKebabCase(
+export type { ${toPascalCase(inputs.name)}Props } from './${toPascalCase(
               inputs.name
             )}';
 
@@ -36,26 +38,17 @@ export default ${toPascalCase(inputs.name)};`,
           },
           {
             type: 'file',
-            name: (inputs) => `${toKebabCase(inputs.name)}.tsx`,
-            content: (inputs) => `import { memo, ReactNode } from 'react';
+            name: (inputs) => `${toPascalCase(inputs.name)}.tsx`,
+            content: (inputs) => `import { memo } from 'react';
 
-import { ${toPascalCase(inputs.name)}View } from './${toKebabCase(
+import { ${toPascalCase(inputs.name)}View } from './${toPascalCase(
               inputs.name
             )}.view';
 import { ${toPascalCase(inputs.name)}ViewModel, ${toPascalCase(
               inputs.name
-            )}ViewModelProps } from './${toKebabCase(inputs.name)}.view-model';
+            )}ViewModelProps } from './${toPascalCase(inputs.name)}.view-model';
 
-export interface ${toPascalCase(inputs.name)}Props {
-  /**
-   * Defines the children
-   */
-  children?: ReactNode;
-  /**
-   * Defines custom className
-   */
-  className?: string;
-}
+export interface ${toPascalCase(inputs.name)}Props {}
 
 // Quando a prop é usada somente aqui, devemos omitir para não ir pra View
 export interface ${toPascalCase(inputs.name)}ViewProps
@@ -88,7 +81,7 @@ export default memo(${toPascalCase(inputs.name)});
           },
           {
             type: 'file',
-            name: (inputs) => `${toKebabCase(inputs.name)}.view-model.tsx`,
+            name: (inputs) => `${toPascalCase(inputs.name)}.view-model.tsx`,
             content: (inputs) => `import { useState } from 'react';
 
 export interface ${toPascalCase(inputs.name)}ViewModelProps {
@@ -99,22 +92,23 @@ export function ${toPascalCase(inputs.name)}ViewModel() {
   const [state, setState] = useState('')
 
   return {
-    state
+    state,
+    setState
   }
 }
 `,
           },
           {
             type: 'file',
-            name: (inputs) => `${toKebabCase(inputs.name)}.view.tsx`,
+            name: (inputs) => `${toPascalCase(inputs.name)}.view.tsx`,
             content: (inputs) => `
-import { ${toPascalCase(inputs.name)}ViewModelProps } from './${toKebabCase(
+import { ${toPascalCase(inputs.name)}ViewModelProps } from './${toPascalCase(
               inputs.name
             )}.view-model';
-import { ${toPascalCase(inputs.name)}ViewProps } from './${toKebabCase(
+import { ${toPascalCase(inputs.name)}ViewProps } from './${toPascalCase(
               inputs.name
             )}';
-import * as styled from './${toKebabCase(inputs.name)}.styles';
+import * as styled from './${toPascalCase(inputs.name)}.styles';
 
 
 
@@ -124,14 +118,11 @@ interface Props {
 }
 
 export function ${toPascalCase(inputs.name)}View({ viewModel, props }: Props) {
-  const { children, className, ...${toCamelCase(inputs.name)}Props } = props;
+  const { ...${toCamelCase(inputs.name)}Props } = props;
 
   return (
-    <styled.${toPascalCase(inputs.name)} className={\`${toKebabCase(
-              inputs.name
-            )} \${className ?? ''}\`.trim()}>
+    <styled.${toPascalCase(inputs.name)}>
       <h1>${toPascalCase(inputs.name)}</h1>
-      {children}
     </styled.${toPascalCase(inputs.name)}>
   );
 }
@@ -139,7 +130,7 @@ export function ${toPascalCase(inputs.name)}View({ viewModel, props }: Props) {
           },
           {
             type: 'file',
-            name: (inputs) => `${toKebabCase(inputs.name)}.styles.ts`,
+            name: (inputs) => `${toPascalCase(inputs.name)}.styles.ts`,
             content: (inputs) => `import styled from 'styled-components';
 
 export const ${toPascalCase(inputs.name)} = styled.div\`\`;
@@ -148,12 +139,12 @@ export const ${toPascalCase(inputs.name)} = styled.div\`\`;
 
           {
             type: 'file',
-            name: (inputs) => `${toKebabCase(inputs.name)}.spec.tsx`,
+            name: (inputs) => `${toPascalCase(inputs.name)}.spec.tsx`,
             content: (inputs) => `import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import ${toPascalCase(inputs.name)} from './${toKebabCase(inputs.name)}';
+import ${toPascalCase(inputs.name)} from './${toPascalCase(inputs.name)}';
 
 describe('${toPascalCase(inputs.name)}', () => {
   it('Should render component When called with default props', () => {

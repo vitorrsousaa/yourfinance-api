@@ -1,4 +1,8 @@
-import { TransactionCreateProps } from '../types/Transaction';
+import {
+  Transaction,
+  TransactionCreateProps,
+  TransactionsData,
+} from '../types/Transaction';
 import HttpClient from './HttpClient';
 
 class TransactionsService {
@@ -10,22 +14,26 @@ class TransactionsService {
 
   list(page?: number) {
     if (page) {
-      return this.httpClient.get(`/transactions/?page=${page}`);
+      return this.httpClient.get<TransactionsData>(
+        `/transactions/?page=${page}`
+      );
     }
 
-    return this.httpClient.get('/transactions');
+    return this.httpClient.get<TransactionsData>('/transactions');
   }
 
   create(transaction: TransactionCreateProps) {
-    return this.httpClient.post('/transactions', transaction);
+    return this.httpClient.post<Transaction>('/transactions', transaction);
   }
 
   delete(transactionId: string) {
     return this.httpClient.delete(`/transactions/${transactionId}`);
   }
 
-  async listByPeriod(period = 2) {
-    return this.httpClient.get(`/transactions?period=${period}`);
+  listByPeriod(period = 2) {
+    return this.httpClient.get<TransactionsData>(
+      `/transactions?period=${period}`
+    );
   }
 }
 
