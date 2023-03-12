@@ -9,7 +9,8 @@ interface AuthContextProviderProps {
 interface AuthContextProps {
   authenticated: boolean;
   loading: boolean;
-  handleLogin: (user: User) => void;
+  handleLogin: (user: User) => Promise<void>;
+  handleRegister: (user: User) => Promise<void>;
   handleLogout: () => void;
   user: User;
 }
@@ -19,15 +20,9 @@ export const AuthContext = createContext<AuthContextProps>(
 );
 
 export function AuthProvider({ children }: AuthContextProviderProps) {
-  const { authenticated, loading, user, handleLogin, handleLogout } = useAuth();
+  const auth = useAuth();
 
-  return (
-    <AuthContext.Provider
-      value={{ authenticated, loading, user, handleLogin, handleLogout }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 }
 
 export function useAuthContext() {
