@@ -7,11 +7,6 @@ import { api } from './api';
 
 type dataRequestProps = TransactionCreateProps | User;
 
-interface optionsProps {
-  method: 'get' | 'post' | 'delete';
-  url: string;
-}
-
 class HttpClient {
   private baseURL;
 

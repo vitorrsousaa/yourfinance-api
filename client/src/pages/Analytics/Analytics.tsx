@@ -3,10 +3,8 @@ import { memo, useEffect } from 'react';
 import { AnalyticsView } from './Analytics.view';
 import { AnalyticsViewModel } from './Analytics.view-model';
 
-import Error from '../../components/Error';
 import Loader from '../../components/Loader';
 import TransactionsService from '../../services/TransactionsService';
-import NoData from '../../components/NoData';
 
 export interface AnalyticsProps {}
 
@@ -19,15 +17,7 @@ function Analytics(props: AnalyticsProps) {
   const { ...viewProps } = props;
 
   const viewModel = useViewModel();
-  const {
-    hasError,
-    setHasError,
-    isLoading,
-    setIsLoading,
-    transactions,
-    setTransactions,
-    handleWithoutData,
-  } = viewModel;
+  const { setHasError, isLoading, setIsLoading, setTransactions } = viewModel;
 
   useEffect(() => {
     async function loadTransactions() {
@@ -36,8 +26,9 @@ function Analytics(props: AnalyticsProps) {
         const transactionsData = await TransactionsService.list();
 
         setTransactions(transactionsData.transactions);
-      } catch {
         setHasError(true);
+      } catch {
+        setIsLoading(false);
       } finally {
         setIsLoading(false);
       }
@@ -49,13 +40,8 @@ function Analytics(props: AnalyticsProps) {
   return (
     <>
       <Loader isLoading={isLoading} size="large" />
-      {hasError ? (
-        <Error onError={() => console.log('Tem um erro')} />
-      ) : transactions.length > 0 ? (
-        <AnalyticsView viewModel={viewModel} props={viewProps} />
-      ) : (
-        <NoData onDataContent={handleWithoutData} />
-      )}
+
+      <AnalyticsView viewModel={viewModel} props={viewProps} />
     </>
   );
 }

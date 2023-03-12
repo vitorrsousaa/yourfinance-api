@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 export const StyledError = styled.div`
   display: flex;
-  align-items: center;
-  justify-items: center;
   flex-direction: column;
+  margin: 0 auto;
+  align-items: center;
   gap: 2rem;
   text-align: center;
 
