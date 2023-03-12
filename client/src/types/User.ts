@@ -4,4 +4,10 @@ export interface User {
   password?: string;
   createdAt?: string;
   _id?: string;
+  __v?: number;
+}
+
+export interface UserResponse {
+  token: string;
+  user: User;
 }

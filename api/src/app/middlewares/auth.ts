@@ -15,7 +15,7 @@ export default function authValidate(
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    return res.status(401).send({ error: 'No token provided' });
+    throw new Error('not authorizations');
   }
 
   // Verificar se o token esta no formato JWT

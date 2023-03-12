@@ -1,5 +1,6 @@
 import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Logo from '../../components/Logo';
@@ -18,7 +19,7 @@ const SignUp = () => {
     useErrors();
 
   const navigate = useNavigate();
-  const { handleLogin, authenticated } = useAuthContext();
+  const { handleRegister, authenticated } = useAuthContext();
   const isFormValid =
     password && passwordConfirmation && email && errors.length === 0;
 
@@ -71,15 +72,15 @@ const SignUp = () => {
 
     const user = { name, email, password };
 
-    const err: any = await handleLogin({ name, email, password });
-
-    if (err) {
+    try {
+      await handleRegister(user);
+    } catch {
       setPassword('');
       setPasswordConfirmation('');
-      setError({ field: 'email', message: 'Esse email já foi cadastrado' });
+      toast.error('Esse email já foi cadastrado. Utilize outro email.');
+    } finally {
+      setIsSubmitting(false);
     }
-
-    setIsSubmitting(false);
   }
 
   useEffect(() => {
