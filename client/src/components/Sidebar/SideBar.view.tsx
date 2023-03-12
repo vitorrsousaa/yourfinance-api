@@ -12,7 +12,9 @@ export function SidebarView() {
   const { handleLogout } = useAuthContext();
   return (
     <StyledSidebar>
-      <header className="header">logo</header>
+      <header className="header">
+        <img src="./favicon.svg" alt="favicon" />
+      </header>
       <div className="content">
         <nav>
           <NavLink href="/overview" icon={<IconOverview />}>

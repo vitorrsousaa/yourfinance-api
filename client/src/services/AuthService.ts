@@ -5,7 +5,7 @@ class AuthService {
   private httpClient;
 
   constructor() {
-    this.httpClient = new HttpClient('http://localhost:3001');
+    this.httpClient = new HttpClient('http://localhost:3001/api');
   }
 
   login(user: UserRequest) {

@@ -15,7 +15,7 @@ function PrivateRoute({ children }: PrivateRouteProps) {
   const { authenticated, loading } = useAuthContext();
 
   if (loading) {
-    return <Loader isLoading={loading} />;
+    return <Loader isLoading={loading} variant="danger" />;
   }
 
   if (!authenticated) {
