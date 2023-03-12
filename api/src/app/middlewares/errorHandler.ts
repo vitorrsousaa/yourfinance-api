@@ -6,8 +6,8 @@ export default function errorHandler(
   response: Response,
   next: NextFunction
 ) {
-  // console.log(error);
-  console.log('inside errorHandler');
-  // console.log(error);
-  response.sendStatus(500);
+  return response.status(500).json({
+    status: 'error',
+    message: 'Internal server error',
+  });
 }

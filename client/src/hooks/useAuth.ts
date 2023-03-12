@@ -26,10 +26,9 @@ export default function useAuth() {
         return;
       }
 
-      setLoading(true);
-
       api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
       try {
+        setLoading(true);
         await AuthService.auth();
 
         setAuthenticated(true);
@@ -48,10 +47,6 @@ export default function useAuth() {
   }, []);
 
   async function handleLogin(user: User) {
-    const route = user.name
-      ? 'http://localhost:3001/auth/register'
-      : 'http://localhost:3001/auth/authenticate';
-
     try {
       const data = await AuthService.login(user);
 

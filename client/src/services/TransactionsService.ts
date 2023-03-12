@@ -9,7 +9,7 @@ class TransactionsService {
   private httpClient;
 
   constructor() {
-    this.httpClient = new HttpClient('http://localhost:3001');
+    this.httpClient = new HttpClient('http://localhost:3001/api');
   }
 
   list(page?: number) {

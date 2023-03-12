@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import connect from './database/connect';
-import { router } from './router';
-import errorHandler from './app/middlewares/errorHandler';
+
+import routes from './app/routes';
 
 connect();
 
@@ -17,9 +17,7 @@ const port = 3001;
 
 app.use(express.json());
 
-app.use(router);
-
-app.use(errorHandler);
+app.use(routes);
 
 app.listen(port, () => {
   console.log(`Server is running on ${port}`);
