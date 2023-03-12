@@ -26,14 +26,11 @@ export function SidebarView() {
           <NavLink href="/analytics" icon={<IconAnalytics />}>
             Analytics
           </NavLink>
-          <NavLink href="/home" icon={<IconAnalytics />}>
-            Home
-          </NavLink>
         </nav>
         <footer>
-          <NavLink href="/configuracoes" icon={<Settings />}>
+          {/* <NavLink href="/configuracoes" icon={<Settings />}>
             configuracoes
-          </NavLink>
+          </NavLink> */}
           <NavLink icon={<Logout />} onClick={handleLogout}>
             Sair da conta
           </NavLink>
