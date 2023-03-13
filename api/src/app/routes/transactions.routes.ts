@@ -3,11 +3,8 @@ import TransactionController from '../controllers/TransactionController';
 
 const transactionsRoutes = Router();
 
-transactionsRoutes.get('/transactions', TransactionController.index);
-transactionsRoutes.post('/transactions', TransactionController.store);
-transactionsRoutes.delete(
-  '/transactions/:transactionId',
-  TransactionController.delete
-);
+transactionsRoutes.get('/', TransactionController.index);
+transactionsRoutes.post('/', TransactionController.store);
+transactionsRoutes.delete('/:transactionId', TransactionController.delete);
 
 export default transactionsRoutes;

@@ -7,9 +7,9 @@ import transactionsRoutes from './transactions.routes';
 
 const routes = Router();
 
-routes.use('/api', authRoutes);
-routes.use('/api', modalityRoutes);
-routes.use('/api', authValidate, transactionsRoutes);
+routes.use('/api/modality', modalityRoutes);
+routes.use('/api/auth', authRoutes);
+routes.use('/api/transactions', authValidate, transactionsRoutes);
 
 routes.use(errorHandler);
 

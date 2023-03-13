@@ -3,7 +3,8 @@ import ModalityController from '../controllers/ModalityController';
 
 const modalityRoutes = Router();
 
-modalityRoutes.post('/modality', ModalityController.store);
-modalityRoutes.get('/modality', ModalityController.index);
+modalityRoutes.post('/', ModalityController.store);
+modalityRoutes.get('/', ModalityController.index);
+modalityRoutes.delete('/:id?', ModalityController.delete);
 
 export default modalityRoutes;

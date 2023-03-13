@@ -12,6 +12,10 @@ class ModalitiesRepository {
   findAll() {
     return Modality.find().sort({ name: 1 });
   }
+
+  delete(id: string) {
+    return Modality.findByIdAndDelete(id);
+  }
 }
 
 export default new ModalitiesRepository();

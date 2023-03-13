@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import ModalitiesRepository from '../repositories/ModalitiesRepository';
 
 class ModalityController {
@@ -46,8 +46,24 @@ class ModalityController {
     // Listar um registro
   }
 
-  async delete() {
-    // Deletar um registro
+  async delete(req: Request, res: Response, next: NextFunction) {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).send({ error: 'Modality id is required' });
+    }
+
+    try {
+      const modality = await ModalitiesRepository.delete(id);
+
+      if (!modality) {
+        return res.status(404).send({ error: 'Modality does not exists' });
+      }
+
+      return res.status(204).send({ message: 'Modality Deleted' });
+    } catch {
+      next('Modality Request is broken');
+    }
   }
 }
 

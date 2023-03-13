@@ -1,0 +1,12 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Aion API",
+    "description": "Aion",
+    "contact": {
+      "name": "Aion corps",
+      "email": "aioncorps@gmail.com"
+    },
+    "version": "1.0.0"
+  }
+}
