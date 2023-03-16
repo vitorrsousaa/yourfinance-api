@@ -12,7 +12,7 @@ interface TransactionProps {
 export interface ITransactionRepository {
   create(
     description: string,
-    category: string,
+    category: Types.ObjectId,
     modality: Types.ObjectId,
     type: string,
     user: string,

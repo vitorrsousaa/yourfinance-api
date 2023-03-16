@@ -16,6 +16,7 @@ class TransactionRepository implements ITransactionRepository {
       .where('user')
       .equals(id)
       .populate('modality')
+      .populate('category')
       .sort({ createdAt: -1 });
   }
 
@@ -42,7 +43,7 @@ class TransactionRepository implements ITransactionRepository {
 
   async create(
     description: string,
-    category: string,
+    category: Types.ObjectId,
     modality: Types.ObjectId,
     type: string,
     user: string,

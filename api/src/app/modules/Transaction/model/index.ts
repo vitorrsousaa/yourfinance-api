@@ -3,7 +3,7 @@ import { HydratedDocument, model, Schema, Types } from 'mongoose';
 type TransactionInfos = {
   description: string;
   createdAt: Date;
-  category: string;
+  category: Types.ObjectId;
   type: string;
   modality: Types.ObjectId;
   amount: number;
@@ -22,8 +22,9 @@ const TransactionSchema = new Schema<TTransaction>({
     require: true,
   },
   category: {
-    type: String,
+    type: Schema.Types.ObjectId,
     require: true,
+    ref: 'Category',
   },
   type: {
     type: String,
