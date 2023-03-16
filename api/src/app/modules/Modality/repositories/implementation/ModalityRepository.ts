@@ -1,9 +1,10 @@
+import { Types } from 'mongoose';
 import Modality, { TModality } from '../../model';
 import { IModalityRespository } from '../IModalityRepository';
 
 class ModalityRepository implements IModalityRespository {
-  async create(name: string): Promise<TModality> {
-    return Modality.create({ name });
+  async create(name: string, category: Types.ObjectId): Promise<TModality> {
+    return Modality.create({ name, category });
   }
 
   async findByName(name: string): Promise<TModality | null> {

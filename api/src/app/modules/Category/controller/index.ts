@@ -1,21 +1,21 @@
 import { Request, Response } from 'express';
 import Delete from '../useCases/Delete';
-import FindaAll from '../useCases/FindAll';
+import FindAll from '../useCases/FindAll';
 import Register from '../useCases/Register';
 
-class ModalityController {
+class CategoryController {
   async store(request: Request, response: Response) {
-    const { name, category } = request.body;
+    const { name } = request.body;
 
-    const modality = await Register(name, category, request.body);
+    const category = await Register(name, request.body);
 
-    return response.send(modality);
+    return response.send(category);
   }
 
   async index(request: Request, response: Response) {
-    const modalities = await FindaAll();
+    const categories = await FindAll();
 
-    return response.send(modalities);
+    return response.send(categories);
   }
 
   async delete(request: Request, response: Response) {
@@ -27,4 +27,4 @@ class ModalityController {
   }
 }
 
-export default new ModalityController();
+export default new CategoryController();
