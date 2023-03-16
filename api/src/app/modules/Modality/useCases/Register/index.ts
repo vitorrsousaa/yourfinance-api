@@ -7,7 +7,7 @@ export default async function Register(
   name: string,
   requestBody: Record<string, any>[]
 ) {
-  returnErrorMissingField(requestBody, ['name', 'icon']);
+  returnErrorMissingField(requestBody, ['name', 'category']);
 
   const modalityExists = await ModalityRepository.findByName(name);
   if (modalityExists) {
