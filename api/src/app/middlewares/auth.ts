@@ -1,5 +1,6 @@
 import { NextFunction, request, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import AppError from '../error';
 
 import authConfig from '../../config/auth.json';
 
@@ -15,7 +16,7 @@ export default function authValidate(
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    throw new Error('not authorizations');
+    throw new AppError('not authorizations', 401);
   }
 
   // Verificar se o token esta no formato JWT
@@ -23,13 +24,13 @@ export default function authValidate(
   const parts = authHeader.split(' ');
 
   if (!(parts.length === 2)) {
-    return res.status(401).send({ error: 'Token error' });
+    throw new AppError('Token error', 401);
   }
 
   const [scheme, token] = parts;
 
   if (!/^Bearer$/i.test(scheme)) {
-    return res.status(401).send({ error: 'Token malformatted' });
+    throw new AppError('Token malformatted', 400);
   }
 
   try {
@@ -39,6 +40,6 @@ export default function authValidate(
 
     next();
   } catch (error) {
-    return res.status(401).send({ error: 'Token invalid error' });
+    throw new AppError('Token invalid error', 400);
   }
 }
