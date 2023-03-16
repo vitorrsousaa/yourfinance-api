@@ -5,9 +5,9 @@ import Register from '../useCases/Register';
 
 class ModalityController {
   async store(request: Request, response: Response) {
-    const { name } = request.body;
+    const { name, category } = request.body;
 
-    const modality = await Register(name, request.body);
+    const modality = await Register(name, category, request.body);
 
     return response.send(modality);
   }
