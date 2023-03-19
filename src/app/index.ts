@@ -2,7 +2,7 @@ import 'express-async-errors';
 import express from 'express';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
-import apiDocumentation from '../../api-documentation.json';
+import apiDocumentation from '../api-documentation.json';
 import routes from './routes';
 import errorHandler from './middlewares/errorHandler';
 import corsOptions from './middlewares/cors';
