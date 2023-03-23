@@ -11,7 +11,15 @@ class UsersRepository implements IUserRepository {
   }
 
   async findById(id: string): Promise<TUser | null> {
-    return User.findById(id);
+    return User.findById(id).select('+password');
+  }
+
+  async updatePassword(idUser: string, newPassword: string): Promise<TUser | null> {
+    return User.findByIdAndUpdate(
+      { _id: idUser },
+      { password: newPassword },
+      { new: true }
+    ).select('-password');
   }
 }
 
