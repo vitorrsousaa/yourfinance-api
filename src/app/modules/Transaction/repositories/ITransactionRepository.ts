@@ -17,7 +17,7 @@ export interface ITransactionRepository {
     type: string,
     user: string,
     amount: number,
-    createdAt: Date
+    date: Date
   ): Promise<TTransaction>;
   findAllByIdUser(id: string): Promise<TTransaction[] | null>;
   findByPeriod(id: string, month: string): Promise<TTransaction[] | null>;
