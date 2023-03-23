@@ -8,7 +8,7 @@ class AuthController {
 
     const create = await Register(email, name, password);
 
-    return response.send(create);
+    return response.status(201).send(create);
   }
 
   async authenticate(request: Request, response: Response) {
@@ -16,7 +16,7 @@ class AuthController {
 
     const authenticate = await Authenticate(email, password);
 
-    return response.send(authenticate);
+    return response.status(200).send(authenticate);
   }
 }
 

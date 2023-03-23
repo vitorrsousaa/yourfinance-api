@@ -10,7 +10,7 @@ class TransactionController {
 
     const listAllTransactions = await ListAllTransactions(page, period, id);
 
-    return response.send(listAllTransactions);
+    return response.status(200).send(listAllTransactions);
   }
 
   async store(request: Request, response: Response) {
@@ -18,7 +18,7 @@ class TransactionController {
 
     const createTransaction = await Create(request.body, id);
 
-    return response.send(createTransaction);
+    return response.status(201).send(createTransaction);
   }
 
   async delete(request: Request, response: Response) {

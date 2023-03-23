@@ -8,5 +8,496 @@
       "email": "aioncorps@gmail.com"
     },
     "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Responsible for register and authenticated of user on platform"
+    },
+    {
+      "name": "Category",
+      "description": "User's own categories"
+    },
+    {
+      "name": "Modality",
+      "description": "User's own modalities"
+    },
+    {
+      "name": "Transactions",
+      "description": "Transactions of User"
+    }
+  ],
+  "paths": {
+    "api/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Create One User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/definitions/Login"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/AuthenticateAndRegister"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Return when a user try to register and the email is already in use"
+          }
+        }
+      }
+    },
+    "api/auth/authenticate": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Authenticated a user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Login"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/AuthenticateAndRegister"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Return when the password of user, not match with email"
+          },
+          "404": {
+            "description": "User not found!"
+          }
+        }
+      }
+    },
+    "api/category/": {
+      "get": {
+        "tags": ["Category"],
+        "summary": "Find every categories",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/definitions/CategoryModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Category"],
+        "summary": "Create new category",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/CategoryModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "api/category/:id?": {
+      "delete": {
+        "tags": ["Category"],
+        "summary": "Delete an category",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "400": {
+            "description": "When the category Id is not presence on params"
+          },
+          "404": {
+            "description": "When a id of category is not found"
+          }
+        }
+      }
+    },
+    "api/modality/": {
+      "get": {
+        "tags": ["Modality"],
+        "summary": "Get all Modalities of User",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/definitions/ModalityModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Modality"],
+        "summary": "Create an new Modality",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/ModalityModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/ModalityModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Return when user try create an modality that's already exist"
+          }
+        }
+      }
+    },
+    "api/modality/:id?": {
+      "delete": {
+        "tags": ["Modality"],
+        "summary": "User delete an Modality",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "400": {
+            "description": "When the modality Id is not presence on params"
+          },
+          "404": {
+            "description": "When a id of modality is not found"
+          }
+        }
+      }
+    },
+    "api/transaction/": {
+      "get": {
+        "tags": ["Transactions"],
+        "summary": "Get all transactions of user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "type": "string"
+                  },
+                  "period": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/definitions/TransactionModel"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When user no have transactions"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Transactions"],
+        "summary": "Get all transactions of user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/TransactionModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/TransactionModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Return when an field is missing"
+          }
+        }
+      }
+    },
+    "api/transaction/:transactionId?": {
+      "delete": {
+        "tags": ["Transactions"],
+        "summary": "Delete an transaction of historic",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "400": {
+            "description": "Return when transactionId is missing"
+          },
+          "404": {
+            "description": "Return when the transaction is not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Login": {
+      "type": "object",
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "AuthenticateAndRegister": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "user": {
+              "$ref": "#/definitions/UserModel"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "GetTransactionByPeriod": {
+
+    },
+    "UserModel": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date",
+          "example": "2023-01-01T00:00:00.000Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date",
+          "example": "2023-01-01T00:00:00.000Z"
+        }
+      }
+    },
+    "CategoryModel": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "ModalityModel": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        }
+      }
+    },
+    "TransactionModel": {
+      "type": "object",
+      "required": [
+        "description",
+        "category",
+        "type",
+        "modality",
+        "amount",
+        "user",
+        "date"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "description": "FK of an category"
+        },
+        "type": {
+          "type": "string"
+        },
+        "modality": {
+          "type": "string",
+          "description": "FK of an modality"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "user": {
+          "type": "string",
+          "description": "FK of user's own"
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "example": "2023-01-01T00:00:00.000Z",
+          "description": "Date the transaction was made"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date",
+          "example": "2023-01-01T00:00:00.000Z"
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "schema": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
   }
 }

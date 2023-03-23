@@ -12,10 +12,10 @@ export default async function Create(
     'type',
     'modality',
     'amount',
-    'createdAt',
+    'date',
   ]);
 
-  const { description, category, type, modality, amount, createdAt } =
+  const { description, category, type, modality, amount, date } =
     infosTransaction;
 
   const newTransaction = await TransactionRepository.create(
@@ -25,7 +25,7 @@ export default async function Create(
     type,
     user,
     amount,
-    createdAt
+    date
   );
 
   return newTransaction;

@@ -17,7 +17,7 @@ class TransactionRepository implements ITransactionRepository {
       .equals(id)
       .populate('modality')
       .populate('category')
-      .sort({ createdAt: -1 });
+      .sort({ date: -1 });
   }
 
   async findById(id: string): Promise<TTransaction | null> {
@@ -36,7 +36,7 @@ class TransactionRepository implements ITransactionRepository {
 
     const startDate = new Date(year, lastMonths, day);
 
-    return Transaction.find({ createdAt: { $gte: startDate, $lte: endDate } })
+    return Transaction.find({ date: { $gte: startDate, $lte: endDate } })
       .where('user')
       .equals(id);
   }
@@ -48,7 +48,7 @@ class TransactionRepository implements ITransactionRepository {
     type: string,
     user: string,
     amount: number,
-    createdAt: Date
+    date: Date
   ): Promise<TTransaction> {
     return Transaction.create({
       description,
@@ -57,7 +57,7 @@ class TransactionRepository implements ITransactionRepository {
       type,
       user,
       amount,
-      createdAt,
+      date,
     });
   }
 

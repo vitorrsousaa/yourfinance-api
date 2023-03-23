@@ -9,13 +9,13 @@ class CategoryController {
 
     const category = await Register(name, request.body);
 
-    return response.send(category);
+    return response.status(201).send(category);
   }
 
   async index(request: Request, response: Response) {
     const categories = await FindAll();
 
-    return response.send(categories);
+    return response.status(200).send(categories);
   }
 
   async delete(request: Request, response: Response) {

@@ -9,13 +9,13 @@ class ModalityController {
 
     const modality = await Register(name, category, request.body);
 
-    return response.send(modality);
+    return response.status(201).send(modality);
   }
 
   async index(request: Request, response: Response) {
     const modalities = await FindaAll();
 
-    return response.send(modalities);
+    return response.status(200).send(modalities);
   }
 
   async delete(request: Request, response: Response) {
