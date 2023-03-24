@@ -17,7 +17,9 @@ class UsersRepository implements IUserRepository {
   async updatePassword(idUser: string, newPassword: string): Promise<TUser | null> {
     return User.findByIdAndUpdate(
       { _id: idUser },
-      { password: newPassword },
+      { $set: {
+        password: newPassword
+      } },
       { new: true }
     ).select('-password');
   }
