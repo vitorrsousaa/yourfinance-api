@@ -29,7 +29,9 @@ export default async function ChangePassword(
 
   if (!matchPassword) throw new AppError('The password not match with your current password!');
 
-  const updatedPassword = await UserRepository.updatePassword(idUser, newPassword);
+  const hashNewPassword = await Crypt.hash(newPassword);
+
+  const updatedPassword = await UserRepository.updatePassword(idUser, hashNewPassword);
 
   updatedPassword?.password ? '' : '';
 
