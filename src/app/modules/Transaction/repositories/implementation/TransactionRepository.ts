@@ -38,7 +38,8 @@ class TransactionRepository implements ITransactionRepository {
 
     return Transaction.find({ date: { $gte: startDate, $lte: endDate } })
       .where('user')
-      .equals(id);
+      .equals(id)
+      .populate('category');
   }
 
   async create(
