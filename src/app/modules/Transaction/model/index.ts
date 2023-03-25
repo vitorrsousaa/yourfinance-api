@@ -1,12 +1,14 @@
 import { HydratedDocument, model, Schema, Types } from 'mongoose';
+import { TCategory } from '../../Category/model';
+import { TModality } from '../../Modality/model';
 
 type TransactionInfos = {
   description: string;
   date: Date;
   updatedAt: Date;
-  category: Types.ObjectId;
+  category: Types.ObjectId | TCategory;
   type: string;
-  modality: Types.ObjectId;
+  modality: Types.ObjectId | TModality;
   amount: number;
   user: Types.ObjectId;
 };
