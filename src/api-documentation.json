@@ -25,6 +25,10 @@
     {
       "name": "Transactions",
       "description": "Transactions of User"
+    },
+    {
+      "name": "User",
+      "description": "Everything that involves the user model "
     }
   ],
   "paths": {
@@ -357,6 +361,75 @@
           },
           "404": {
             "description": "Return when the transaction is not found"
+          }
+        }
+      }
+    },
+    "api/user/updatePassword": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "User can change your password",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "currentPassword",
+                  "newPassword"
+                ],
+                "properties": {
+                  "currentPassword": {
+                    "type": "string"
+                  },
+                  "newPassword": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {},
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Password must be different!": {
+                      "example": "Return this error when both passwords are the same"
+                    },
+                    "The password not match with your current password!": {
+                      "example": "Return this error when the `currentPassword` not match with password on database"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "${key} is required!": {
+                      "example": "Return this error when `currentPassword` or `newPassword` is missing"
+                    },
+                    "User not found!": {
+                      "example": "Return this error when user not found on database"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
