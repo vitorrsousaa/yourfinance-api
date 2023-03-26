@@ -11,6 +11,7 @@ type TransactionInfos = {
   modality: Types.ObjectId | TModality;
   amount: number;
   user: Types.ObjectId;
+  _doc: TTransaction;
 };
 
 export type TTransaction = HydratedDocument<TransactionInfos>;
