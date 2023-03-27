@@ -29,6 +29,14 @@
     {
       "name": "User",
       "description": "Everything that involves the user model "
+    },
+    {
+      "name": "Overview",
+      "description": "Overview Amounts of User"
+    },
+    {
+      "name": "Analytics",
+      "description": "Analytics transactions of User"
     }
   ],
   "paths": {
@@ -425,6 +433,89 @@
                     },
                     "User not found!": {
                       "example": "Return this error when user not found on database"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "api/overview/getCalculations/:categoryId": {
+      "get": {
+        "tags": ["Overview"],
+        "summary": "Calculates and returns the percentage, the difference between the current month and the last month",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "difference": {
+                      "type": "number"
+                    },
+                    "percent": {
+                      "type": "number"
+                    },
+                    "currentMonth": {
+                      "type": "number"
+                    },
+                    "lastMonth": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Return when the category is not found"
+          }
+        }
+      }
+    },
+    "api/analytics/sumAmountsByMonth": {
+      "get": {
+        "tags": ["Analytics"],
+        "summary": "Calculates and returns the percentage, the difference between the current month and the last month",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "date": {
+                        "type": "string",
+                        "example": "month/year"
+                      },
+                      "income": {
+                        "type": "number"
+                      },
+                      "outcome": {
+                        "type": "number"
+                      }
                     }
                   }
                 }
