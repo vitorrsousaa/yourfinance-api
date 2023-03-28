@@ -16,15 +16,27 @@
     },
     {
       "name": "Category",
-      "description": "User's own categories"
+      "description": "Categories Manipulations"
     },
     {
       "name": "Modality",
-      "description": "User's own modalities"
+      "description": "Modalities Manipulations"
     },
     {
       "name": "Transactions",
       "description": "Transactions of User"
+    },
+    {
+      "name": "User",
+      "description": "Everything that involves the user model "
+    },
+    {
+      "name": "Overview",
+      "description": "Overview Amounts of User"
+    },
+    {
+      "name": "Analytics",
+      "description": "Analytics transactions of User"
     }
   ],
   "paths": {
@@ -176,7 +188,7 @@
     "api/modality/": {
       "get": {
         "tags": ["Modality"],
-        "summary": "Get all Modalities of User",
+        "summary": "Get all Modalities",
         "security": [
           {
             "bearerAuth": []
@@ -357,6 +369,158 @@
           },
           "404": {
             "description": "Return when the transaction is not found"
+          }
+        }
+      }
+    },
+    "api/user/updatePassword": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "User can change your password",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "currentPassword",
+                  "newPassword"
+                ],
+                "properties": {
+                  "currentPassword": {
+                    "type": "string"
+                  },
+                  "newPassword": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {},
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Password must be different!": {
+                      "example": "Return this error when both passwords are the same"
+                    },
+                    "The password not match with your current password!": {
+                      "example": "Return this error when the `currentPassword` not match with password on database"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "${key} is required!": {
+                      "example": "Return this error when `currentPassword` or `newPassword` is missing"
+                    },
+                    "User not found!": {
+                      "example": "Return this error when user not found on database"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "api/overview/getCalculations/:categoryId": {
+      "get": {
+        "tags": ["Overview"],
+        "summary": "Calculates and returns the percentage, the difference between the current month and the last month",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "difference": {
+                      "type": "number"
+                    },
+                    "percent": {
+                      "type": "number"
+                    },
+                    "currentMonth": {
+                      "type": "number"
+                    },
+                    "lastMonth": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Return when the category is not found"
+          }
+        }
+      }
+    },
+    "api/analytics/sumAmountsByMonth": {
+      "get": {
+        "tags": ["Analytics"],
+        "summary": "Calculates and returns the percentage, the difference between the current month and the last month",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "date": {
+                        "type": "string",
+                        "example": "month/year"
+                      },
+                      "income": {
+                        "type": "number"
+                      },
+                      "outcome": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
