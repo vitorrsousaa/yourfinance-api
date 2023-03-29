@@ -3,6 +3,8 @@ import authValidate from '../middlewares/auth';
 import analyticsRoutes from './analytics.routes';
 import authRoutes from './auth.routes';
 import categoryRoutes from './category.routes';
+import goalBoxRoutes from './goalBox.routes';
+import informationFixedRoutes from './informationFixed.routes';
 import modalityRoutes from './modality.routes';
 import overviewRoutes from './overview.routes';
 import transactionsRoutes from './transactions.routes';
@@ -17,5 +19,7 @@ routes.use('/api/transactions', authValidate, transactionsRoutes);
 routes.use('/api/user', authValidate, userRoutes);
 routes.use('/api/overview', authValidate, overviewRoutes);
 routes.use('/api/analytics', authValidate, analyticsRoutes);
+routes.use('/api/infoincome', authValidate, informationFixedRoutes);
+routes.use('/api/goalbox', authValidate, goalBoxRoutes);
 
 export default routes;

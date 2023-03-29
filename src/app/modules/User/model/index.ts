@@ -1,10 +1,12 @@
-import { model, Schema, HydratedDocument } from 'mongoose';
+import { model, Schema, HydratedDocument, Types } from 'mongoose';
 import Crypt from '../../../providers/Crypt';
+import { TInformationFixed } from '../../InformationFixed/model';
 
 type UserInfos = {
   name: string;
   email: string;
   password: string;
+  InformationFixed?: Types.ObjectId | TInformationFixed;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -29,6 +31,11 @@ const UserSchema = new Schema<TUser>({
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  InformationFixed: {
+    type: Schema.Types.ObjectId,
+    require: true,
+    ref: 'InformationFixed',
   },
   updatedAt: {
     type: Date,

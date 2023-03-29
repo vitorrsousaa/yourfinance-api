@@ -8,6 +8,7 @@ export default (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
 ) => {
+  console.log(error);
   if (error instanceof AppError) {
     return response
       .status(error.statusCode)
