@@ -11,7 +11,7 @@ export default async function Register(
   const userExists = await UserRepository.findByEmail(email);
 
   if (userExists) {
-    throw new AppError('User already exists');
+    throw new AppError('Este email já está em uso!');
   }
 
   const newUser = await UserRepository.create(name, email, password);

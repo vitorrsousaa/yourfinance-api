@@ -3,12 +3,12 @@ import ModalityRepository from '../../repositories/implementation/ModalityReposi
 
 export default async function Delete(id: string) {
   if (!id) {
-    throw new AppError('Modality ID is required!');
+    throw new AppError('o id da modalidade é obrigatorio!');
   }
 
   const findModality = await ModalityRepository.findById(id);
   if (!findModality) {
-    throw new AppError('Modality does not exists', 404);
+    throw new AppError('Está modalidade não existe', 404);
   }
 
   await ModalityRepository.delete(id);

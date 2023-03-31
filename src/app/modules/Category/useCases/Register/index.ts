@@ -12,7 +12,7 @@ export default async function Register(
   const categoryExists = await CategoryRepository.findByName(name);
 
   if (categoryExists) {
-    throw new AppError('Category already exists!');
+    throw new AppError('Está categoria já existe!');
   }
 
   const category = await CategoryRepository.create(name);
