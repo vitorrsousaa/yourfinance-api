@@ -11,11 +11,11 @@ export default async function Authenticate(
   const findUser = await UserRepository.findByEmail(email);
 
   if (!findUser) {
-    throw new AppError('User not found', 404);
+    throw new AppError('Usuário não encontrado', 404);
   }
 
   if (!(await Crypt.matchPassword(password, findUser.password)))
-    throw new AppError('User not found!');
+    throw new AppError('Usuário não encontrado!');
 
   findUser.password = '';
 

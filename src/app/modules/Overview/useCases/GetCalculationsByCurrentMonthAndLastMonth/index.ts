@@ -17,7 +17,7 @@ export default async function GetCalculationsByCurrentMonthAndLastMonth(
   const findTransactionsByPeriod = await GetTransactionsByPeriod(new Date().getMonth() + 1, userId);
 
   const findCategory = await CategoryRepository.findById(categoryId);
-  if (!findCategory) throw new AppError('Category not found!', 404);
+  if (!findCategory) throw new AppError('Categoria não foi encontrada!', 404);
 
   const getSummaryByCategory = GetSummaryByCategory(
     (findCategory.name as 'Receitas' | 'Despesas'),

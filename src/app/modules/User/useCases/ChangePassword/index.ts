@@ -20,14 +20,14 @@ export default async function ChangePassword(
     newPassword
   } = passwords;
 
-  if (currentPassword === newPassword) throw new AppError('Password must be different!');
+  if (currentPassword === newPassword) throw new AppError('A senhas devem ser diferentes!');
 
   const findUser = await UserRepository.findById(idUser);
-  if (!findUser) throw new AppError('User not found!', 404);
+  if (!findUser) throw new AppError('Ouve algum erro!', 404);
 
   const matchPassword = await Crypt.matchPassword(currentPassword, findUser.password);
 
-  if (!matchPassword) throw new AppError('The password not match with your current password!');
+  if (!matchPassword) throw new AppError('Parece que voce errou sua senha!');
 
   const hashNewPassword = await Crypt.hash(newPassword);
 

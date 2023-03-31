@@ -13,7 +13,7 @@ export default async function ListAllTransactions(
   transactions: TTransaction[] | null
 }> {
   const transactions = await TransactionRepository.findAllByIdUser(id);
-  if (transactions === null) throw new AppError('You no have transaction!');
+  if (transactions === null) throw new AppError('Voce não tem nenhuma transação!');
 
   const total = transactions.length;
 
