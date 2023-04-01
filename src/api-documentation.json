@@ -37,6 +37,14 @@
     {
       "name": "Analytics",
       "description": "Analytics transactions of User"
+    },
+    {
+      "name": "InformationFixed",
+      "description": "Information fixed of User"
+    },
+    {
+      "name": "GoalBox",
+      "description": "Goal's Box of User"
     }
   ],
   "paths": {
@@ -522,6 +530,542 @@
               }
             }
           }
+        }
+      }
+    },
+    "api/infofixed/": {
+      "get": {
+        "tags": ["InformationFixed"],
+        "summary": "Get all informations of user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "fixedIncome": {
+                      "type": "number"
+                    },
+                    "fixedOutcome": {
+                      "type": "number"
+                    },
+                    "user": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Return this error when user not have this informations"
+          }
+        }
+      },
+      "post": {
+        "tags": ["InformationFixed"],
+        "summary": "User register your informations",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "fixedIncome",
+                  "fixedOutcome"
+                ],
+                "properties": {
+                  "fixedIncome": {
+                    "type": "number"
+                  },
+                  "fixedOutcome": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "fixedIncome": {
+                      "type": "number"
+                    },
+                    "fixedOutcome": {
+                      "type": "number"
+                    },
+                    "user": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Return this error when user already this informations"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["InformationFixed"],
+        "summary": "User update your informations",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fixedIncome": {
+                    "type": "number"
+                  },
+                  "fixedOutcome": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "fixedIncome": {
+                      "type": "number"
+                    },
+                    "fixedOutcome": {
+                      "type": "number"
+                    },
+                    "user": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Return this error when user not have this informations"
+          }
+        }
+      }
+    },
+    "api/goalbox/": {
+      "post": {
+        "tags": ["GoalBox"],
+        "summary": "User register your Goal's Box",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "goalName",
+                  "goalCost",
+                  "goalTime",
+                  "initialValue"
+                ],
+                "properties": {
+                  "goalName": {
+                    "type": "string"
+                  },
+                  "goalCost": {
+                    "type": "number"
+                  },
+                  "goalTime": {
+                    "type": "object",
+                    "properties": {
+                      "endDate": {
+                        "type": "string",
+                        "format": "date"
+                      }
+                    }
+                  },
+                  "initialValue": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "goalName": {
+                      "type": "string"
+                    },
+                    "goalCost": {
+                      "type": "number"
+                    },
+                    "goalTime": {
+                      "type": "object",
+                      "properties": {
+                        "initialDate": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "endDate": {
+                          "type": "string",
+                          "format": "date"
+                        }
+                      }
+                    },
+                    "balance": {
+                      "type": "number"
+                    },
+                    "historicTransaction": {
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "amount": {
+                          "type": "number"
+                        },
+                        "modeTransaction": {
+                          "type": "string",
+                          "enum": ["LESS", "MORE"]
+                        }
+                      }
+                    },
+                    "user": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Return this error when have some error on find user infos"
+          }
+        }
+      },
+      "get": {
+        "tags": ["GoalBox"],
+        "summary": "User get every Goal's Box own",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "goalName": {
+                        "type": "string"
+                      },
+                      "goalCost": {
+                        "type": "number"
+                      },
+                      "goalTime": {
+                        "type": "object",
+                        "properties": {
+                          "initialDate": {
+                            "type": "string",
+                            "format": "date"
+                          },
+                          "endDate": {
+                            "type": "string",
+                            "format": "date"
+                          },
+                          "endMonths": {
+                            "type": "number"
+                          }
+                        }
+                      },
+                      "balance": {
+                        "type": "number"
+                      },
+                      "payOff": {
+                        "type": "number"
+                      },
+                      "_id": {
+                        "type": "string"
+                      },
+                      "historicTransaction": {
+                        "type": "object",
+                        "properties": {
+                          "date": {
+                            "type": "string",
+                            "format": "date"
+                          },
+                          "amount": {
+                            "type": "number"
+                          },
+                          "modeTransaction": {
+                            "type": "string",
+                            "enum": ["LESS", "MORE"]
+                          }
+                        }
+                      },
+                      "user": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Return this error when user not have goals"
+          }
+        }
+      }
+    },
+    "api/goalbox/findUnique/:goalBoxId": {
+      "get": {
+        "tags": ["GoalBox"],
+        "summary": "Find unique goal",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "goalBoxId",
+            "in": "params",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "goalName": {
+                      "type": "string"
+                    },
+                    "goalCost": {
+                      "type": "number"
+                    },
+                    "goalTime": {
+                      "type": "object",
+                      "properties": {
+                        "initialDate": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "endDate": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "endMonths": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "balance": {
+                      "type": "number"
+                    },
+                    "payOff": {
+                      "type": "number"
+                    },
+                    "_id": {
+                      "type": "string"
+                    },
+                    "historicTransaction": {
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "amount": {
+                          "type": "number"
+                        },
+                        "modeTransaction": {
+                          "type": "string",
+                          "enum": ["LESS", "MORE"]
+                        }
+                      }
+                    },
+                    "user": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Return this error when user on goal not is the same of userId"
+          },
+          "404": {
+            "description": "Return this error when goal not find"
+          }
+        }
+      }
+    },
+    "api/goalbox/:goalBoxId": {
+      "patch": {
+        "tags": ["GoalBox"],
+        "summary": "Update infos of an unique goal",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "goalBoxId",
+            "in": "params",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "balanceValue": {
+                    "type": "number"
+                  },
+                  "modeSum": {
+                    "type": "string",
+                    "enum": ["LESS", "MORE"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "goalName": {
+                      "type": "string"
+                    },
+                    "goalCost": {
+                      "type": "number"
+                    },
+                    "goalTime": {
+                      "type": "object",
+                      "properties": {
+                        "initialDate": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "endDate": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "endMonths": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "balance": {
+                      "type": "number"
+                    },
+                    "payOff": {
+                      "type": "number"
+                    },
+                    "_id": {
+                      "type": "string"
+                    },
+                    "historicTransaction": {
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "amount": {
+                          "type": "number"
+                        },
+                        "modeTransaction": {
+                          "type": "string",
+                          "enum": ["LESS", "MORE"]
+                        }
+                      }
+                    },
+                    "user": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Return this error when have some error on update goal"
+          },
+          "404": {
+            "description": "Return this error when not is possible find this goal"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["GoalBox"],
+        "summary": "Delete one goal",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "goalBoxId",
+            "in": "params",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {}
         }
       }
     }

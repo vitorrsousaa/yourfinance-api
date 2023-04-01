@@ -19,7 +19,7 @@ routes.use('/api/transactions', authValidate, transactionsRoutes);
 routes.use('/api/user', authValidate, userRoutes);
 routes.use('/api/overview', authValidate, overviewRoutes);
 routes.use('/api/analytics', authValidate, analyticsRoutes);
-routes.use('/api/infoincome', authValidate, informationFixedRoutes);
+routes.use('/api/infofixed', authValidate, informationFixedRoutes);
 routes.use('/api/goalbox', authValidate, goalBoxRoutes);
 
 export default routes;
