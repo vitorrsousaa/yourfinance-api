@@ -6,7 +6,6 @@ import categoryRoutes from './category.routes';
 import goalBoxRoutes from './goalBox.routes';
 import informationFixedRoutes from './informationFixed.routes';
 import modalityRoutes from './modality.routes';
-import overviewRoutes from './overview.routes';
 import transactionsRoutes from './transactions.routes';
 import userRoutes from './user.routes';
 
@@ -17,7 +16,6 @@ routes.use('/api/category', categoryRoutes);
 routes.use('/api/auth', authRoutes);
 routes.use('/api/transactions', authValidate, transactionsRoutes);
 routes.use('/api/user', authValidate, userRoutes);
-routes.use('/api/overview', authValidate, overviewRoutes);
 routes.use('/api/analytics', authValidate, analyticsRoutes);
 routes.use('/api/infofixed', authValidate, informationFixedRoutes);
 routes.use('/api/goalbox', authValidate, goalBoxRoutes);

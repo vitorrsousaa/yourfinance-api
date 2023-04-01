@@ -31,10 +31,6 @@
       "description": "Everything that involves the user model "
     },
     {
-      "name": "Overview",
-      "description": "Overview Amounts of User"
-    },
-    {
       "name": "Analytics",
       "description": "Analytics transactions of User"
     },
@@ -450,9 +446,9 @@
         }
       }
     },
-    "api/overview/getCalculations/:categoryId": {
+    "api/analytics/getSummaryByCategory/:categoryId": {
       "get": {
-        "tags": ["Overview"],
+        "tags": ["Analytics"],
         "summary": "Calculates and returns the percentage, the difference between the current month and the last month",
         "security": [
           {
