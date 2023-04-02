@@ -6,5 +6,6 @@ const analyticsRoutes = Router();
 
 analyticsRoutes.get('/sumAmountsByMonth', AnalyticController.sumTotalAmountByMonth);
 analyticsRoutes.get('/getSummaryByCategory/:categoryId', AnalyticController.getCalculationsByCurrentMonthAndLastMonth);
+analyticsRoutes.get('/getBiggestModalities', AnalyticController.getBiggestAmountsOfModalitiesOnSixMonthsAgo);
 
 export default analyticsRoutes;
