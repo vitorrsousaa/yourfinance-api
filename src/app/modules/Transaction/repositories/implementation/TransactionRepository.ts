@@ -1,14 +1,6 @@
 import { Types } from 'mongoose';
 import Transaction, { TTransaction } from '../../model';
-import { ITransactionRepository } from '../ITransactionRepository';
-
-interface TransactionProps {
-  description: string;
-  category: 'Receita' | 'Despesa';
-  type: 'Fixo' | 'Variável';
-  modality: string;
-  amount: number;
-}
+import { ITransactionRepository, TReturnTransactionsWithCategoryAndModality } from '../ITransactionRepository';
 
 class TransactionRepository implements ITransactionRepository {
   async findAllByIdUser(id: string): Promise<TTransaction[]> {
@@ -27,7 +19,7 @@ class TransactionRepository implements ITransactionRepository {
   async findByPeriod(
     id: string,
     month: string
-  ): Promise<TTransaction[] | null> {
+  ): Promise<TReturnTransactionsWithCategoryAndModality[] | null> {
     const endDate = new Date();
 
     const year = endDate.getFullYear();
@@ -39,7 +31,17 @@ class TransactionRepository implements ITransactionRepository {
     return Transaction.find({ date: { $gte: startDate, $lte: endDate } })
       .where('user')
       .equals(id)
-      .populate('category');
+      .populate('category')
+      .populate('modality');
+  }
+  async findByDateAgo(id: string, date: Date): Promise<TReturnTransactionsWithCategoryAndModality[] | null> {
+    const endDate = new Date();
+
+    return Transaction.find({ date: { $gte: date, $lte: endDate } })
+      .where('user')
+      .equals(id)
+      .populate('category')
+      .populate('modality');
   }
 
   async create(

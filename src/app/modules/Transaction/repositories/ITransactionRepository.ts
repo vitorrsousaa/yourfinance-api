@@ -1,12 +1,11 @@
 import { Types } from 'mongoose';
 import { TTransaction } from '../model';
+import { TCategory } from '../../Category/model';
+import { TModality } from '../../Modality/model';
 
-interface TransactionProps {
-  description: string;
-  category: 'Receita' | 'Despesa';
-  type: 'Fixo' | 'Variável';
-  modality: string;
-  amount: number;
+export type TReturnTransactionsWithCategoryAndModality = Omit<TTransaction, 'category' |  'modality'> & {
+  category: TCategory;
+  modality: TModality;
 }
 
 export interface ITransactionRepository {
@@ -21,6 +20,7 @@ export interface ITransactionRepository {
   ): Promise<TTransaction>;
   findAllByIdUser(id: string): Promise<TTransaction[] | null>;
   findByPeriod(id: string, month: string): Promise<TTransaction[] | null>;
+  findByDateAgo(id: string, date: Date): Promise<TTransaction[] | null>;
   findById(id: string): Promise<TTransaction | null>;
   delete(id: string): Promise<void | null>;
 }
