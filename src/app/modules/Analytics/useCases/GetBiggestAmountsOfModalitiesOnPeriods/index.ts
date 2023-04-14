@@ -27,7 +27,7 @@ export default async function GetBiggestAmountsOfModalitiesOnPeriods(userId: str
     transactionsInPeriod?.forEach((transaction) => {
       const { modality, amount } = transaction;
 
-      const existingModality = modalities.find((m) => m._id === modality._id);
+      const existingModality = modalities.find(({ _id }) => _id === modality._id);
 
       if (existingModality) {
         existingModality.amount += amount;
@@ -51,12 +51,12 @@ export default async function GetBiggestAmountsOfModalitiesOnPeriods(userId: str
         const currentPeriod = periods[i];
 
         if (parseInt(currentPeriod) > i && acc[currentPeriod] && !acc[previousPeriod].added) {
-          acc[previousPeriod].modality.forEach((m) => {
-            const existingModality = acc[currentPeriod].modality.find((em) => em._id === m._id);
+          acc[previousPeriod].modality.forEach((objModality) => {
+            const existingModality = acc[currentPeriod].modality.find(({ _id }) => _id === objModality._id);
             if (!existingModality) {
-              acc[currentPeriod].modality.push(m);
+              acc[currentPeriod].modality.push(objModality);
             } else {
-              existingModality.amount += m.amount;
+              existingModality.amount += objModality.amount;
             }
           });
           acc[previousPeriod].added = true;
