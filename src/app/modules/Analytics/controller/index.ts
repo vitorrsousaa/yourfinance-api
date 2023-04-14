@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import SumTotalAmountByMonth from '../useCases/SumTotalAmountByMonth';
 import GetCalculationsByCurrentMonthAndLastMonth from '../useCases/GetCalculationsByCurrentMonthAndLastMonth';
-import GetBiggestAmountsOfModalitiesOnSixMonthsAgo from '../useCases/GetBiggestAmountsOfModalitiesOnSixMonthsAgo';
+import GetBiggestAmountsOfModalitiesOnPeriods from '../useCases/GetBiggestAmountsOfModalitiesOnPeriods';
 
 class AnalyticsController {
   async sumTotalAmountByMonth(request: Request, response: Response) {
@@ -16,8 +16,8 @@ class AnalyticsController {
     return response.status(200).json(getCalculations);
   }
 
-  async getBiggestAmountsOfModalitiesOnSixMonthsAgo(request: Request, response: Response) {
-    const get = await GetBiggestAmountsOfModalitiesOnSixMonthsAgo(request.user.id);
+  async getBiggestAmountsOfModalitiesOnPeriods(request: Request, response: Response) {
+    const get = await GetBiggestAmountsOfModalitiesOnPeriods(request.user.id);
 
     return response.status(200).json(get);
   }

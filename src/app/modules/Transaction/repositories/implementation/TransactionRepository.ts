@@ -40,6 +40,7 @@ class TransactionRepository implements ITransactionRepository {
     return Transaction.find({ date: { $gte: date, $lte: endDate } })
       .where('user')
       .equals(id)
+      .sort({ date: 'desc' })
       .populate('category')
       .populate('modality');
   }
