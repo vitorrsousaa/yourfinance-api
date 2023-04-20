@@ -16,7 +16,7 @@ export default function authValidate(
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    throw new AppError('Não autorizado!', 401);
+    throw new AppError('Não esta autorizado');
   }
 
   // Verificar se o token esta no formato JWT
@@ -24,13 +24,13 @@ export default function authValidate(
   const parts = authHeader.split(' ');
 
   if (!(parts.length === 2)) {
-    throw new AppError('Ouve algum erro na autenticação', 401);
+    throw new AppError('Houve um erro na autenticação');
   }
 
   const [scheme, token] = parts;
 
   if (!/^Bearer$/i.test(scheme)) {
-    throw new AppError('Ouve algum erro na autenticação');
+    throw new AppError('Houve um erro na autenticação');
   }
 
   try {
@@ -40,6 +40,6 @@ export default function authValidate(
 
     next();
   } catch (error) {
-    throw new AppError('Ouve algum erro na autenticação');
+    throw new AppError('Houve um erro na autenticação', 401);
   }
 }

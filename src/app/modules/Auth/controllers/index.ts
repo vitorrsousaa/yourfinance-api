@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Authenticate from '../useCases/Authenticate';
 import Register from '../useCases/Register';
+import RefreshToken from '../useCases/RefreshToken';
 
 class AuthController {
   async register(request: Request, response: Response) {
@@ -17,6 +18,12 @@ class AuthController {
     const authenticate = await Authenticate(email, password);
 
     return response.status(200).send(authenticate);
+  }
+
+  async refreshToken(request: Request, response: Response) {
+    const refresh = await RefreshToken(request.user.id);
+
+    return response.status(200).json(refresh);
   }
 }
 

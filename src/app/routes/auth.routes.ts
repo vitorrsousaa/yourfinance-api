@@ -6,6 +6,6 @@ const authRoutes = Router();
 
 authRoutes.post('/register', AuthController.register);
 authRoutes.post('/authenticate', AuthController.authenticate);
-authRoutes.get('/', authValidate, (req, res) => res.send({ ok: true }));
+authRoutes.post('/refresh', authValidate, AuthController.refreshToken);
 
 export default authRoutes;
