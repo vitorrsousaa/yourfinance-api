@@ -2,12 +2,16 @@ import generateToken from '../../../../utils/generateToken';
 import AppError from '../../../../error';
 import UserRepository from '../../../User/repositories/implementations/UserRepository';
 import { TUser } from '../../../User/model';
+import {
+  ACCESS_TOKEN_EXPIRATION,
+  REFRESH_TOKEN_EXPIRATION,
+} from '../../../../constants/auth';
 
 export default async function Register(
   email: string,
   name: string,
   password: string
-): Promise<{ user: TUser, token: string }> {
+): Promise<{ user: TUser; token: { access: string; refresh: string } }> {
   const userExists = await UserRepository.findByEmail(email);
 
   if (userExists) {
@@ -19,6 +23,9 @@ export default async function Register(
 
   return {
     user: newUser,
-    token: generateToken(newUser._id),
+    token: {
+      access: generateToken(newUser._id, ACCESS_TOKEN_EXPIRATION),
+      refresh: generateToken(newUser._id, REFRESH_TOKEN_EXPIRATION),
+    },
   };
 }
