@@ -117,6 +117,31 @@
         }
       }
     },
+    "api/auth/refresh": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Return an new token to user",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found!"
+          }
+        }
+      }
+    },
     "api/category/": {
       "get": {
         "tags": ["Category"],
