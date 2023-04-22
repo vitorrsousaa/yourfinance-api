@@ -1,4 +1,4 @@
-import { Types } from 'mongoose';
+import { Types, UpdateWriteOpResult } from 'mongoose';
 import { TTransaction } from '../model';
 import { TCategory } from '../../Category/model';
 import { TModality } from '../../Modality/model';
@@ -23,4 +23,13 @@ export interface ITransactionRepository {
   findByDateAgo(id: string, date: Date): Promise<TTransaction[] | null>;
   findById(id: string): Promise<TTransaction | null>;
   delete(id: string): Promise<void | null>;
+  updateManyTransactionsWithTimeGreaterThan(
+    idInformation: Types.ObjectId,
+    dateGreaterThan: Date,
+    newValueAmount: number
+  ): Promise<UpdateWriteOpResult>;
+  deleteManyTransactionWithTimeGreaterThan(
+    idInformation: Types.ObjectId,
+    dateGreaterThan: Date
+  ): Promise<unknown>;
 }

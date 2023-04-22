@@ -11,6 +11,7 @@ type TransactionInfos = {
   modality: Types.ObjectId | TModality;
   amount: number;
   user: Types.ObjectId;
+  informationFixed?: Types.ObjectId;
   _doc: TTransaction;
 };
 
@@ -47,6 +48,10 @@ const TransactionSchema = new Schema<TTransaction>({
     type: Schema.Types.ObjectId,
     require: true,
     ref: 'User',
+  },
+  informationFixed: {
+    type: Types.ObjectId,
+    ref: 'InformationFixed'
   },
   updatedAt: {
     type: Date,

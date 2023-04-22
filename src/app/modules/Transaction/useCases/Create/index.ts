@@ -3,9 +3,11 @@ import returnErrorMissingField from '../../../../utils/returnErrorMissingField';
 import { TTransaction } from '../../model';
 import TransactionRepository from '../../repositories/implementation/TransactionRepository';
 
-export default async function Create(
-  infosTransaction: TTransaction,
-  user: string
+export default async function CreateTransaction(
+  infosTransaction: Pick<TTransaction, 'description' | 'category' | 'type' | 'modality' | 'amount' | 'date'>,
+  user: string,
+  isInformationFixed?: boolean,
+  idInformationFixed?: Types.ObjectId,
 ) {
   returnErrorMissingField(infosTransaction, [
     'description',
@@ -19,7 +21,20 @@ export default async function Create(
   const { description, category, type, modality, amount, date } =
     infosTransaction;
 
-  const newTransaction = await TransactionRepository.create(
+  if (isInformationFixed) {
+    return TransactionRepository.create(
+      description,
+      (category as Types.ObjectId),
+      (modality as Types.ObjectId),
+      type,
+      user,
+      amount,
+      new Date(date),
+      idInformationFixed
+    );
+  }
+
+  return TransactionRepository.create(
     description,
     (category as Types.ObjectId),
     (modality as Types.ObjectId),
@@ -28,6 +43,4 @@ export default async function Create(
     amount,
     new Date(date)
   );
-
-  return newTransaction;
 }

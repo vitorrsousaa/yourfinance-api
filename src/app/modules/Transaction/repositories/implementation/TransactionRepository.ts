@@ -1,4 +1,4 @@
-import { Types } from 'mongoose';
+import { Types, UpdateWriteOpResult } from 'mongoose';
 import Transaction, { TTransaction } from '../../model';
 import { ITransactionRepository, TReturnTransactionsWithCategoryAndModality } from '../ITransactionRepository';
 
@@ -52,7 +52,8 @@ class TransactionRepository implements ITransactionRepository {
     type: string,
     user: string,
     amount: number,
-    date: Date
+    date: Date,
+    informationFixed?: Types.ObjectId
   ): Promise<TTransaction> {
     return Transaction.create({
       description,
@@ -62,11 +63,40 @@ class TransactionRepository implements ITransactionRepository {
       user,
       amount,
       date,
+      informationFixed
     });
   }
 
   async delete(id: string): Promise<void | null> {
     return Transaction.findByIdAndDelete(id);
+  }
+
+  async updateManyTransactionsWithTimeGreaterThan(
+    idInformation: Types.ObjectId,
+    dateGreaterThan: Date,
+    newValueAmount: number
+  ): Promise<UpdateWriteOpResult> {
+    return Transaction.updateMany(
+      {
+        informationFixed: idInformation,
+        date: { $gte: dateGreaterThan }
+      }, {
+        $set: {
+          amount: newValueAmount
+        }
+      }, { new: true });
+  }
+
+  async deleteManyTransactionWithTimeGreaterThan(idInformation: Types.ObjectId, dateGreaterThan: Date): Promise<unknown> {
+    console.log(dateGreaterThan);
+    const deleteTran = await Transaction.deleteMany(
+      {
+        informationFixed: idInformation,
+        date: { $gte: dateGreaterThan }
+      }
+    );
+    console.log(deleteTran);
+    return deleteTran;
   }
 }
 
