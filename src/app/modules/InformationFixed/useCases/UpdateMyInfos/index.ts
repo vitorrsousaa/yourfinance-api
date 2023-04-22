@@ -9,7 +9,7 @@ export default async function UpdatedMyInfos(
   idInformation: string,
   whichInformation: 'TIME' | 'AMOUNT',
   newValueInformation: Date | number,
-): Promise<TInformationFixed> {
+): Promise<TInformationFixed | null> {
   const findUserOnInformations = await InformationFixedRepository.findUserOnInformation(userId);
   if (!findUserOnInformations) throw new AppError('Parece que voce não tem essas informações cadastradas!');
 
@@ -48,5 +48,5 @@ export default async function UpdatedMyInfos(
       .addNewUpdateOnHistoric(findInformation._id, 'AMOUNT', (newValueInformation as number)),
   ]);
 
-  return updateInfos!;
+  return updateInfos;
 }

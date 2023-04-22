@@ -557,7 +557,7 @@
     "api/infofixed/": {
       "get": {
         "tags": ["InformationFixed"],
-        "summary": "Get all informations of user",
+        "summary": "Get all informations fixed of user",
         "security": [
           {
             "bearerAuth": []
@@ -568,17 +568,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "fixedIncome": {
-                      "type": "number"
-                    },
-                    "fixedOutcome": {
-                      "type": "number"
-                    },
-                    "user": {
-                      "type": "string"
-                    }
+                  "items": {
+                    "$ref": "#/definitions/InformationFixed"
                   }
                 }
               }
@@ -607,11 +598,11 @@
                   "fixedOutcome"
                 ],
                 "properties": {
-                  "fixedIncome": {
+                  "time": {
                     "type": "number"
                   },
-                  "fixedOutcome": {
-                    "type": "number"
+                  "infosTransactionFixed": {
+                    "$ref": "#/definitions/TransactionModel"
                   }
                 }
               }
@@ -623,24 +614,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "fixedIncome": {
-                      "type": "number"
-                    },
-                    "fixedOutcome": {
-                      "type": "number"
-                    },
-                    "user": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/definitions/InformationFixed"
                 }
               }
             }
-          },
-          "400": {
-            "description": "Return this error when user already this informations"
           }
         }
       },
@@ -658,11 +635,16 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "fixedIncome": {
-                    "type": "number"
+                  "idInformation": {
+                    "type": "string"
                   },
-                  "fixedOutcome": {
-                    "type": "number"
+                  "whichInformation": {
+                    "type": "string",
+                    "enum": ["TIME", "AMOUNT"]
+                  },
+                  "newValueInformation": {
+                    "type": "number",
+                    "example": "Se for 'TIME', aqui deve vir como DATE, mas se fosse 'AMOUNT', deve vir um NUMBER"
                   }
                 }
               }
@@ -674,24 +656,16 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "fixedIncome": {
-                      "type": "number"
-                    },
-                    "fixedOutcome": {
-                      "type": "number"
-                    },
-                    "user": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/definitions/InformationFixed"
                 }
               }
             }
           },
           "400": {
             "description": "Return this error when user not have this informations"
+          },
+          "404": {
+            "description": "Return this error when not find this information"
           }
         }
       }
@@ -1216,6 +1190,55 @@
           "type": "string",
           "format": "date",
           "example": "2023-01-01T00:00:00.000Z"
+        }
+      }
+    },
+    "InformationFixed": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "time": {
+          "type": "number"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "category": {
+          "type": "string"
+        },
+        "transactions": {
+          "type": "array"
+        },
+        "user": {
+          "type": "string"
+        },
+        "historic": {
+          "items": {
+            "type": "object",
+            "properties": {
+              "property": {
+                "type": "string",
+                "enum": ["TIME", "AMOUNT"]
+              },
+              "value": {
+                "type": "number"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date"
+              }
+            }
+          }
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date"
         }
       }
     }
