@@ -10,6 +10,7 @@ export interface IGoalBoxRepository {
     },
     balance: number,
     user: string,
+    historicTransaction: TGoalBox['historicTransaction'],
   ): Promise<TGoalBox>;
   getAllGoalsBoxOfUser(userId: string): Promise<TGoalBox[] | null>;
   findUniqueGoalBox(goalBoxId: string): Promise<TGoalBox | null>;

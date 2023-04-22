@@ -11,6 +11,7 @@ class GoalBoxRepository implements IGoalBoxRepository {
     },
     balance: number,
     user: string,
+    historicTransaction: TGoalBox['historicTransaction'],
   ): Promise<TGoalBox> {
     return GoalBox.create({
       goalName,
@@ -18,11 +19,7 @@ class GoalBoxRepository implements IGoalBoxRepository {
       goalTime,
       balance,
       user,
-      historicTransaction: {
-        date: new Date(),
-        amount: balance,
-        modeTransaction: 'MORE'
-      }
+      historicTransaction
     });
   }
 
