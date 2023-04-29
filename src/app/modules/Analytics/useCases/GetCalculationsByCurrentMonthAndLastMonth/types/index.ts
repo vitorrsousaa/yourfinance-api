@@ -1,3 +1,6 @@
+import { TCategory } from '../../../../../entities/category/TCategory';
+import { TTransaction } from '../../../../../entities/transaction/TTransaction';
+
 export type TReturnMonths = {
   currentMonth: number;
   lastMonth: number;
@@ -8,4 +11,8 @@ export type TGetCardsData = {
   percent: number;
   currentMonth: number;
   lastMonth: number;
+}
+
+export type TransactionFromPeriod = TTransaction & {
+  Category: TCategory;
 }

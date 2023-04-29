@@ -1,5 +1,5 @@
-import { TCategory } from '../../../Category/model';
-import { TTransaction } from '../../../Transaction/model';
+import { TCategory } from '../../../../entities/category/TCategory';
+import { TTransaction } from '../../../../entities/transaction/TTransaction';
 import TransactionRepository from '../../../Transaction/repositories/implementation/TransactionRepository';
 
 interface TMonthlySum {
@@ -8,7 +8,9 @@ interface TMonthlySum {
   outcome: number;
 }
 
-function convertDateList(transactions: TTransaction[]) {
+function convertDateList(transactions: (TTransaction & {
+  Category: TCategory
+})[]) {
   const convertDate = transactions.map((transaction) => {
     const previousDate = new Date(transaction.date);
     const timezoneOffset = previousDate.getTimezoneOffset() * 60 * 1000;
@@ -28,23 +30,23 @@ function convertDateList(transactions: TTransaction[]) {
 }
 
 export default async function SumTotalAmountByMonth(userId: string) {
-  const transactions = await TransactionRepository.findAllByIdUser(userId);
-  const convertDate = convertDateList(transactions);
+  const transactions = await TransactionRepository.findAllTransactionsByUser(userId);
+  const convertDate = convertDateList(transactions!);
 
   const addingAmounts = convertDate.reduce(
     (acc, transaction) => {
-      const { amount, category, date } = transaction._doc;
+      const { amount, Category, date } = transaction;
 
       const dataExists = acc.find((item) => item.date === String(date));
 
       if (dataExists) {
-        if ((category as TCategory).name === 'Despesas') {
+        if ((Category as TCategory).name === 'Despesas') {
           dataExists.outcome += amount;
         } else {
           dataExists.income += amount;
         }
       } else {
-        if ((category as TCategory).name === 'Despesas') {
+        if ((Category as TCategory).name === 'Despesas') {
           acc.push({ date: String(date), outcome: amount, income: 0 });
         } else {
           acc.push({ date: String(date), outcome: 0, income: amount });

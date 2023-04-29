@@ -1,13 +1,10 @@
+import { TCategory } from '../../../../entities/category/TCategory';
 import AppError from '../../../../error';
-import returnErrorMissingField from '../../../../utils/returnErrorMissingField';
-import { TCategory } from '../../model';
 import CategoryRepository from '../../repositories/implementation/CategoryRepository';
 
 export default async function Register(
   name: string,
-  requestBody: Record<string, any>[]
 ): Promise<{category: TCategory}> {
-  returnErrorMissingField(requestBody, ['name']);
 
   const categoryExists = await CategoryRepository.findByName(name);
 

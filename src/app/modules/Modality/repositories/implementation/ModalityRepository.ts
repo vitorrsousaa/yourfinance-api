@@ -1,26 +1,43 @@
-import { Types } from 'mongoose';
-import Modality, { TModality } from '../../model';
+import { TModality } from '../../../../entities/modality/TModality';
+import prisma from '../../../../prisma';
 import { IModalityRespository } from '../IModalityRepository';
 
 class ModalityRepository implements IModalityRespository {
-  async create(name: string, category: Types.ObjectId): Promise<TModality> {
-    return Modality.create({ name, category });
+  async create(name: string, categoryId: string): Promise<TModality> {
+    return prisma.modality.create({
+      data: {
+        name,
+        categoryId
+      }
+    });
   }
 
   async findByName(name: string): Promise<TModality | null> {
-    return Modality.findOne({ name });
+    return prisma.modality.findFirst({
+      where: {
+        name
+      }
+    });
   }
 
   async findById(id: string): Promise<TModality | null> {
-    return Modality.findById(id);
+    return prisma.modality.findUnique({
+      where: {
+        id
+      }
+    });
   }
 
   async findAll(): Promise<TModality[] | null> {
-    return Modality.find().sort({ name: 1 });
+    return prisma.modality.findMany();
   }
 
-  async delete(id: string): Promise<void | null> {
-    return Modality.findByIdAndDelete(id);
+  async delete(id: string): Promise<unknown> {
+    return prisma.modality.delete({
+      where: {
+        id
+      }
+    });
   }
 }
 

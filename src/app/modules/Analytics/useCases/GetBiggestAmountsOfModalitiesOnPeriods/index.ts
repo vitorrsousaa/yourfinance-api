@@ -10,7 +10,7 @@ export default async function GetBiggestAmountsOfModalitiesOnPeriods(userId: str
   const lastTransactions = await TransactionRepository.findByDateAgo(userId, data);
 
   const getTransactionsByOutcome = lastTransactions?.filter(
-    (transaction) => transaction.category.name === 'Despesas'
+    (transaction) => transaction.Category.name === 'Despesas'
   );
 
   const periods = ['0', '3', '6', '12'];
@@ -25,17 +25,17 @@ export default async function GetBiggestAmountsOfModalitiesOnPeriods(userId: str
     const modalities: TObjModality[] = [];
 
     transactionsInPeriod?.forEach((transaction) => {
-      const { modality, amount } = transaction;
+      const { Modality, amount } = transaction;
 
-      const existingModality = modalities.find(({ _id }) => _id === modality._id);
+      const existingModality = modalities.find(({ id }) => id === Modality.id);
 
       if (existingModality) {
         existingModality.amount += amount;
       } else {
         modalities.push({
-          _id: modality._id,
-          name: modality.name,
-          category: modality.category,
+          id: Modality.id,
+          name: Modality.name,
+          category: Modality.categoryId,
           amount,
         });
       }
@@ -52,7 +52,7 @@ export default async function GetBiggestAmountsOfModalitiesOnPeriods(userId: str
 
         if (parseInt(currentPeriod) > i && acc[currentPeriod] && !acc[previousPeriod].added) {
           acc[previousPeriod].modality.forEach((objModality) => {
-            const existingModality = acc[currentPeriod].modality.find(({ _id }) => _id === objModality._id);
+            const existingModality = acc[currentPeriod].modality.find(({ id }) => id === objModality.id);
             if (!existingModality) {
               acc[currentPeriod].modality.push(objModality);
             } else {

@@ -1,5 +1,6 @@
-import { Types } from 'mongoose';
-import InformationFixed, { TInformationFixed } from '../../model';
+import { Prisma } from '@prisma/client';
+import { TInformationFixed } from '../../../../entities/informationFixed/TInformationFixed';
+import prisma from '../../../../prisma';
 import { IInformationFixedRepository } from '../IInformationsFixedRepository';
 
 class InformationFixedRepository implements IInformationFixedRepository {
@@ -7,73 +8,91 @@ class InformationFixedRepository implements IInformationFixedRepository {
     name: string,
     time: number,
     amount: number,
-    category: Types.ObjectId,
+    categoryId: string,
     userId: string,
   ): Promise<TInformationFixed> {
-    return InformationFixed.create({
-      name,
-      time,
-      amount,
-      category,
-      transactions: [],
-      user: userId
+    return prisma.informationFixed.create({
+      data: {
+        name,
+        time,
+        amount,
+        categoryId,
+        userId
+      }
     });
   }
 
   async findUniqueInformationById(id: string): Promise<TInformationFixed | null> {
-    return InformationFixed.findOne({ _id: id });
+    return prisma.informationFixed.findUnique({
+      where: {
+        id
+      }
+    });
   }
 
   async findUserOnInformation(userId: string): Promise<TInformationFixed[] | null> {
-    return InformationFixed.find({ user: userId });
+    return prisma.informationFixed.findMany({
+      where: {
+        userId
+      }
+    });
   }
 
   async updateTimeInformation(
-    infoId: string,
+    id: string,
     time: number
   ): Promise<TInformationFixed | null> {
-    return InformationFixed.findByIdAndUpdate(infoId, {
-      $set: {
-        time,
+    return prisma.informationFixed.update({
+      where: {
+        id
+      },
+      data: {
+        time
       }
-    }, { new: true });
+    });
   }
 
   async updateAmountInformation(
-    infoId: string,
+    id: string,
     amount: number
   ): Promise<TInformationFixed | null> {
-    return InformationFixed.findOneAndUpdate({ _id: infoId, time: { $gte: new Date() } }, {
-      $set: {
-        amount,
+    return prisma.informationFixed.update({
+      where: {
+        id
+      },
+      data: {
+        amount
       }
-    }, { new: true });
-  }
-
-  async addTransactionsOnInformation(
-    idInformation: Types.ObjectId,
-    idsTransactions: Types.ObjectId[]
-  ): Promise<TInformationFixed | null> {
-    return InformationFixed.findByIdAndUpdate(idInformation, {
-      $push: {
-        transactions: idsTransactions
-      }
-    }, { new: true });
+    });
   }
 
   async addNewUpdateOnHistoric(
-    id: Types.ObjectId,
+    id: string,
     property: string,
     value: number
   ): Promise<TInformationFixed | null> {
-    return InformationFixed.findByIdAndUpdate(id, {
-      $push: {
-        historic: {
-          property,
-          value
-        }
+    const findInformation = await this.findUniqueInformationById(id);
+    let guardHistoric: any = findInformation?.historic;
+    guardHistoric = [...guardHistoric, { property, value, updatedAt: new Date() }];
+
+    const updateHistoric = Prisma.validator<Prisma.InformationFixedUpdateInput>()({
+      historic: guardHistoric
+    });
+
+    return prisma.informationFixed.update({
+      where: {
+        id
+      },
+      data: updateHistoric
+    });
+  }
+
+  async deleteInformation(id: string): Promise<unknown> {
+    return prisma.informationFixed.delete({
+      where: {
+        id
       }
-    }, { new: true });
+    });
   }
 }
 

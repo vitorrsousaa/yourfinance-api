@@ -1,22 +1,40 @@
 import { Request, Response } from 'express';
 import Create from '../useCases/Create';
 import Delete from '../useCases/Delete';
-import ListAllTransactions from '../useCases/ListAllTransactions';
+import ListTransactionsByPage from '../useCases/ListTransactionsByPage';
+import GetAllTransactionByUser from '../useCases/GetAllTransactionByUser';
 
 class TransactionController {
   async index(request: Request, response: Response) {
-    const { page, period } = request.body;
+    const { page } = request.query;
     const id = request.user.id;
 
-    const listAllTransactions = await ListAllTransactions(page, period, id);
+    if (page) {
+      const listTransactionsByPage = await ListTransactionsByPage(Number(page), id);
+      return response.status(200).send(listTransactionsByPage);
+    }
 
-    return response.status(200).send(listAllTransactions);
+    const transactions = await GetAllTransactionByUser(id);
+
+    return response.status(200).json(transactions);
+
   }
 
   async store(request: Request, response: Response) {
     const id = request.user.id;
 
-    const createTransaction = await Create(request.body, id);
+    const {
+      infosTransaction,
+      isInformationFixed,
+      idInformationFixed
+    } = request.body;
+
+    const createTransaction = await Create(
+      infosTransaction,
+      id,
+      isInformationFixed,
+      idInformationFixed
+    );
 
     return response.status(201).send(createTransaction);
   }

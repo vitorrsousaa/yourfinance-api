@@ -1,35 +1,34 @@
-import { Types, UpdateWriteOpResult } from 'mongoose';
-import { TTransaction } from '../model';
-import { TCategory } from '../../Category/model';
-import { TModality } from '../../Modality/model';
+import { TCategory } from '../../../entities/category/TCategory';
+import { TModality } from '../../../entities/modality/TModality';
+import { TTransaction } from '../../../entities/transaction/TTransaction';
 
-export type TReturnTransactionsWithCategoryAndModality = Omit<TTransaction, 'category' |  'modality'> & {
-  category: TCategory;
-  modality: TModality;
-}
+
+export type TReturnTransactionsWithCategoryAndModality = (TTransaction & { Category: TCategory; Modality: TModality; });
 
 export interface ITransactionRepository {
   create(
-    description: string,
-    category: Types.ObjectId,
-    modality: Types.ObjectId,
+    name: string,
+    categoryId: string,
+    modalityId: string,
     type: string,
-    user: string,
+    userId: string,
     amount: number,
-    date: Date
+    date: Date,
+    informationFixedId: string
   ): Promise<TTransaction>;
-  findAllByIdUser(id: string): Promise<TTransaction[] | null>;
+  findTransactionByIdUserAndPage(id: string, page: number): Promise<TReturnTransactionsWithCategoryAndModality[] | null>;
   findByPeriod(id: string, month: string): Promise<TTransaction[] | null>;
   findByDateAgo(id: string, date: Date): Promise<TTransaction[] | null>;
   findById(id: string): Promise<TTransaction | null>;
-  delete(id: string): Promise<void | null>;
+  delete(id: string): Promise<unknown>;
   updateManyTransactionsWithTimeGreaterThan(
-    idInformation: Types.ObjectId,
+    idInformation: string,
     dateGreaterThan: Date,
     newValueAmount: number
-  ): Promise<UpdateWriteOpResult>;
+  ): Promise<TTransaction[] | unknown>;
   deleteManyTransactionWithTimeGreaterThan(
-    idInformation: Types.ObjectId,
+    idInformation: string,
     dateGreaterThan: Date
   ): Promise<unknown>;
+  findAllTransactionsByUser(userId: string): Promise<(TTransaction & { Category: TCategory })[] | null>;
 }

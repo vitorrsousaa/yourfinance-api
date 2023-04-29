@@ -307,30 +307,32 @@
             "bearerAuth": []
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "page": {
-                    "type": "string"
-                  },
-                  "period": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
-        },
+        ],
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/definitions/TransactionModel"
+                  "type": "object",
+                  "properties": {
+                    "itemsPerPage": {
+                      "type": "number"
+                    },
+                    "page": {
+                      "type": "number"
+                    },
+                    "transactions": {
+                      "items": {
+                        "$ref": "#/definitions/TransactionModel"
+                      }
+                    }
                   }
                 }
               }
@@ -343,7 +345,7 @@
       },
       "post": {
         "tags": ["Transactions"],
-        "summary": "Get all transactions of user",
+        "summary": "Create one Transaction",
         "security": [
           {
             "bearerAuth": []
@@ -1150,35 +1152,39 @@
     "TransactionModel": {
       "type": "object",
       "required": [
-        "description",
-        "category",
+        "name",
+        "categoryId",
         "type",
-        "modality",
+        "modalityId",
         "amount",
         "user",
         "date"
       ],
       "properties": {
-        "description": {
+        "name": {
           "type": "string"
         },
-        "category": {
+        "categoryId": {
           "type": "string",
-          "description": "FK of an category"
+          "description": "FK of a category"
         },
         "type": {
           "type": "string"
         },
-        "modality": {
+        "modalityId": {
           "type": "string",
-          "description": "FK of an modality"
+          "description": "FK of a modality"
         },
         "amount": {
           "type": "number"
         },
-        "user": {
+        "userId": {
           "type": "string",
           "description": "FK of user's own"
+        },
+        "informationFixedId": {
+          "type": "string",
+          "description": "FK of an informationFixed own"
         },
         "date": {
           "type": "string",
@@ -1187,6 +1193,11 @@
           "description": "Date the transaction was made"
         },
         "updatedAt": {
+          "type": "string",
+          "format": "date",
+          "example": "2023-01-01T00:00:00.000Z"
+        },
+        "createdAt": {
           "type": "string",
           "format": "date",
           "example": "2023-01-01T00:00:00.000Z"

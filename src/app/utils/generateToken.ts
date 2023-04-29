@@ -1,9 +1,8 @@
 import authConfig from '../../config/auth.json';
 import jwt from 'jsonwebtoken';
-import mongoose from 'mongoose';
 
 export default function generateToken(
-  id: mongoose.Types.ObjectId,
+  id: string,
   duration: number
 ) {
   return jwt.sign({ id: id.toString() }, authConfig.secret, {

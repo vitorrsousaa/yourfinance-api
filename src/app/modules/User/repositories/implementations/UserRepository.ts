@@ -1,28 +1,42 @@
-import User, { TUser } from '../../model';
 import { IUserRepository } from '../IUserRepository';
+import prisma from '../../../../prisma';
+import { TUser } from '../../../../entities/user/TUser';
 
-class UsersRepository implements IUserRepository {
-  async create(name: string, email: string, password: string): Promise<TUser> {
-    return User.create({ email, name, password });
+class UserRepository implements IUserRepository {
+  async findByEmail(email: string): Promise<TUser | null> {
+    return prisma.user.findFirst({
+      where: {
+        email
+      }
+    });
   }
 
-  async findByEmail(email: string): Promise<TUser | null> {
-    return User.findOne({ email }).select('+password');
+  async create(name: string, email: string, password: string): Promise<TUser> {
+    return prisma.user.create({
+      data: {
+        name, email, password
+      }
+    });
   }
 
   async findById(id: string): Promise<TUser | null> {
-    return User.findById(id).select('+password');
+    return prisma.user.findUnique({
+      where: {
+        id
+      }
+    });
   }
 
-  async updatePassword(idUser: string, newPassword: string): Promise<TUser | null> {
-    return User.findByIdAndUpdate(
-      { _id: idUser },
-      { $set: {
-        password: newPassword
-      } },
-      { new: true }
-    ).select('-password');
+  async updatePassword(id: string, password: string): Promise<TUser | null> {
+    return prisma.user.update({
+      data: {
+        password
+      },
+      where: {
+        id
+      }
+    });
   }
 }
 
-export default new UsersRepository();
+export default new UserRepository();

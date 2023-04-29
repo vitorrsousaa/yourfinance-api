@@ -1,13 +1,12 @@
-import { Types } from 'mongoose';
+import { TModality } from '../../../../entities/modality/TModality';
 import AppError from '../../../../error';
 import returnErrorMissingField from '../../../../utils/returnErrorMissingField';
-import { TModality } from '../../model';
 
 import ModalityRepository from '../../repositories/implementation/ModalityRepository';
 
 export default async function Register(
   name: string,
-  category: Types.ObjectId,
+  category: string,
   requestBody: Record<string, any>[]
 ): Promise<{ modality: TModality }> {
   returnErrorMissingField(requestBody, ['name', 'category']);

@@ -1,58 +1,84 @@
-import GoalBox, { TGoalBox } from '../../model';
+import { Prisma } from '@prisma/client';
+import { TGoalBox, TTimeGoalBox } from '../../../../entities/goalBox/TGoalBox';
+import prisma from '../../../../prisma';
 import { IGoalBoxRepository } from '../IGoalBoxRepository';
 
 class GoalBoxRepository implements IGoalBoxRepository {
   async registerGoal(
     goalName: string,
     goalCost: number,
-    goalTime: {
-      initialDate: Date,
-      endDate: Date,
-    },
+    goalTime: TTimeGoalBox,
     balance: number,
     user: string,
-    historicTransaction: TGoalBox['historicTransaction'],
   ): Promise<TGoalBox> {
-    return GoalBox.create({
-      goalName,
-      goalCost,
-      goalTime,
-      balance,
-      user,
-      historicTransaction
+    const historic = [{
+      date: new Date(),
+      amount: balance,
+      modeTransaction: balance <= 1 ? 'LESS' : 'MORE'
+    }] as unknown as Prisma.GoalBoxCreatehistoricTransactionsInput;
+
+    const time = {
+      initialDate: new Date(goalTime.initialDate),
+      endDate: new Date(goalTime.endDate)
+    } as unknown as Prisma.InputJsonValue;
+
+    return prisma.goalBox.create({
+      data: {
+        goalName,
+        goalCost,
+        goalTime: time,
+        balance,
+        userId: user,
+        historicTransactions: balance === 0 ? [] : historic
+      }
     });
   }
 
   async getAllGoalsBoxOfUser(userId: string): Promise<TGoalBox[] | null> {
-    return GoalBox.find({ user: userId });
+    return prisma.goalBox.findMany({
+      where: {
+        userId
+      }
+    });
   }
 
-  async findUniqueGoalBox(goalBoxId: string): Promise<TGoalBox | null> {
-    return GoalBox.findById(goalBoxId);
+  async findUniqueGoalBox(id: string): Promise<TGoalBox | null> {
+    return prisma.goalBox.findUnique({
+      where: {
+        id
+      }
+    });
   }
 
   async updateBalanceOfGoalBox(
-    goalBoxId: string,
+    id: string,
     balance: number,
     amountTransaction: number,
     modeTransaction: 'LESS' | 'MORE'
   ): Promise<TGoalBox | null> {
-    return GoalBox.findByIdAndUpdate(goalBoxId, {
-      $set: {
-        balance,
+    const historic = [{
+      date: new Date(),
+      amount: amountTransaction,
+      modeTransaction
+    }] as unknown as Prisma.GoalBoxCreatehistoricTransactionsInput;
+
+    return prisma.goalBox.update({
+      where: {
+        id
       },
-      $push: {
-        historicTransaction: {
-          date: new Date(),
-          amount: amountTransaction,
-          modeTransaction,
-        }
+      data: {
+        balance,
+        historicTransactions: historic
       }
-    }, { new: true });
+    });
   }
 
-  async deleteGoalBox(goalBoxId: string): Promise<void | null> {
-    return GoalBox.findByIdAndDelete(goalBoxId);
+  async deleteGoalBox(id: string): Promise<unknown> {
+    return prisma.goalBox.delete({
+      where: {
+        id
+      }
+    });
   }
 }
 
