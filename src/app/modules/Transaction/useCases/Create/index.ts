@@ -1,31 +1,30 @@
-import { Types } from 'mongoose';
+import { TTransaction } from '../../../../entities/transaction/TTransaction';
 import returnErrorMissingField from '../../../../utils/returnErrorMissingField';
-import { TTransaction } from '../../model';
 import TransactionRepository from '../../repositories/implementation/TransactionRepository';
 
 export default async function CreateTransaction(
-  infosTransaction: Pick<TTransaction, 'description' | 'category' | 'type' | 'modality' | 'amount' | 'date'>,
+  infosTransaction: Omit<TTransaction, 'id' | 'createdAt' | 'updatedAt' | 'userId' | 'informationFixedId'>,
   user: string,
   isInformationFixed?: boolean,
-  idInformationFixed?: Types.ObjectId,
-) {
+  idInformationFixed?: string,
+): Promise<TTransaction> {
   returnErrorMissingField(infosTransaction, [
-    'description',
-    'category',
+    'name',
+    'categoryId',
     'type',
-    'modality',
+    'modalityId',
     'amount',
     'date',
   ]);
 
-  const { description, category, type, modality, amount, date } =
+  const { name, categoryId, type, modalityId, amount, date } =
     infosTransaction;
 
   if (isInformationFixed) {
     return TransactionRepository.create(
-      description,
-      (category as Types.ObjectId),
-      (modality as Types.ObjectId),
+      name,
+      categoryId,
+      modalityId,
       type,
       user,
       amount,
@@ -35,9 +34,9 @@ export default async function CreateTransaction(
   }
 
   return TransactionRepository.create(
-    description,
-    (category as Types.ObjectId),
-    (modality as Types.ObjectId),
+    name,
+    categoryId,
+    modalityId,
     type,
     user,
     amount,

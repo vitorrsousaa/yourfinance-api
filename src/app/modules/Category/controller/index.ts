@@ -7,7 +7,7 @@ class CategoryController {
   async store(request: Request, response: Response) {
     const { name } = request.body;
 
-    const category = await Register(name, request.body);
+    const category = await Register(name);
 
     return response.status(201).send(category);
   }

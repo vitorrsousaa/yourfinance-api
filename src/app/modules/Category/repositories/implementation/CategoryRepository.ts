@@ -1,24 +1,41 @@
-import Category, { TCategory } from '../../model';
+import { TCategory } from '../../../../entities/category/TCategory';
+import prisma from '../../../../prisma';
 import { ICategoryRepository } from '../ICategoryRepository';
 
 class CategoryRepository implements ICategoryRepository {
   async create(name: string): Promise<TCategory> {
-    return Category.create({ name });
+    return prisma.category.create({
+      data: {
+        name
+      }
+    });
   }
 
   async findById(id: string): Promise<TCategory | null> {
-    return Category.findById(id);
+    return prisma.category.findUnique({
+      where: {
+        id
+      }
+    });
   }
   async findByName(name: string): Promise<TCategory | null> {
-    return Category.findOne({ name });
+    return prisma.category.findFirst({
+      where: {
+        name
+      }
+    });
   }
 
   async findAll(): Promise<TCategory[] | null> {
-    return Category.find().sort({ name: 1 });
+    return prisma.category.findMany();
   }
 
-  async delete(id: string): Promise<void | null> {
-    return Category.findByIdAndDelete(id);
+  async delete(id: string): Promise<unknown> {
+    return prisma.category.delete({
+      where: {
+        id
+      }
+    });
   }
 }
 

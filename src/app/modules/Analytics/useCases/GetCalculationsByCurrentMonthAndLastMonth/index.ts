@@ -3,9 +3,7 @@ import GetTransactionsByPeriod from '../../../Transaction/useCases/GetTransactio
 
 import GetCardsData from './funcs/GetCardsData';
 import GetSummaryByCategory from './funcs/GetSummaryByCategory';
-
-import { TTransaction } from '../../../Transaction/model';
-import { TGetCardsData } from './types';
+import { TGetCardsData, TransactionFromPeriod } from './types';
 
 import AppError from '../../../../error';
 
@@ -21,7 +19,7 @@ export default async function GetCalculationsByCurrentMonthAndLastMonth(
 
   const getSummaryByCategory = GetSummaryByCategory(
     (findCategory.name as 'Receitas' | 'Despesas'),
-    findTransactionsByPeriod as TTransaction[]
+    findTransactionsByPeriod as TransactionFromPeriod[]
   );
   const getCardsData = GetCardsData(getSummaryByCategory);
 

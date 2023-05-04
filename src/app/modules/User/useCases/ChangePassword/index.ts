@@ -1,7 +1,7 @@
+import { TUser } from '../../../../entities/user/TUser';
 import AppError from '../../../../error';
 import Crypt from '../../../../providers/Crypt';
 import returnErrorMissingField from '../../../../utils/returnErrorMissingField';
-import { TUser } from '../../model';
 import UserRepository from '../../repositories/implementations/UserRepository';
 
 export default async function ChangePassword(

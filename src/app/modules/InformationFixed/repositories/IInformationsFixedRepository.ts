@@ -1,24 +1,23 @@
-import { Types } from 'mongoose';
-import { TInformationFixed } from '../model';
+import { TInformationFixed } from '../../../entities/informationFixed/TInformationFixed';
 
 export interface IInformationFixedRepository {
   registerInformation(
     name: string,
     time: number,
     amount: number,
-    category: Types.ObjectId,
+    categoryId: string,
     userId: string
   ): Promise<TInformationFixed>;
   findUniqueInformationById(id: string): Promise<TInformationFixed | null>;
   findUserOnInformation(userId: string): Promise<TInformationFixed[] | null>;
   updateTimeInformation(
-    infoId: string,
+    id: string,
     time: number
   ): Promise<TInformationFixed | null>;
   updateAmountInformation(
-    infoId: string,
+    id: string,
     amount: number
   ): Promise<TInformationFixed | null>;
-  addTransactionsOnInformation(idInformation: Types.ObjectId, idsTransactions: Types.ObjectId[]): Promise<TInformationFixed | null>;
-  addNewUpdateOnHistoric(id: Types.ObjectId, property: string, value: number): Promise<TInformationFixed | null>;
+  addNewUpdateOnHistoric(id: string, property: string, value: number): Promise<TInformationFixed | null>;
+  deleteInformation(id: string): Promise<unknown>;
 }

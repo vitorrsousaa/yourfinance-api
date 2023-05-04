@@ -1,9 +1,8 @@
-import { Types } from 'mongoose';
 
 export type TObjModality = {
-  _id: Types.ObjectId;
+  id: string;
   name: string;
-  category: Types.ObjectId;
+  category: string;
   amount: number;
 }
 

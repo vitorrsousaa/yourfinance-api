@@ -1,3 +1,4 @@
+import { THistoriGoalBox, TTimeGoalBox } from '../../../../entities/goalBox/TGoalBox';
 import AppError from '../../../../error';
 import GoalBoxRepository from '../../repositories/implementatios/GoalBoxRepository';
 import { TReturnGoalBox } from '../@types';
@@ -13,20 +14,20 @@ export default async function GetAllGoalsBoxOfUser(
     goalCost,
     balance,
     goalTime,
-    _id,
-    historicTransaction
+    id,
+    historicTransactions
   }) => ({
     goalName,
     goalCost,
     balance,
     goalTime: {
-      initialDate: goalTime.initialDate,
-      endDate: goalTime.endDate,
-      endMonths: goalTime.endDate.getMonth() - new Date().getMonth()
+      initialDate: (goalTime as unknown as TTimeGoalBox).initialDate,
+      endDate: (goalTime as TTimeGoalBox).endDate,
+      endMonths: new Date((goalTime as TTimeGoalBox).endDate).getMonth() - new Date().getMonth()
     },
     payOff: goalCost - balance,
-    _id,
-    historicTransaction
+    id,
+    historicTransactions: (historicTransactions as THistoriGoalBox[])
   }));
 
   return calculateBalanceOfGoal;

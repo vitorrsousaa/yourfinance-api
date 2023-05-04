@@ -1,5 +1,5 @@
+import { TInformationFixed } from '../../../../entities/informationFixed/TInformationFixed';
 import AppError from '../../../../error';
-import { TInformationFixed } from '../../model';
 import InformationFixedRepository from '../../repositories/implementations/InformationFixedRepository';
 
 export default async function ViewMyInformationFixed(userId: string): Promise<TInformationFixed[] | null> {

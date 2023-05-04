@@ -1,11 +1,10 @@
+import { TCategory } from '../../../../../entities/category/TCategory';
 import { addTimeZone } from '../../../../../utils/formatDate';
-import { TCategory } from '../../../../Category/model';
-import { TTransaction } from '../../../../Transaction/model';
-import { TReturnMonths } from '../types';
+import { TReturnMonths, TransactionFromPeriod } from '../types';
 
-export default function GetSummaryByCategory(categoryParam: 'Receitas' | 'Despesas', transactionFromPeriod: TTransaction[]): TReturnMonths {
+export default function GetSummaryByCategory(categoryParam: 'Receitas' | 'Despesas', transactionFromPeriod: TransactionFromPeriod[]): TReturnMonths {
   const filteredTransactions = transactionFromPeriod.filter(
-    (transaction) => (transaction.category as TCategory).name === categoryParam
+    (transaction) => (transaction.Category as TCategory).name === categoryParam
   );
   return filteredTransactions.reduce(
     (acc, transaction) => {

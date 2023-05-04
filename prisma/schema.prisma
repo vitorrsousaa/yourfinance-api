@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid()) @unique
+  name      String
+  email     String @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  InformationFixed InformationFixed[]
+  Transactions     Transaction[]
+  GoalsBox         GoalBox[]
+}
+
+model Category {
+  id   String @id @default(uuid())
+  name String
+
+  Modality         Modality[]
+  InformationFixed InformationFixed[]
+  Transaction      Transaction[]
+}
+
+model Modality {
+  id   String @id @default(uuid())
+  name String
+
+  Category    Category      @relation(fields: [categoryId], references: [id])
+  categoryId  String
+  Transaction Transaction[]
+}
+
+model InformationFixed {
+  id        String   @id @default(uuid())
+  name      String
+  time      Int
+  amount    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  historic  Json[]
+
+  User         User          @relation(fields: [userId], references: [id])
+  userId       String
+  Category     Category      @relation(fields: [categoryId], references: [id])
+  categoryId   String
+  Transactions Transaction[]
+}
+
+model Transaction {
+  id        String   @id @default(uuid())
+  name      String
+  date      DateTime
+  type      String
+  amount    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  Category           Category          @relation(fields: [categoryId], references: [id])
+  categoryId         String
+  Modality           Modality          @relation(fields: [modalityId], references: [id])
+  modalityId         String
+  User               User              @relation(fields: [userId], references: [id])
+  userId             String
+  InformationFixed   InformationFixed? @relation(fields: [informationFixedId], references: [id])
+  informationFixedId String?
+}
+
+model GoalBox {
+  id                   String @id @default(uuid())
+  goalName             String
+  goalCost             Int
+  goalTime             Json
+  balance              Int
+  historicTransactions Json[]
+
+  User   User   @relation(fields: [userId], references: [id])
+  userId String
+}

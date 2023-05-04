@@ -1,19 +1,13 @@
-import { Types } from 'mongoose';
+import { THistoriGoalBox, TTimeGoalBox } from '../../../../entities/goalBox/TGoalBox';
 
 export type TReturnGoalBox = {
   goalName: string;
   goalCost: number;
   balance: number;
-  goalTime: {
-    initialDate: Date;
-    endDate: Date;
+  goalTime: TTimeGoalBox & {
     endMonths: number;
   };
   payOff: number;
-  _id: Types.ObjectId;
-  historicTransaction: {
-    date: Date;
-    amount: number;
-    modeTransaction: 'LESS' | 'MORE';
-  }[];
+  id: string;
+  historicTransactions: THistoriGoalBox[];
 }
