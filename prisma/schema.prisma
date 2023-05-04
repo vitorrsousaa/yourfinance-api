@@ -8,9 +8,9 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid()) @unique
+  id        String   @id @unique @default(uuid())
   name      String
-  email     String @unique
+  email     String   @unique
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
@@ -18,6 +18,7 @@ model User {
   InformationFixed InformationFixed[]
   Transactions     Transaction[]
   GoalsBox         GoalBox[]
+  Feedbacks        Feedback[]
 }
 
 model Category {
@@ -83,4 +84,22 @@ model GoalBox {
 
   User   User   @relation(fields: [userId], references: [id])
   userId String
+}
+
+model FeedbackCategory {
+  id   String @id @default(uuid())
+  name String
+
+  Feedbacks Feedback[]
+}
+
+model Feedback {
+  id          String @id @default(uuid())
+  title       String
+  description String
+
+  FeedbackCategory   FeedbackCategory @relation(fields: [feedbackCategoryId], references: [id])
+  feedbackCategoryId String
+  User               User             @relation(fields: [userId], references: [id])
+  userId             String
 }

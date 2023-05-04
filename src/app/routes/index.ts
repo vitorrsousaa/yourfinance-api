@@ -8,6 +8,8 @@ import informationFixedRoutes from './informationFixed.routes';
 import modalityRoutes from './modality.routes';
 import transactionsRoutes from './transactions.routes';
 import userRoutes from './user.routes';
+import feedabckCategoryRoutes from './feedbackCategory.routes';
+import feedbackRoutes from './feedback.routes';
 
 const routes = Router();
 
@@ -19,5 +21,7 @@ routes.use('/api/user', authValidate, userRoutes);
 routes.use('/api/analytics', authValidate, analyticsRoutes);
 routes.use('/api/infofixed', authValidate, informationFixedRoutes);
 routes.use('/api/goalbox', authValidate, goalBoxRoutes);
+routes.use('/api/feedbackcategory', authValidate, feedabckCategoryRoutes);
+routes.use('/api/feedback', authValidate, feedbackRoutes);
 
 export default routes;
