@@ -77,9 +77,9 @@ model Transaction {
 model GoalBox {
   id                   String @id @default(uuid())
   goalName             String
-  goalCost             Int
+  goalCost             Float
   goalTime             Json
-  balance              Int
+  balance              Float
   historicTransactions Json[]
 
   User   User   @relation(fields: [userId], references: [id])
