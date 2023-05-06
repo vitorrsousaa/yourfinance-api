@@ -1,6 +1,6 @@
-import { IUserRepository } from '../IUserRepository';
-import prisma from '../../../../prisma';
 import { TUser } from '../../../../entities/user/TUser';
+import prisma from '../../../../prisma';
+import { IUserRepository } from '../IUserRepository';
 
 class UserRepository implements IUserRepository {
   async findByEmail(email: string): Promise<TUser | null> {

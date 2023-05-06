@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
-import SumTotalAmountByMonth from '../useCases/SumTotalAmountByMonth';
-import GetCalculationsByCurrentMonthAndLastMonth from '../useCases/GetCalculationsByCurrentMonthAndLastMonth';
+
 import GetBiggestAmountsOfModalitiesOnPeriods from '../useCases/GetBiggestAmountsOfModalitiesOnPeriods';
+import GetCalculationsByCurrentMonthAndLastMonth from '../useCases/GetCalculationsByCurrentMonthAndLastMonth';
+import SumTotalAmountByMonth from '../useCases/SumTotalAmountByMonth';
 
 class AnalyticsController {
   async sumTotalAmountByMonth(request: Request, response: Response) {

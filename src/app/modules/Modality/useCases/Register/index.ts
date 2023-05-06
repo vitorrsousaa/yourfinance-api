@@ -1,7 +1,6 @@
 import { TModality } from '../../../../entities/modality/TModality';
 import AppError from '../../../../error';
 import returnErrorMissingField from '../../../../utils/returnErrorMissingField';
-
 import ModalityRepository from '../../repositories/implementation/ModalityRepository';
 
 export default async function Register(

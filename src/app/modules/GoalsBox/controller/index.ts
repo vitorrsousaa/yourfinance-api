@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+
 import CreateGoal from '../useCases/CreateGoal';
 import DeleteGoalBox from '../useCases/DeleteGoalBox';
 import FindUniqueGoal from '../useCases/FindUniqueGoalBox';

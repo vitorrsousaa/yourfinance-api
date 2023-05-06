@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
+
 import Authenticate from '../useCases/Authenticate';
-import Register from '../useCases/Register';
 import RefreshToken from '../useCases/RefreshToken';
+import Register from '../useCases/Register';
 
 class AuthController {
   async register(request: Request, response: Response) {

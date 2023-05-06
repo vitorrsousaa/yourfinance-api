@@ -1,6 +1,6 @@
 import { TCategory } from '../../../../../entities/category/TCategory';
 import { addTimeZone } from '../../../../../utils/formatDate';
-import { TReturnMonths, TransactionFromPeriod } from '../types';
+import { TransactionFromPeriod,TReturnMonths } from '../types';
 
 export default function GetSummaryByCategory(categoryParam: 'Receitas' | 'Despesas', transactionFromPeriod: TransactionFromPeriod[]): TReturnMonths {
   const filteredTransactions = transactionFromPeriod.filter(

@@ -1,12 +1,12 @@
-import generateToken from '../../../../utils/generateToken';
-import AppError from '../../../../error';
-import UserRepository from '../../../User/repositories/implementations/UserRepository';
 import {
   ACCESS_TOKEN_EXPIRATION,
   REFRESH_TOKEN_EXPIRATION,
 } from '../../../../constants/auth';
-import Crypt from '../../../../providers/Crypt';
 import { TUser } from '../../../../entities/user/TUser';
+import AppError from '../../../../error';
+import Crypt from '../../../../providers/Crypt';
+import generateToken from '../../../../utils/generateToken';
+import UserRepository from '../../../User/repositories/implementations/UserRepository';
 
 export default async function Register(
   email: string,

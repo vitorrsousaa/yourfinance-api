@@ -1,5 +1,6 @@
-import authConfig from '../../config/auth.json';
 import jwt from 'jsonwebtoken';
+
+import authConfig from '../../config/auth.json';
 
 export default function generateToken(
   id: string,

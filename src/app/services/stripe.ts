@@ -1,5 +1,5 @@
-import { Stripe } from 'stripe';
 import * as dotenv from 'dotenv';
+import { Stripe } from 'stripe';
 dotenv.config();
 
 const stripe = new Stripe(

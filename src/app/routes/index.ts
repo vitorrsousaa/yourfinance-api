@@ -1,15 +1,16 @@
 import { Router } from 'express';
+
 import authValidate from '../middlewares/auth';
 import analyticsRoutes from './analytics.routes';
 import authRoutes from './auth.routes';
 import categoryRoutes from './category.routes';
+import feedbackRoutes from './feedback.routes';
+import feedabckCategoryRoutes from './feedbackCategory.routes';
 import goalBoxRoutes from './goalBox.routes';
 import informationFixedRoutes from './informationFixed.routes';
 import modalityRoutes from './modality.routes';
 import transactionsRoutes from './transactions.routes';
 import userRoutes from './user.routes';
-import feedabckCategoryRoutes from './feedbackCategory.routes';
-import feedbackRoutes from './feedback.routes';
 
 const routes = Router();
 

@@ -1,4 +1,5 @@
 import { Prisma } from '@prisma/client';
+
 import prismaClient from '../../../../../prisma';
 
 export default async function PrismaTransactionRegistrationInformation(

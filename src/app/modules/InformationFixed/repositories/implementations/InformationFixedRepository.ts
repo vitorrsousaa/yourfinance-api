@@ -1,4 +1,5 @@
 import { Prisma } from '@prisma/client';
+
 import { TInformationFixed } from '../../../../entities/informationFixed/TInformationFixed';
 import prisma from '../../../../prisma';
 import { IInformationFixedRepository } from '../IInformationsFixedRepository';

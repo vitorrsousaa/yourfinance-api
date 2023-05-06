@@ -1,8 +1,9 @@
 import { sub } from 'date-fns';
+
 import TransactionRepository from '../../../Transaction/repositories/implementation/TransactionRepository';
-import { TB, TObjModality } from './types';
 import { getMonthDiff, getPeriod } from './funcs/datesManipulate';
 import { ManipulateModalities } from './funcs/manipulateModalities';
+import { TB, TObjModality } from './types';
 
 export default async function GetBiggestAmountsOfModalitiesOnPeriods(userId: string) {
   const data = sub(new Date(), { months: 12 });

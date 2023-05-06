@@ -1,7 +1,7 @@
-import TransactionRepository from '../../repositories/implementation/TransactionRepository';
-import AppError from '../../../../error';
 import { itemsPerPage } from '../../../../constants/pagination';
 import { TTransaction } from '../../../../entities/transaction/TTransaction';
+import AppError from '../../../../error';
+import TransactionRepository from '../../repositories/implementation/TransactionRepository';
 
 export default async function ListAllTransactions(
   page: number,

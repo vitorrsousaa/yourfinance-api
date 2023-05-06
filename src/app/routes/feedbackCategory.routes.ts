@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import FeedbackCategoryController from '../modules/FeedbackCategory/controller';
 
 const feedabckCategoryRoutes = Router();

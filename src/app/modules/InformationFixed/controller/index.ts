@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+
 import RegistrationInformation from '../useCases/RegistrationInformation';
 import UpdatedMyInfos from '../useCases/UpdateMyInfos';
 import ViewMyInformationFixed from '../useCases/ViewMyInformationFixed';

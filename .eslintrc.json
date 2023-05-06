@@ -9,12 +9,34 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "simple-import-sort"],
   "rules": {
     "indent": ["warn", 2],
     "linebreak-style": ["error", "windows"],
     "quotes": ["warn", "single"],
     "semi": ["warn", "always"],
-    "@typescript-eslint/prefer-namespace-keyword": "off"
-  }
+    "@typescript-eslint/prefer-namespace-keyword": "off",
+    "simple-import-sort/imports": "error"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.js", "**/*.ts"],
+
+      "rules": {
+        "simple-import-sort/imports": [
+          "error",
+          {
+            "groups": [
+              ["^.*\\u0000$"],
+              ["^\\u0000"],
+              ["^node:"],
+              ["^@?\\w"],
+              ["^"],
+              ["^\\."]
+            ]
+          }
+        ]
+      }
+    }
+  ]
 }

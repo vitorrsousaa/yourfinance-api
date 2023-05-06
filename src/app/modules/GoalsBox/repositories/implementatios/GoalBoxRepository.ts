@@ -1,4 +1,5 @@
 import { Prisma } from '@prisma/client';
+
 import { TGoalBox, TTimeGoalBox } from '../../../../entities/goalBox/TGoalBox';
 import prisma from '../../../../prisma';
 import { IGoalBoxRepository } from '../IGoalBoxRepository';

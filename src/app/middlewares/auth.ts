@@ -1,8 +1,8 @@
-import { NextFunction, request, Request, Response } from 'express';
+import { NextFunction, Request, request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import AppError from '../error';
 
 import authConfig from '../../config/auth.json';
+import AppError from '../error';
 
 interface PayloadProps {
   id: string;

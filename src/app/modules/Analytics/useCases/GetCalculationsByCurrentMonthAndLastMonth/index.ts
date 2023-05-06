@@ -1,11 +1,9 @@
+import AppError from '../../../../error';
 import CategoryRepository from '../../../Category/repositories/implementation/CategoryRepository';
 import GetTransactionsByPeriod from '../../../Transaction/useCases/GetTransactionsByPeriod';
-
 import GetCardsData from './funcs/GetCardsData';
 import GetSummaryByCategory from './funcs/GetSummaryByCategory';
 import { TGetCardsData, TransactionFromPeriod } from './types';
-
-import AppError from '../../../../error';
 
 export default async function GetCalculationsByCurrentMonthAndLastMonth(
   // period: string,

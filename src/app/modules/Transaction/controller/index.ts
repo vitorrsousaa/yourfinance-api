@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
+
 import Create from '../useCases/Create';
 import Delete from '../useCases/Delete';
-import ListTransactionsByPage from '../useCases/ListTransactionsByPage';
 import GetAllTransactionByUser from '../useCases/GetAllTransactionByUser';
+import ListTransactionsByPage from '../useCases/ListTransactionsByPage';
 
 class TransactionController {
   async index(request: Request, response: Response) {

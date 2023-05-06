@@ -1,7 +1,8 @@
-import { differenceInCalendarMonths } from 'date-fns';
-import prismaClient from '../../../../../prisma';
-import { TInformationFixed } from '../../../../../entities/informationFixed/TInformationFixed';
 import { Prisma } from '@prisma/client';
+import { differenceInCalendarMonths } from 'date-fns';
+
+import { TInformationFixed } from '../../../../../entities/informationFixed/TInformationFixed';
+import prismaClient from '../../../../../prisma';
 
 export default async function PrismaTransactionUpdateMyInfos(
   valueInformation: Date | number,

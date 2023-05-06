@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+
 import CreateCheckoutSession from '../useCases/CreateCheckoutSession';
 import Subscription from '../useCases/Subscription';
 

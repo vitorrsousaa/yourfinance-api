@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+
 import Delete from '../useCases/Delete';
 import FindaAll from '../useCases/FindAll';
 import Register from '../useCases/Register';

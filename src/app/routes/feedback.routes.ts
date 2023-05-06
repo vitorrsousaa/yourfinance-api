@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import FeedbackController from '../modules/Feedback/controller';
 
 const feedbackRoutes = Router();
