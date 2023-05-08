@@ -16,13 +16,13 @@ export default async function CreateGoal(
   const findUser = await UserRepository.findById(user);
   if (!findUser) throw new AppError('Ouve algum error ao buscar suas informações!', 404);
 
-  const createGoal = await GoalBoxRepository.registerGoal(
+  const createGoal = await GoalBoxRepository.registerGoal({
     goalName,
     goalCost,
     goalTime,
-    initialValue,
+    balance: initialValue,
     user,
-  );
+  });
 
   return createGoal;
 }

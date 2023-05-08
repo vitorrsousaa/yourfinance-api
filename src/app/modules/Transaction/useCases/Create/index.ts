@@ -4,7 +4,7 @@ import TransactionRepository from '../../repositories/implementation/Transaction
 
 export default async function CreateTransaction(
   infosTransaction: Omit<TTransaction, 'id' | 'createdAt' | 'updatedAt' | 'userId' | 'informationFixedId'>,
-  user: string,
+  userId: string,
   isInformationFixed?: boolean,
   idInformationFixed?: string,
 ): Promise<TTransaction> {
@@ -16,30 +16,29 @@ export default async function CreateTransaction(
     'amount',
     'date',
   ]);
-
   const { name, categoryId, type, modalityId, amount, date } =
     infosTransaction;
 
   if (isInformationFixed) {
-    return TransactionRepository.create(
+    return TransactionRepository.create({
       name,
       categoryId,
       modalityId,
       type,
-      user,
+      userId,
       amount,
-      new Date(date),
-      idInformationFixed
-    );
+      date: new Date(date),
+      informationFixedId: idInformationFixed as string
+    });
   }
 
-  return TransactionRepository.create(
+  return TransactionRepository.create({
     name,
     categoryId,
     modalityId,
     type,
-    user,
+    userId,
     amount,
-    new Date(date)
-  );
+    date: new Date(date)
+  });
 }

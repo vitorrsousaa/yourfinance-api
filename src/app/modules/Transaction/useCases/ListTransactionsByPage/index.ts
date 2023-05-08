@@ -11,7 +11,7 @@ export default async function ListAllTransactions(
   page: number,
   transactions: TTransaction[] | null
 }> {
-  const transactions = await TransactionRepository.findTransactionByIdUserAndPage(id, page);
+  const transactions = await TransactionRepository.findTransactionByIdUserAndPage({id, page});
   if (transactions === null) throw new AppError('Voce não tem nenhuma transação!');
 
   return {

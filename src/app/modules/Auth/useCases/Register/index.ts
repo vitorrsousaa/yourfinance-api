@@ -20,7 +20,7 @@ export default async function Register(
   }
 
   const hashedPassword = await Crypt.hash(password);
-  const newUser = await UserRepository.create(name, email, hashedPassword);
+  const newUser = await UserRepository.create({name, email, password: hashedPassword});
   newUser.password = '';
 
   return {

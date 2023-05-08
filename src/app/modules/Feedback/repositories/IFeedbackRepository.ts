@@ -1,5 +1,6 @@
 import { TFeedback } from '../../../entities/feedback/TFeedback';
+import { FeedbackCreateRequestDTO } from '../../../entities/feedback/dtos';
 
 export interface IFeedbackRepository {
-  create(title: string, description: string, feedbackCategoryId: string, userId: string): Promise<TFeedback>;
+  create({title, description, feedbackCategoryId, userId}: FeedbackCreateRequestDTO): Promise<TFeedback>;
 }

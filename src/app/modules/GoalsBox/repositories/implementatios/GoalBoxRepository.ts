@@ -3,15 +3,16 @@ import { Prisma } from '@prisma/client';
 import { TGoalBox, TTimeGoalBox } from '../../../../entities/goalBox/TGoalBox';
 import prisma from '../../../../prisma';
 import { IGoalBoxRepository } from '../IGoalBoxRepository';
+import { GoalBoxCreatUpdateRequestDTO, GoalBoxCreateRequestDTO } from '../../../../entities/goalBox/dtos';
 
 class GoalBoxRepository implements IGoalBoxRepository {
-  async registerGoal(
-    goalName: string,
-    goalCost: number,
-    goalTime: TTimeGoalBox,
-    balance: number,
-    user: string,
-  ): Promise<TGoalBox> {
+  async registerGoal({
+    goalName,
+    goalCost,
+    goalTime,
+    balance,
+    user,
+  }: GoalBoxCreateRequestDTO): Promise<TGoalBox> {
     const historic = [{
       date: new Date(),
       amount: balance,
@@ -51,12 +52,12 @@ class GoalBoxRepository implements IGoalBoxRepository {
     });
   }
 
-  async updateBalanceOfGoalBox(
-    id: string,
-    balance: number,
-    amountTransaction: number,
-    modeTransaction: 'LESS' | 'MORE'
-  ): Promise<TGoalBox | null> {
+  async updateBalanceOfGoalBox({
+    id,
+    balance,
+    amountTransaction,
+    modeTransaction,
+  }: GoalBoxCreatUpdateRequestDTO): Promise<TGoalBox | null> {
     const historic = [{
       date: new Date(),
       amount: amountTransaction,

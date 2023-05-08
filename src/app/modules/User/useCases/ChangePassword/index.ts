@@ -31,7 +31,7 @@ export default async function ChangePassword(
 
   const hashNewPassword = await Crypt.hash(newPassword);
 
-  const updatedPassword = await UserRepository.updatePassword(idUser, hashNewPassword);
+  const updatedPassword = await UserRepository.updatePassword({id: idUser, password: hashNewPassword});
 
   updatedPassword?.password ? '' : '';
 

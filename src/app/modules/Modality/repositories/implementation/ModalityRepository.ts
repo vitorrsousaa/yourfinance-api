@@ -1,9 +1,10 @@
 import { TModality } from '../../../../entities/modality/TModality';
+import { ModalityCreateRequestDTO } from '../../../../entities/modality/dtos/ModalityCreateRequest';
 import prisma from '../../../../prisma';
 import { IModalityRespository } from '../IModalityRepository';
 
 class ModalityRepository implements IModalityRespository {
-  async create(name: string, categoryId: string): Promise<TModality> {
+  async create({name, categoryId}: ModalityCreateRequestDTO): Promise<TModality> {
     return prisma.modality.create({
       data: {
         name,

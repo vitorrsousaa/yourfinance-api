@@ -1,20 +1,21 @@
-import { TGoalBox, TTimeGoalBox } from '../../../entities/goalBox/TGoalBox';
+import { TGoalBox } from '../../../entities/goalBox/TGoalBox';
+import { GoalBoxCreatUpdateRequestDTO, GoalBoxCreateRequestDTO } from '../../../entities/goalBox/dtos';
 
 export interface IGoalBoxRepository {
-  registerGoal(
-    goalName: string,
-    goalCost: number,
-    goalTime: TTimeGoalBox,
-    balance: number,
-    user: string,
-  ): Promise<TGoalBox>;
+  registerGoal({
+    goalName,
+    goalCost,
+    goalTime,
+    balance,
+    user,
+  }: GoalBoxCreateRequestDTO): Promise<TGoalBox>;
   getAllGoalsBoxOfUser(userId: string): Promise<TGoalBox[] | null>;
   findUniqueGoalBox(id: string): Promise<TGoalBox | null>;
-  updateBalanceOfGoalBox(
-    id: string,
-    balance: number,
-    amountTransaction: number,
-    modeTransaction: 'LESS' | 'MORE',
-  ): Promise<TGoalBox | null>;
+  updateBalanceOfGoalBox({
+    id,
+    balance,
+    amountTransaction,
+    modeTransaction,
+  }: GoalBoxCreatUpdateRequestDTO): Promise<TGoalBox | null>;
   deleteGoalBox(id: string): Promise<unknown>;
 }

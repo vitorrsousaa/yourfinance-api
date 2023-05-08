@@ -1,6 +1,7 @@
-import { TUser } from '../../../../entities/user/TUser';
-import prisma from '../../../../prisma';
 import { IUserRepository } from '../IUserRepository';
+import prisma from '../../../../prisma';
+import { TUser } from '../../../../entities/user/TUser';
+import { UserCreateRequestDTO, UserUpdateRequestDTO } from '../../../../entities/user/dtos';
 
 class UserRepository implements IUserRepository {
   async findByEmail(email: string): Promise<TUser | null> {
@@ -11,14 +12,13 @@ class UserRepository implements IUserRepository {
     });
   }
 
-  async create(name: string, email: string, password: string): Promise<TUser> {
+  async create({name, email, password}: UserCreateRequestDTO): Promise<TUser> {
     return prisma.user.create({
       data: {
         name, email, password
       }
     });
   }
-
   async findById(id: string): Promise<TUser | null> {
     return prisma.user.findUnique({
       where: {
@@ -27,7 +27,7 @@ class UserRepository implements IUserRepository {
     });
   }
 
-  async updatePassword(id: string, password: string): Promise<TUser | null> {
+  async updatePassword({id, password}: UserUpdateRequestDTO): Promise<TUser | null> {
     return prisma.user.update({
       data: {
         password
@@ -38,5 +38,4 @@ class UserRepository implements IUserRepository {
     });
   }
 }
-
 export default new UserRepository();

@@ -10,12 +10,12 @@ class FeedbackController {
       feedbackCategoryId,
     } = request.body;
 
-    const create = await CreateFeedback(
+    const create = await CreateFeedback({
       title,
       description,
       feedbackCategoryId,
-      request.user.id
-    );
+      userId: request.user.id
+    });
 
     return response.status(201).json(create);  }
 }

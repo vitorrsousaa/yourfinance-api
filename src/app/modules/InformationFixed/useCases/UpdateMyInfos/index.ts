@@ -9,7 +9,7 @@ export default async function UpdatedMyInfos(
   whichInformation: 'TIME' | 'AMOUNT',
   newValueInformation: Date | number,
 ): Promise<TInformationFixed | null> {
-  const findUserOnInformations = await InformationFixedRepository.findUserOnInformation(userId);
+  const findUserOnInformations = await InformationFixedRepository.findUserOnInformation(idInformation);
   if (!findUserOnInformations) throw new AppError('Parece que voce não tem essas informações cadastradas!');
 
   const findInformation = findUserOnInformations.find(({ id }) => id === idInformation);

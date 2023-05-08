@@ -21,7 +21,12 @@ export default async function UpdateBalanceOfGoalBox(
   }
 
   const updateBalanceOfGoal = await GoalBoxRepository
-    .updateBalanceOfGoalBox(goalBoxId, newValueBalance, balanceValue, modeSum);
+    .updateBalanceOfGoalBox({
+      id: goalBoxId,
+      balance: newValueBalance,
+      amountTransaction: balanceValue,
+      modeTransaction: modeSum
+    });
   if (!updateBalanceOfGoal) throw new AppError('Ouve algum erro ao fazer a mudança no valor juntado da meta!');
 
   const { goalName, goalCost, goalTime, balance, id, historicTransactions } = updateBalanceOfGoal;

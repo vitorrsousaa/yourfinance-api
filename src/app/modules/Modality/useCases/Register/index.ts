@@ -15,7 +15,7 @@ export default async function Register(
     throw new AppError('Está modalidade já existe!');
   }
 
-  const modality = await ModalityRepository.create(name, category);
+  const modality = await ModalityRepository.create({name, categoryId: category});
 
   return {
     modality,

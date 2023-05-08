@@ -3,10 +3,11 @@ import { TCategory } from '../../../../entities/category/TCategory';
 import { TTransaction } from '../../../../entities/transaction/TTransaction';
 import prisma from '../../../../prisma';
 import { ITransactionRepository, TReturnTransactionsWithCategoryAndModality } from '../ITransactionRepository';
+import { TransactionCreateRequestDTO, TransactionGetRequestDTO } from '../../../../entities/transaction/dtos';
 
 class TransactionRepository implements ITransactionRepository {
-  async findTransactionByIdUserAndPage(id: string, page: number): Promise<TReturnTransactionsWithCategoryAndModality[] | null> {
-    const skipPages = page * itemsPerPage;
+  async findTransactionByIdUserAndPage({id, page}: TransactionGetRequestDTO<number>): Promise<TReturnTransactionsWithCategoryAndModality[] | null> {
+    const skipPages = (page as number) * itemsPerPage;
 
     return prisma.transaction.findMany({
       where: {
@@ -32,14 +33,11 @@ class TransactionRepository implements ITransactionRepository {
     });
   }
 
-  async findByPeriod(
-    id: string,
-    month: string
-  ): Promise<TReturnTransactionsWithCategoryAndModality[] | null> {
+  async findByPeriod({id, month}: TransactionGetRequestDTO<string>): Promise<TReturnTransactionsWithCategoryAndModality[] | null> {
     const endDate = new Date();
 
     const year = endDate.getFullYear();
-    const lastMonths = endDate.getMonth() - parseInt(month);
+    const lastMonths = endDate.getMonth() - parseInt((month as string));
     const day = endDate.getDay();
 
     const startDate = new Date(year, lastMonths, day);
@@ -59,14 +57,14 @@ class TransactionRepository implements ITransactionRepository {
     });
   }
 
-  async findByDateAgo(id: string, date: Date): Promise<TReturnTransactionsWithCategoryAndModality[] | null> {
+  async findByDateAgo({id, date}: TransactionGetRequestDTO<Date>): Promise<TReturnTransactionsWithCategoryAndModality[] | null> {
     const endDate = new Date();
 
     return prisma.transaction.findMany({
       where: {
         userId: id,
         date: {
-          gte: date,
+          gte: (date as Date),
           lte: endDate
         }
       },
@@ -77,16 +75,16 @@ class TransactionRepository implements ITransactionRepository {
     });
   }
 
-  async create(
-    name: string,
-    categoryId: string,
-    modalityId: string,
-    type: string,
-    userId: string,
-    amount: number,
-    date: Date,
-    informationFixedId?: string
-  ): Promise<TTransaction> {
+  async create({
+    name,
+    categoryId,
+    modalityId,
+    type,
+    userId,
+    amount,
+    date,
+    informationFixedId
+  }: TransactionCreateRequestDTO): Promise<TTransaction> {
     return prisma.transaction.create({
       data: {
         name,
