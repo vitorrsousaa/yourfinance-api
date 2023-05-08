@@ -10,9 +10,10 @@ export default async function PrismaTransactionRegistrationInformation(
   modalityId: string,
   type: string,
   userId: string,
+  initialDate: Date,
 ) {
   return prismaClient.$transaction(async (prisma) => {
-    const date = new Date();
+    const date = initialDate;
 
     const historic = [
       { property: 'TIME', value: time, updatedAt: new Date() },
@@ -26,11 +27,13 @@ export default async function PrismaTransactionRegistrationInformation(
         amount,
         categoryId,
         userId,
-        historic
+        historic,
+        createdAt: initialDate
       }
     });
 
-    for (let i = 0; i < time; ++i) {
+    for (let i = 0; i < time; i++) {
+      console.log(i)
       const calculateMonthsMoreTwelve = time - i;
       const verificationIfMonthIsMoreTwelve = date.getMonth() + 1 + i > 12
         ? calculateMonthsMoreTwelve
@@ -43,8 +46,9 @@ export default async function PrismaTransactionRegistrationInformation(
       const newDate = new Date(
         `${verificationIfMonthIsMoreTwelveToAdd1YearOnYear}-${
           verificationIfMonthIsMoreTwelve < 10 ? '0' + verificationIfMonthIsMoreTwelve : verificationIfMonthIsMoreTwelve
-        }-${date.getDate()}`
+        }-${initialDate.getDate() + 1}`
       );
+      console.log(newDate)
 
       await prisma.transaction.create({
         data: {

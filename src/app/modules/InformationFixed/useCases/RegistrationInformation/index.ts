@@ -4,6 +4,7 @@ import PrismaTransactionRegistrationInformation from './PrismaTransactionRegistr
 
 export default async function RegistrationInformation(
   time: number,
+  initialDate: Date,
   infosTransactionFixed: TTransaction,
   userId: string,
 ): Promise<TInformationFixed> {
@@ -16,7 +17,8 @@ export default async function RegistrationInformation(
     categoryId,
     modalityId,
     type,
-    userId
+    userId,
+    initialDate
   );
 
   return transaction;

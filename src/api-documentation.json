@@ -611,6 +611,10 @@
                   "time": {
                     "type": "number"
                   },
+                  "initialDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
                   "infosTransactionFixed": {
                     "$ref": "#/definitions/TransactionModel"
                   }
@@ -1264,6 +1268,9 @@
       "type": "object",
       "properties": {
         "name": {
+          "type": "string"
+        },
+        "id": {
           "type": "string"
         }
       }

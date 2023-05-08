@@ -9,11 +9,13 @@ class InformationFixedController {
     const {
       time,
       infosTransactionFixed,
+      initialDate
     } = request.body;
     const registration = await RegistrationInformation(
       time,
+      new Date(initialDate),
       infosTransactionFixed,
-      request.user.id
+      request.user.id,
     );
 
     return response.status(201).json(registration);
