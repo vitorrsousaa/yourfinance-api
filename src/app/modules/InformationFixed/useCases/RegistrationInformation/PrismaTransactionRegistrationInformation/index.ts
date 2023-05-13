@@ -8,7 +8,6 @@ export default async function PrismaTransactionRegistrationInformation(
   amount: number,
   categoryId: string,
   modalityId: string,
-  type: string,
   userId: string,
   initialDate: Date,
 ) {
@@ -33,7 +32,7 @@ export default async function PrismaTransactionRegistrationInformation(
     });
 
     for (let i = 0; i < time; i++) {
-      console.log(i)
+      console.log(i);
       const calculateMonthsMoreTwelve = time - i;
       const verificationIfMonthIsMoreTwelve = date.getMonth() + 1 + i > 12
         ? calculateMonthsMoreTwelve
@@ -48,14 +47,14 @@ export default async function PrismaTransactionRegistrationInformation(
           verificationIfMonthIsMoreTwelve < 10 ? '0' + verificationIfMonthIsMoreTwelve : verificationIfMonthIsMoreTwelve
         }-${initialDate.getDate() + 1}`
       );
-      console.log(newDate)
+      console.log(newDate);
 
       await prisma.transaction.create({
         data: {
           name,
           categoryId,
           modalityId,
-          type,
+          type: 'Fixa',
           userId,
           amount,
           date: newDate,

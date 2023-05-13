@@ -26,15 +26,11 @@ class TransactionController {
 
     const {
       infosTransaction,
-      isInformationFixed,
-      idInformationFixed
     } = request.body;
 
     const createTransaction = await Create(
       infosTransaction,
       id,
-      isInformationFixed,
-      idInformationFixed
     );
 
     return response.status(201).send(createTransaction);

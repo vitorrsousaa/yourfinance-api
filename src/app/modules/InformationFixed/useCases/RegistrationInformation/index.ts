@@ -8,7 +8,7 @@ export default async function RegistrationInformation(
   infosTransactionFixed: TTransaction,
   userId: string,
 ): Promise<TInformationFixed> {
-  const { name, categoryId, type, modalityId, amount } = infosTransactionFixed;
+  const { name, categoryId, modalityId, amount } = infosTransactionFixed;
 
   const transaction = await PrismaTransactionRegistrationInformation(
     name,
@@ -16,7 +16,6 @@ export default async function RegistrationInformation(
     amount,
     categoryId,
     modalityId,
-    type,
     userId,
     initialDate
   );
