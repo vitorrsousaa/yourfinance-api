@@ -1,9 +1,10 @@
 import { Prisma } from '@prisma/client';
+import { v4 as uuid } from 'uuid';
 
-import { TGoalBox, TTimeGoalBox } from '../../../../entities/goalBox/TGoalBox';
+import { GoalBoxCreateRequestDTO,GoalBoxCreatUpdateRequestDTO } from '../../../../entities/goalBox/dtos';
+import { TGoalBox } from '../../../../entities/goalBox/TGoalBox';
 import prisma from '../../../../prisma';
 import { IGoalBoxRepository } from '../IGoalBoxRepository';
-import { GoalBoxCreatUpdateRequestDTO, GoalBoxCreateRequestDTO } from '../../../../entities/goalBox/dtos';
 
 class GoalBoxRepository implements IGoalBoxRepository {
   async registerGoal({
@@ -14,6 +15,7 @@ class GoalBoxRepository implements IGoalBoxRepository {
     user,
   }: GoalBoxCreateRequestDTO): Promise<TGoalBox> {
     const historic = [{
+      id: `${new Date()}-${uuid()}`,
       date: new Date(),
       amount: balance,
       modeTransaction: balance <= 1 ? 'LESS' : 'MORE'

@@ -1,6 +1,7 @@
 import { Prisma } from '@prisma/client';
 
 export type THistoriGoalBox = {
+  id: string;
   date: Date;
   amount: number;
   modeTransaction: 'LESS' | 'MORE';
