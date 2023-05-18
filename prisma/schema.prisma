@@ -43,7 +43,7 @@ model InformationFixed {
   id        String   @id @default(uuid())
   name      String
   time      Int
-  amount    Int
+  amount    Float
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   historic  Json[]
@@ -60,7 +60,7 @@ model Transaction {
   name      String
   date      DateTime
   type      String
-  amount    Int
+  amount    Float
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
