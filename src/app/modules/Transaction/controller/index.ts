@@ -11,27 +11,24 @@ class TransactionController {
     const id = request.user.id;
 
     if (page) {
-      const listTransactionsByPage = await ListTransactionsByPage(Number(page), id);
+      const listTransactionsByPage = await ListTransactionsByPage(
+        Number(page),
+        id
+      );
       return response.status(200).send(listTransactionsByPage);
     }
 
     const transactions = await GetAllTransactionByUser(id);
 
     return response.status(200).json(transactions);
-
   }
 
   async store(request: Request, response: Response) {
     const id = request.user.id;
 
-    const {
-      infosTransaction,
-    } = request.body;
+    const infosTransaction = request.body;
 
-    const createTransaction = await Create(
-      infosTransaction,
-      id,
-    );
+    const createTransaction = await Create(infosTransaction, id);
 
     return response.status(201).send(createTransaction);
   }
