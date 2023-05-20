@@ -16,7 +16,7 @@ export default function authValidate(
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    throw new AppError('Não esta autorizado');
+    throw new AppError('Houve um erro na autenticação');
   }
 
   // Verificar se o token esta no formato JWT
@@ -40,6 +40,6 @@ export default function authValidate(
 
     next();
   } catch (error) {
-    throw new AppError('Houve um erro na autenticação', 401);
+    throw new AppError('Não esta autorizado', 401);
   }
 }
