@@ -1,14 +1,14 @@
-# yourFinance - Server
+# yourFinance
 
 Um parágrafo da descrição do projeto vai aqui
 
 ## Tópicos
 
 <div>
- • <a href="#-sobre-o-your-finance">Sobre o yourFinance</a> </br>
+ • <a href="#-sobre-o-yourfinance">Sobre o yourFinance</a> </br>
  • <a href="#-tecnologias">Tecnologias</a> </br>
- • <a href="#-pre-requisitos">Pré requisitos</a> </br>
- • <a href="#-rodando-a-aplicacao">Rodando a aplicação</a> </br>
+ • <a href="#-pré-requisitos">Pré requisitos</a> </br>
+ • <a href="#-rodando-a-aplicação">Rodando a aplicação</a> </br>
  • <a href="#-executando-os-testes">Executando os testes</a> </br>
  • <a href="#-colaborando">Colaborando</a> </br>
  • <a href="#user-content--licença">Licença</a></br>
@@ -38,14 +38,14 @@ Tecnologias e ferramentas utilizadas no desenvolvimento do projeto:
 - Versionamento: **[Git](https://git-scm.com)**
 - Padronização de código: **[ESLint](https://eslint.org/)**
 
-### 📋 Pré-requisitos
+## 📋 Pré-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas: <br />
 → [Git](https://git-scm.com);<br />
 → [Node.js](https://nodejs.org/en/);<br />
 → [Docker](https://www.docker.com/); <br />
 
-### 🎲 Rodando a aplicação
+## 🎲 Rodando a aplicação
 
 ```bash
 # Clone este repositório
