@@ -1,20 +1,20 @@
 import { TCategory } from '../../../../../entities/category/TCategory';
 import { addTimeZone } from '../../../../../utils/formatDate';
-import { TransactionFromPeriod,TReturnMonths } from '../types';
+import { TransactionFromPeriod, TReturnMonths } from '../types';
 
-export default function GetSummaryByCategory(categoryParam: 'Receitas' | 'Despesas', transactionFromPeriod: TransactionFromPeriod[]): TReturnMonths {
+export default function GetSummaryByCategory(
+  category: TCategory,
+  transactionFromPeriod: TransactionFromPeriod[]
+): TReturnMonths {
   const filteredTransactions = transactionFromPeriod.filter(
-    (transaction) => (transaction.Category as TCategory).name === categoryParam
+    (transaction) => (transaction.Category as TCategory).id === category.id
   );
+
   return filteredTransactions.reduce(
     (acc, transaction) => {
       const { amount, date } = transaction;
       const today = new Date();
-      const lastMonth = new Date(
-        today.getFullYear(),
-        today.getMonth() - 1,
-        1
-      );
+      const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
       const currentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 
       const dateTransaction = addTimeZone(String(date));
@@ -30,6 +30,7 @@ export default function GetSummaryByCategory(categoryParam: 'Receitas' | 'Despes
       return acc;
     },
     {
+      category,
       currentMonth: 0,
       lastMonth: 0,
     }
