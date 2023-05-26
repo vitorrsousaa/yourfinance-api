@@ -6,10 +6,10 @@ Um parágrafo da descrição do projeto vai aqui
 
 <div>
  • <a href="#-sobre-o-yourfinance">Sobre o yourFinance</a> </br>
- • <a href="#-tecnologias">Tecnologias</a> </br>
+ • <a href="#%EF%B8%8F-tecnologias">Tecnologias</a> </br>
  • <a href="#-pré-requisitos">Pré requisitos</a> </br>
  • <a href="#-rodando-a-aplicação">Rodando a aplicação</a> </br>
- • <a href="#-executando-os-testes">Executando os testes</a> </br>
+ • <a href="#%EF%B8%8F-executando-os-testes">Executando os testes</a> </br>
  • <a href="#-colaborando">Colaborando</a> </br>
  • <a href="#user-content--licença">Licença</a></br>
 </div>
