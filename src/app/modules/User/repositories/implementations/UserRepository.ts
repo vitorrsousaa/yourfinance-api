@@ -1,40 +1,52 @@
-import { IUserRepository } from '../IUserRepository';
-import prisma from '../../../../prisma';
+import {
+  UserCreateRequestDTO,
+  UserUpdateRequestDTO,
+} from '../../../../entities/user/dtos';
 import { TUser } from '../../../../entities/user/TUser';
-import { UserCreateRequestDTO, UserUpdateRequestDTO } from '../../../../entities/user/dtos';
+import prisma from '../../../../prisma';
+import { IUserRepository } from '../IUserRepository';
 
 class UserRepository implements IUserRepository {
   async findByEmail(email: string): Promise<TUser | null> {
     return prisma.user.findFirst({
       where: {
-        email
-      }
+        email,
+      },
     });
   }
 
-  async create({name, email, password}: UserCreateRequestDTO): Promise<TUser> {
+  async create({
+    name,
+    email,
+    password,
+  }: UserCreateRequestDTO): Promise<TUser> {
     return prisma.user.create({
       data: {
-        name, email, password
-      }
+        name,
+        email,
+        password,
+      },
     });
   }
   async findById(id: string): Promise<TUser | null> {
     return prisma.user.findUnique({
       where: {
-        id
-      }
+        id,
+      },
     });
   }
 
-  async updatePassword({id, password}: UserUpdateRequestDTO): Promise<TUser | null> {
+  async updatePassword({
+    id,
+    password,
+  }: UserUpdateRequestDTO): Promise<TUser | null> {
     return prisma.user.update({
       data: {
-        password
+        password,
       },
       where: {
-        id
-      }
+        id,
+      },
     });
   }
 }
