@@ -27,7 +27,7 @@ jobs:
       - name: Check if CHANGELOG.md was modified
         id: check-file
         run: |
-          echo "::set-output name=modified::$(git diff --name-only ${{ github.base_ref }} ${{ github.head_ref }})"
+          echo "::set-output name=modified::$(git diff --name-only ${{ github.base_ref }} ${{ github.head_ref }} | grep -w "CHANGELOG.md")"
 
       - name: Run Step if CHANGELOG.md was modified
         run: |
