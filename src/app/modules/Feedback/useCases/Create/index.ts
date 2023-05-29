@@ -1,5 +1,5 @@
-import { TFeedback } from '../../../../entities/feedback/TFeedback';
 import { FeedbackCreateRequestDTO } from '../../../../entities/feedback/dtos';
+import { TFeedback } from '../../../../entities/feedback/TFeedback';
 import FindFeedbackCategoryById from '../../../FeedbackCategory/useCases/FindById';
 import FeedbackRepository from '../../repositories/implementation/FeedbackRepository';
 

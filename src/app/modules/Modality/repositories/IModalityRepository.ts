@@ -1,5 +1,5 @@
-import { TModality } from '../../../entities/modality/TModality';
 import { ModalityCreateRequestDTO } from '../../../entities/modality/dtos/ModalityCreateRequest';
+import { TModality } from '../../../entities/modality/TModality';
 
 export interface IModalityRespository {
   create({name, categoryId}: ModalityCreateRequestDTO): Promise<TModality>;

@@ -20,7 +20,8 @@
     "migrations": "npx prisma migrate dev",
     "build": "tsc",
     "dev": "nodemon --config nodemon.json src/index.ts",
-    "start": "tsc && node dist/index.js"
+    "start": "tsc && node dist/index.js",
+    "prepush": ""
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
