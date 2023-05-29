@@ -3,20 +3,10 @@ import { Request, Response } from 'express';
 import Create from '../useCases/Create';
 import Delete from '../useCases/Delete';
 import GetAllTransactionByUser from '../useCases/GetAllTransactionByUser';
-import ListTransactionsByPage from '../useCases/ListTransactionsByPage';
 
 class TransactionController {
   async index(request: Request, response: Response) {
-    const { page } = request.query;
     const id = request.user.id;
-
-    if (page) {
-      const listTransactionsByPage = await ListTransactionsByPage(
-        Number(page),
-        id
-      );
-      return response.status(200).send(listTransactionsByPage);
-    }
 
     const transactions = await GetAllTransactionByUser(id);
 
