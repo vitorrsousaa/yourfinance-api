@@ -8,6 +8,10 @@ Acesse o [Template](https://github.com/yourFinanceApp/api/blob/main/.github/temp
 
 ## 1.0.1 | 29-05-2023
 
+### Adicionado
+
+- Adicionado Seed para o db. Cadastrando as categories e modalities utilizando o prisma.
+
 ### Modificado
 
 - Na request para obter todas as transações do usuário, foi removido o retorno utilizando paginação.
