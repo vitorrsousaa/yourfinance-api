@@ -11,6 +11,7 @@ Acesse o [Template](https://github.com/yourFinanceApp/api/blob/main/.github/temp
 ### Adicionado
 
 - Adicionado Seed para o db. Cadastrando as categories e modalities utilizando o prisma.
+- Adicionado workflow para verificar os push e merge request para main
 
 ### Modificado
 
