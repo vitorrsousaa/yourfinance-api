@@ -61,7 +61,7 @@ yarn install
 Após a instalação das dependências, utilize o comando abaixo para criar o container na porta 5432.
 
 ```
-docker run --name yourfinance -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -p 5432:5432 -d postgres.
+docker run --name yourfinance -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -p 5432:5432 -d postgres
 ```
 
 Adicione na raiz do projeto um arquivo `.env`
@@ -73,7 +73,7 @@ DATABASE_URL="postgresql://root:root@localhost:5432/yourfinance?schema=public"
 Logo após, você já pode rodar a aplicação com os comandos abaixo.
 
 ```bash
-# Crie todas as migrations no banco
+# Crie todas as migrations e seed no banco
 $ yarn migrations
 
 # Rode a aplicação
