@@ -1,7 +1,7 @@
 import { TCategory } from '../../../entities/category/TCategory';
 import { TModality } from '../../../entities/modality/TModality';
-import { TTransaction } from '../../../entities/transaction/TTransaction';
 import { TransactionCreateRequestDTO, TransactionGetRequestDTO } from '../../../entities/transaction/dtos';
+import { TTransaction } from '../../../entities/transaction/TTransaction';
 
 
 export type TReturnTransactionsWithCategoryAndModality = (TTransaction & { Category: TCategory; Modality: TModality; });

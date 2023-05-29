@@ -1,1 +1,1 @@
-export {ModalityCreateRequestDTO} from './ModalityCreateRequest'
+export {ModalityCreateRequestDTO} from './ModalityCreateRequest';
