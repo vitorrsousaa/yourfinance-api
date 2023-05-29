@@ -2,7 +2,7 @@
 
 Este é o template para atualizar o change log.
 
-## [Versão atual] - yyyy-mm-dd
+## [Versão atual] | dd-mm-yyyy
 
 Adicione notas da atualização quando necessário
 
