@@ -24,25 +24,5 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Check if CHANGELOG.md was modified
-        id: check-file
-        run: |
-          FILE_MODIFIED=$(git diff --name-only ${{ github.base_ref }} ${{ github.head_ref }} | grep -w "CHANGELOG.md")
-          if [[ -n "$FILE_MODIFIED" ]]; then
-            echo "::set-output name=modified::true"
-          else
-            echo "::set-output name=modified::false"
-          fi
-
-      - name: Run Step if CHANGELOG.md was modified
-        run: |
-          if [[ "${{ steps.check-file.outputs.modified }}" == *"CHANGELOG.md"* ]]; then
-            # Execute ação aqui
-            echo "O arquivo CHANGELOG.md foi modificado!"
-          else
-            echo "O arquivo CHANGELOG.md não foi modificado."
-            exit 1  # Encerrar o fluxo com erro
-          fi
-
       - name: Run build package
         run: yarn build
