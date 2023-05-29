@@ -5,10 +5,15 @@ import { getMonthDiff, getPeriod } from './funcs/datesManipulate';
 import { ManipulateModalities } from './funcs/manipulateModalities';
 import { TB, TObjModality } from './types';
 
-export default async function GetBiggestAmountsOfModalitiesOnPeriods(userId: string) {
-  const data = sub(new Date(), { months: 12 });
+export default async function GetBiggestAmountsOfModalitiesOnPeriods(
+  userId: string
+) {
+  const lastMonths = sub(new Date(), { months: 12 });
 
-  const lastTransactions = await TransactionRepository.findByDateAgo({id: userId, data});
+  const lastTransactions = await TransactionRepository.findByDateAgo({
+    id: userId,
+    lastMonths,
+  });
 
   const getTransactionsByOutcome = lastTransactions?.filter(
     (transaction) => transaction.Category.name === 'Despesas'
@@ -16,12 +21,14 @@ export default async function GetBiggestAmountsOfModalitiesOnPeriods(userId: str
 
   const periods = ['0', '3', '6', '12'];
 
-  const returnModalitiesForPeriod =  periods.reduce((acc, period, index) => {
-    const transactionsInPeriod = getTransactionsByOutcome?.filter((transaction) => {
-      const monthDiff = getMonthDiff(transaction.date, new Date());
-      const transactionPeriod = getPeriod(monthDiff);
-      return transactionPeriod === period;
-    });
+  const returnModalitiesForPeriod = periods.reduce((acc, period, index) => {
+    const transactionsInPeriod = getTransactionsByOutcome?.filter(
+      (transaction) => {
+        const monthDiff = getMonthDiff(transaction.date, new Date());
+        const transactionPeriod = getPeriod(monthDiff);
+        return transactionPeriod === period;
+      }
+    );
 
     const modalities: TObjModality[] = [];
 
@@ -51,9 +58,15 @@ export default async function GetBiggestAmountsOfModalitiesOnPeriods(userId: str
         const previousPeriod = periods[i - 1];
         const currentPeriod = periods[i];
 
-        if (parseInt(currentPeriod) > i && acc[currentPeriod] && !acc[previousPeriod].added) {
+        if (
+          parseInt(currentPeriod) > i &&
+          acc[currentPeriod] &&
+          !acc[previousPeriod].added
+        ) {
           acc[previousPeriod].modality.forEach((objModality) => {
-            const existingModality = acc[currentPeriod].modality.find(({ id }) => id === objModality.id);
+            const existingModality = acc[currentPeriod].modality.find(
+              ({ id }) => id === objModality.id
+            );
             if (!existingModality) {
               acc[currentPeriod].modality.push(objModality);
             } else {
@@ -69,6 +82,8 @@ export default async function GetBiggestAmountsOfModalitiesOnPeriods(userId: str
   }, {} as TB);
 
   const funcReturnModalities = ManipulateModalities(returnModalitiesForPeriod);
+
+  console.log('func', funcReturnModalities);
 
   return funcReturnModalities;
 }
