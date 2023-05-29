@@ -1,5 +1,5 @@
-import { TModality } from '../../../../entities/modality/TModality';
 import { ModalityCreateRequestDTO } from '../../../../entities/modality/dtos/ModalityCreateRequest';
+import { TModality } from '../../../../entities/modality/TModality';
 import prisma from '../../../../prisma';
 import { IModalityRespository } from '../IModalityRepository';
 
