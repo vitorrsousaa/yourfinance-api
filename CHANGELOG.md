@@ -17,3 +17,4 @@ Acesse o [Template](https://github.com/yourFinanceApp/api/blob/main/.github/temp
 
 - Na request para obter todas as transações do usuário, foi removido o retorno utilizando paginação.
 - Realizado modificação no return para obter as modalidades. Agora esta ordenado alfabéticamente.
+- Foi corrigido o retorno do método getBiggestModalities para retornar apenas 5 modalidades.
