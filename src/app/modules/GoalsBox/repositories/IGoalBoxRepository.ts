@@ -1,5 +1,5 @@
+import { GoalBoxCreateRequestDTO,GoalBoxCreatUpdateRequestDTO } from '../../../entities/goalBox/dtos';
 import { TGoalBox } from '../../../entities/goalBox/TGoalBox';
-import { GoalBoxCreatUpdateRequestDTO, GoalBoxCreateRequestDTO } from '../../../entities/goalBox/dtos';
 
 export interface IGoalBoxRepository {
   registerGoal({

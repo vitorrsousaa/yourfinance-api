@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import Delete from '../useCases/Delete';
 import FindaAll from '../useCases/FindAll';
 import Register from '../useCases/Register';
+import ordenedByName from '../utils/ordenedByName';
 
 class ModalityController {
   async store(request: Request, response: Response) {
@@ -16,7 +17,9 @@ class ModalityController {
   async index(request: Request, response: Response) {
     const modalities = await FindaAll();
 
-    return response.status(200).send(modalities);
+    const modalitiesOrdened = ordenedByName(modalities);
+
+    return response.status(200).send(modalitiesOrdened);
   }
 
   async delete(request: Request, response: Response) {
