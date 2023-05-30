@@ -1,7 +1,6 @@
 import { sub } from 'date-fns';
 
 import TransactionRepository from '../../../Transaction/repositories/implementation/TransactionRepository';
-import { getMonthDiff, getPeriod } from './funcs/datesManipulate';
 import { ManipulateModalities } from './funcs/manipulateModalities';
 import { TB, TObjModality } from './types';
 
@@ -22,11 +21,13 @@ export default async function GetBiggestAmountsOfModalitiesOnPeriods(
   const periods = ['0', '3', '6', '12'];
 
   const returnModalitiesForPeriod = periods.reduce((acc, period, index) => {
+    const lastMonths = sub(new Date(), {
+      months: period === '0' ? 1 : parseInt(period),
+    });
+
     const transactionsInPeriod = getTransactionsByOutcome?.filter(
       (transaction) => {
-        const monthDiff = getMonthDiff(transaction.date, new Date());
-        const transactionPeriod = getPeriod(monthDiff);
-        return transactionPeriod === period;
+        return transaction.date > lastMonths;
       }
     );
 
@@ -82,8 +83,6 @@ export default async function GetBiggestAmountsOfModalitiesOnPeriods(
   }, {} as TB);
 
   const funcReturnModalities = ManipulateModalities(returnModalitiesForPeriod);
-
-  console.log('func', funcReturnModalities);
 
   return funcReturnModalities;
 }
