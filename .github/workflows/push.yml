@@ -25,4 +25,4 @@ jobs:
         run: yarn
 
       - name: Run build package
-        run: yarn
+        run: yarn build

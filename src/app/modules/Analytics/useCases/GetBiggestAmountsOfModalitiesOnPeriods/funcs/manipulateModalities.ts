@@ -19,5 +19,16 @@ export function ManipulateModalities(obj: TB) {
     }
   });
 
+  periods.forEach((month) => {
+    const modalities = returnModalitiesForPeriod[month]?.modality;
+    const removedCategoryId = modalities.map((modality) => {
+      const { amount, id, name } = modality;
+
+      return { amount, id, name };
+    });
+
+    returnModalitiesForPeriod[month].modality = removedCategoryId;
+  });
+
   return returnModalitiesForPeriod;
 }
