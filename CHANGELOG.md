@@ -6,12 +6,13 @@ Este formato é baseado no [Keep a Changelog](http://keepachangelog.com/) e esta
 
 Acesse o [Template](https://github.com/yourFinanceApp/api/blob/main/.github/templates/CHANGELOG_TEMPLATE.md) Para atualizar este arquivo conforma o padrão estabelecido.
 
-## 1.0.1 | 29-05-2023
+## 1.0.1 | 30-05-2023
 
 ### Adicionado
 
 - Adicionado Seed para o db. Cadastrando as categories e modalities utilizando o prisma.
 - Adicionado workflow para verificar os push e merge request para main.
+- Criado setup para iniciar os testes.
 
 ### Modificado
 
