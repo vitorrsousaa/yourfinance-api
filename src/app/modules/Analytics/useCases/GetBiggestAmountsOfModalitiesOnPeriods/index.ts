@@ -59,9 +59,14 @@ export default async function GetBiggestAmountsOfModalitiesOnPeriods(
         const previousPeriod = periods[i - 1];
         const currentPeriod = periods[i];
 
+        if (!acc[previousPeriod]) {
+          acc[previousPeriod] = { modality: [] };
+        }
+
         if (
           parseInt(currentPeriod) > i &&
           acc[currentPeriod] &&
+          acc[previousPeriod] &&
           !acc[previousPeriod].added
         ) {
           acc[previousPeriod].modality.forEach((objModality) => {
