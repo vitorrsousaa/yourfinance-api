@@ -6,7 +6,7 @@ import { TB, TObjModality } from './types';
 
 export default async function GetBiggestAmountsOfModalitiesOnPeriods(
   userId: string
-) {
+): Promise<TB> {
   const lastMonths = sub(new Date(), { months: 12 });
 
   const lastTransactions = await TransactionRepository.findByDateAgo({
