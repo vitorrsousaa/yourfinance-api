@@ -72,7 +72,9 @@ class GoalBoxRepository implements IGoalBoxRepository {
       },
       data: {
         balance,
-        historicTransactions: historic
+        historicTransactions: {
+          push: historic
+        }
       }
     });
   }
