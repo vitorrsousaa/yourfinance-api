@@ -14,9 +14,24 @@ export default async function GetBiggestAmountsOfModalitiesOnPeriods(
     lastMonths,
   });
 
+  const emptyTB: TB = {
+    '0': { modality: [] },
+    '3': { modality: [] },
+    '6': { modality: [] },
+    '12': { modality: [] },
+  };
+
+  if (lastTransactions.length < 1) {
+    return emptyTB;
+  }
+
   const getTransactionsByOutcome = lastTransactions?.filter(
     (transaction) => transaction.Category.name === 'Despesas'
   );
+
+  if (getTransactionsByOutcome.length < 1) {
+    return emptyTB;
+  }
 
   const periods = ['0', '3', '6', '12'];
 
