@@ -1,4 +1,3 @@
-import { itemsPerPage } from '../../../../constants/pagination';
 import { TCategory } from '../../../../entities/category/TCategory';
 import {
   TransactionCreateRequestDTO,
@@ -12,30 +11,6 @@ import {
 } from '../ITransactionRepository';
 
 class TransactionRepository implements ITransactionRepository {
-  async findTransactionByIdUserAndPage({
-    id,
-    page,
-  }: TransactionGetRequestDTO<number>): Promise<
-    TReturnTransactionsWithCategoryAndModality[] | null
-  > {
-    const skipPages = (page as number) * itemsPerPage;
-
-    return prisma.transaction.findMany({
-      where: {
-        userId: id,
-      },
-      include: {
-        Category: true,
-        Modality: true,
-      },
-      orderBy: {
-        date: 'desc',
-      },
-      skip: skipPages,
-      take: itemsPerPage,
-    });
-  }
-
   async findById(id: string): Promise<TTransaction | null> {
     return prisma.transaction.findUnique({
       where: {
