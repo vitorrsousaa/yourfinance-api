@@ -3,8 +3,11 @@ import returnErrorMissingField from '../../../../utils/returnErrorMissingField';
 import TransactionRepository from '../../repositories/implementation/TransactionRepository';
 
 export default async function CreateTransaction(
-  infosTransaction: Omit<TTransaction, 'id' | 'createdAt' | 'updatedAt' | 'userId' | 'informationFixedId'>,
-  userId: string,
+  infosTransaction: Omit<
+    TTransaction,
+    'id' | 'createdAt' | 'updatedAt' | 'userId' | 'informationFixedId'
+  >,
+  userId: string
 ): Promise<TTransaction> {
   returnErrorMissingField(infosTransaction, [
     'name',
@@ -13,8 +16,7 @@ export default async function CreateTransaction(
     'amount',
     'date',
   ]);
-  const { name, categoryId, modalityId, amount, date } =
-    infosTransaction;
+  const { name, categoryId, modalityId, amount, date } = infosTransaction;
 
   return TransactionRepository.create({
     name,
@@ -23,6 +25,6 @@ export default async function CreateTransaction(
     type: 'Variável',
     userId,
     amount,
-    date: new Date(date)
+    date: date,
   });
 }
