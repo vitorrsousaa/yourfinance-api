@@ -1,5 +1,6 @@
 import { TInformationFixed } from '../../../../entities/informationFixed/TInformationFixed';
 import { TTransaction } from '../../../../entities/transaction/TTransaction';
+import returnErrorMissingField from '../../../../utils/returnErrorMissingField';
 import PrismaTransactionRegistrationInformation from './PrismaTransactionRegistrationInformation';
 
 export default async function RegistrationInformation(
@@ -10,7 +11,20 @@ export default async function RegistrationInformation(
 ): Promise<TInformationFixed> {
   const { name, categoryId, modalityId, amount } = infosTransactionFixed;
 
-  const transaction = await PrismaTransactionRegistrationInformation(
+  returnErrorMissingField({
+    time,
+    initialDate,
+    ...infosTransactionFixed
+  }, [
+    'time',
+    'initialDate',
+    'name',
+    'categoryId',
+    'modalityId',
+    'amount'
+  ]);
+
+  return PrismaTransactionRegistrationInformation(
     name,
     time,
     amount,
@@ -19,6 +33,4 @@ export default async function RegistrationInformation(
     userId,
     initialDate
   );
-
-  return transaction;
 }

@@ -2,17 +2,21 @@ import { Prisma } from '@prisma/client';
 import { differenceInCalendarMonths } from 'date-fns';
 
 import { TInformationFixed } from '../../../../../entities/informationFixed/TInformationFixed';
+import AppError from '../../../../../error';
 import prismaClient from '../../../../../prisma';
 
 export default async function PrismaTransactionUpdateMyInfos(
   valueInformation: Date | number,
   informationFixed: TInformationFixed,
   modeInformation: 'TIME' | 'AMOUNT',
+  userId: string
 ) {
   const historic = [
     ...informationFixed.historic,
     { property: modeInformation, value: valueInformation, updatedAt: new Date() },
   ] as unknown as Prisma.InformationFixedCreatehistoricInput;
+
+  if (userId !== informationFixed.userId) throw new AppError('Voce não tem autorização para alterar está Informação', 401);
 
   return prismaClient.$transaction(async (prisma) => {
     if (modeInformation === 'TIME') {
