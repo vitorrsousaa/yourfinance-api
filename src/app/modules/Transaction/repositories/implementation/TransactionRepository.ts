@@ -56,7 +56,7 @@ class TransactionRepository implements ITransactionRepository {
     id,
     date,
   }: TransactionGetRequestDTO<Date>): Promise<
-    TReturnTransactionsWithCategoryAndModality[] | null
+    TReturnTransactionsWithCategoryAndModality[]
   > {
     const endDate = new Date();
 
