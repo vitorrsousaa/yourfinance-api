@@ -6,6 +6,12 @@ Este formato é baseado no [Keep a Changelog](http://keepachangelog.com/) e esta
 
 Acesse o [Template](https://github.com/yourFinanceApp/api/blob/main/.github/templates/CHANGELOG_TEMPLATE.md) Para atualizar este arquivo conforma o padrão estabelecido.
 
+## 1.0.2 | 03-06-2023
+
+### Corrigido
+
+- Quando o usuário ia alterar o historico do goalBox, estava substituindo o historico antes pela nova mudança, agora está adicionando ao invés de só substituir.
+
 ## 1.0.1 | 30-05-2023
 
 ### Adicionado
