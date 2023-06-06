@@ -18,7 +18,8 @@ export default async function UpdatedMyInfos(
   const transaction = await PrismaTransactionUpdateMyInfos(
     newValueInformation,
     findInformation,
-    whichInformation
+    whichInformation,
+    userId
   );
 
   return transaction;
