@@ -1,6 +1,8 @@
 import { Prisma } from '@prisma/client';
 
+import AppError from '../../../../../error';
 import prismaClient from '../../../../../prisma';
+import UserRepository from '../../../../User/repositories/implementations/UserRepository';
 
 export default async function PrismaTransactionRegistrationInformation(
   name: string,
@@ -8,7 +10,7 @@ export default async function PrismaTransactionRegistrationInformation(
   amount: number,
   categoryId: string,
   modalityId: string,
-  userId: string,
+  responseUserId: string,
   initialDate: Date,
 ) {
   return prismaClient.$transaction(async (prisma) => {
@@ -18,6 +20,10 @@ export default async function PrismaTransactionRegistrationInformation(
       { property: 'TIME', value: time, updatedAt: new Date() },
       { property: 'AMOUNT', value: amount, updatedAt: new Date() }
     ] as unknown as Prisma.InformationFixedCreatehistoricInput;
+
+    const findUserById = await UserRepository.findById(responseUserId);
+    if (!findUserById) throw new AppError('Ouve um erro ao tentarmos cadastrar essa informação!', 404);
+    const userId = findUserById.id;
 
     const createInfos = await prisma.informationFixed.create({
       data: {
@@ -32,7 +38,6 @@ export default async function PrismaTransactionRegistrationInformation(
     });
 
     for (let i = 0; i < time; i++) {
-      console.log(i);
       const calculateMonthsMoreTwelve = time - i;
       const verificationIfMonthIsMoreTwelve = date.getMonth() + 1 + i > 12
         ? calculateMonthsMoreTwelve
@@ -47,7 +52,6 @@ export default async function PrismaTransactionRegistrationInformation(
           verificationIfMonthIsMoreTwelve < 10 ? '0' + verificationIfMonthIsMoreTwelve : verificationIfMonthIsMoreTwelve
         }-${initialDate.getDate() + 1}`
       );
-      console.log(newDate);
 
       await prisma.transaction.create({
         data: {

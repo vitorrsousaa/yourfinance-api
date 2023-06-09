@@ -6,7 +6,7 @@ import { TB, TObjModality } from './types';
 
 export default async function GetBiggestAmountsOfModalitiesOnPeriods(
   userId: string
-) {
+): Promise<TB> {
   const lastMonths = sub(new Date(), { months: 12 });
 
   const lastTransactions = await TransactionRepository.findByDateAgo({
@@ -14,9 +14,24 @@ export default async function GetBiggestAmountsOfModalitiesOnPeriods(
     lastMonths,
   });
 
+  const emptyTB: TB = {
+    '0': { modality: [] },
+    '3': { modality: [] },
+    '6': { modality: [] },
+    '12': { modality: [] },
+  };
+
+  if (lastTransactions.length < 1) {
+    return emptyTB;
+  }
+
   const getTransactionsByOutcome = lastTransactions?.filter(
     (transaction) => transaction.Category.name === 'Despesas'
   );
+
+  if (getTransactionsByOutcome.length < 1) {
+    return emptyTB;
+  }
 
   const periods = ['0', '3', '6', '12'];
 
@@ -59,9 +74,14 @@ export default async function GetBiggestAmountsOfModalitiesOnPeriods(
         const previousPeriod = periods[i - 1];
         const currentPeriod = periods[i];
 
+        if (!acc[previousPeriod]) {
+          acc[previousPeriod] = { modality: [] };
+        }
+
         if (
           parseInt(currentPeriod) > i &&
           acc[currentPeriod] &&
+          acc[previousPeriod] &&
           !acc[previousPeriod].added
         ) {
           acc[previousPeriod].modality.forEach((objModality) => {

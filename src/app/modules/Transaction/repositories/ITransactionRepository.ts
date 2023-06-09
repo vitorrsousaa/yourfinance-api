@@ -29,7 +29,7 @@ export interface ITransactionRepository {
   findByDateAgo({
     id,
     date,
-  }: TransactionGetRequestDTO<Date>): Promise<TTransaction[] | null>;
+  }: TransactionGetRequestDTO<Date>): Promise<TTransaction[]>;
   findById(id: string): Promise<TTransaction | null>;
   delete(id: string): Promise<unknown>;
   findAllTransactionsByUser(
