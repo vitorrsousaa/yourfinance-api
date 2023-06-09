@@ -17,6 +17,10 @@ class FeedbackRepository implements IFeedbackRepository {
       },
     });
   }
+
+  async findAll(): Promise<TFeedback[]> {
+    return prisma.feedback.findMany();
+  }
 }
 
 export default new FeedbackRepository();
