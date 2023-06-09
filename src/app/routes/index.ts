@@ -5,7 +5,6 @@ import analyticsRoutes from './analytics.routes';
 import authRoutes from './auth.routes';
 import categoryRoutes from './category.routes';
 import feedbackRoutes from './feedback.routes';
-import feedabckCategoryRoutes from './feedbackCategory.routes';
 import goalBoxRoutes from './goalBox.routes';
 import informationFixedRoutes from './informationFixed.routes';
 import modalityRoutes from './modality.routes';
@@ -22,7 +21,6 @@ routes.use('/api/user', authValidate, userRoutes);
 routes.use('/api/analytics', authValidate, analyticsRoutes);
 routes.use('/api/infofixed', authValidate, informationFixedRoutes);
 routes.use('/api/goalbox', authValidate, goalBoxRoutes);
-routes.use('/api/feedbackcategory', authValidate, feedabckCategoryRoutes);
 routes.use('/api/feedback', authValidate, feedbackRoutes);
 
 export default routes;
