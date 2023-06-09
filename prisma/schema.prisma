@@ -90,6 +90,7 @@ model Feedback {
   id          String @id @default(uuid())
   title       String
   description String
+  date        DateTime @default(now())
 
   User               User             @relation(fields: [userId], references: [id])
   userId             String
