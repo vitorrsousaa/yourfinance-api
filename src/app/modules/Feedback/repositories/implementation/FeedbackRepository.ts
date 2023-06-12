@@ -4,15 +4,22 @@ import prisma from '../../../../prisma';
 import { IFeedbackRepository } from '../IFeedbackRepository';
 
 class FeedbackRepository implements IFeedbackRepository {
-  async create({title, description, feedbackCategoryId, userId}: FeedbackCreateRequestDTO): Promise<TFeedback> {
+  async create({
+    title,
+    description,
+    userId,
+  }: FeedbackCreateRequestDTO): Promise<TFeedback> {
     return prisma.feedback.create({
       data: {
         title,
         description,
-        feedbackCategoryId,
-        userId
-      }
+        userId,
+      },
     });
+  }
+
+  async findAll(): Promise<TFeedback[]> {
+    return prisma.feedback.findMany();
   }
 }
 

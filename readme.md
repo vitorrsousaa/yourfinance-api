@@ -55,7 +55,7 @@ $ git clone https://github.com/yourFinanceApp/api.git
 $ cd api
 
 # Instale as dependências
-yarn install
+$ yarn install
 ```
 
 Após a instalação das dependências, utilize o comando abaixo para criar o container na porta 5432.
@@ -64,7 +64,7 @@ Após a instalação das dependências, utilize o comando abaixo para criar o co
 docker run --name yourfinance -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -p 5432:5432 -d postgres
 ```
 
-Adicione na raiz do projeto um arquivo `.env`
+Adicione na raiz do projeto um arquivo `.env` com as seguintes configurações.
 
 ```
 DATABASE_URL="postgresql://root:root@localhost:5432/yourfinance?schema=public"
@@ -77,8 +77,9 @@ Logo após, você já pode rodar a aplicação com os comandos abaixo.
 $ yarn migrations
 
 # Rode a aplicação
-yarn dev
-# A aplicação será aberta na porta:3001 - acesse http://localhost:3001
+$ yarn dev
+
+# A aplicação será aberta na porta:3001 - acesse http://localhost:3001/api
 ```
 
 ## ⚙️ Executando os testes
@@ -104,17 +105,3 @@ Nós usamos [SemVer](http://semver.org/) para controle de versão. Para as vers�
 ## 📄 Licença
 
 Este projeto está sob a licença MIT - veja o arquivo [LICENSE.md](https://github.com/yourFinanceApp/api/blob/main/LICENSE) para detalhes.
-
-# 💭 Como contribuir
-
-Caso queira contribuir, seja corrigindo bugs, adicionando comentários ou novas features, você pode seguir o seguinte tutorial:
-
-- Faça um **[fork](https://help.github.com/pt/github/getting-started-with-github/fork-a-repo)** desse repositório
-- **[Clone](https://help.github.com/pt/github/creating-cloning-and-archiving-repositories/cloning-a-repository)** o repositório que você fez o fork em seu computador
-- Crie uma branch com a sua feature: `git checkout -b minha-alteracao`
-- Envie suas alterações para a _staging area_: `git add .`
-- Faça um commit contando o que você fez: `git commit -m "feat: minha nova alteracao!"`
-- Faça um push para a sua branch: `git push origin minha-alteracao`
-- Agora é só abrir uma _pull request!_
-
-_Caso tenha alguma dúvida, confira este [guia de como contribuir no GitHub](https://github.com/firstcontributions/first-contributions/blob/master/translations/README.pt_br.md) :)_
