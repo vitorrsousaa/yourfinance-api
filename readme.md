@@ -1,7 +1,5 @@
 # yourFinance
 
-Um parágrafo da descrição do projeto vai aqui
-
 ## Tópicos
 
 <div>
@@ -12,6 +10,7 @@ Um parágrafo da descrição do projeto vai aqui
  • <a href="#%EF%B8%8F-executando-os-testes">Executando os testes</a> </br>
  • <a href="#-colaborando">Colaborando</a> </br>
  • <a href="#user-content--licença">Licença</a></br>
+ • <a href="#colaboradores">Colaboradores</a></br>
 </div>
 
 ## 💰 Sobre o yourFinance
@@ -105,3 +104,28 @@ Nós usamos [SemVer](http://semver.org/) para controle de versão. Para as vers�
 ## 📄 Licença
 
 Este projeto está sob a licença MIT - veja o arquivo [LICENSE.md](https://github.com/yourFinanceApp/api/blob/main/LICENSE) para detalhes.
+
+## 🤝 Colaboradores
+
+Agradecemos às seguintes pessoas que contribuíram para este projeto:
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://www.linkedin.com/in/vitorr-sousaa/">
+        <img src="https://avatars.githubusercontent.com/u/94024958?v=4" width="100px;" alt="Foto do Vitor Sousa no GitHub"/><br>
+        <sub>
+          <b>Vitor Sousa</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/luucassjooao">
+        <img src="https://avatars.githubusercontent.com/u/88796528?v=4" width="100px;" alt="Foto do João"/><br>
+        <sub>
+          <b>João Lucas</b>
+        </sub>
+      </a>
+    </td>
+  </tr>
+</table>
