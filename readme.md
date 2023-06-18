@@ -1,5 +1,7 @@
 # yourFinance
 
+<img src='https://github.com/yourFinanceApp/api/blob/main/.github/images/Splash.png' alt='Foto inicial do projeto' />
+
 ## Tópicos
 
 <div>
